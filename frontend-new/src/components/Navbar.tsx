@@ -18,22 +18,22 @@ const Navbar = () => {
       className="fixed top-0 w-full z-50 transition-all duration-300 shadow-md px-12"
       style={{ backgroundColor: '#8A4D76' }}
     >
-      <div className="max-w-7xl mx-auto py-5">
+      <div className="max-w-7xl mx-auto py-2">
         <div className="flex items-center justify-between">
           {/* Logo a la izquierda */}
           <div className="flex items-center">
-            <h1 className="text-white text-xl font-bold tracking-wide">
+            <h1 className="text-white text-base font-bold tracking-wide">
               AMETS GOIEN
             </h1>
           </div>
           {/* Navegación a la derecha */}
-          <div className="flex items-center" style={{ gap: '2.5rem' }}>
+          <div className="flex items-center" style={{ gap: '1.2rem' }}>
             <a 
               href="#inicio" 
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
-                fontSize: '14px',
+                fontSize: '12px',
                 fontWeight: '500',
                 letterSpacing: '0.3px',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
@@ -46,7 +46,7 @@ const Navbar = () => {
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
-                fontSize: '14px',
+                fontSize: '12px',
                 fontWeight: '500',
                 letterSpacing: '0.3px',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
@@ -59,7 +59,7 @@ const Navbar = () => {
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
-                fontSize: '14px',
+                fontSize: '12px',
                 fontWeight: '500',
                 letterSpacing: '0.3px',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
@@ -72,7 +72,7 @@ const Navbar = () => {
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
-                fontSize: '14px',
+                fontSize: '12px',
                 fontWeight: '500',
                 letterSpacing: '0.3px',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
@@ -81,7 +81,7 @@ const Navbar = () => {
               Testimonios
             </a>
             <button 
-              className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer px-12 py-4 md:px-16 md:py-5"
+              className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer px-6 py-2 md:px-8 md:py-2"
               style={{ 
                 backgroundColor: 'white', 
                 color: '#8A4D76',

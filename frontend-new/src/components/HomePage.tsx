@@ -6,15 +6,16 @@ const HomePage = () => {
 
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#D8B8C4]">
       {/* HERO - Nombre grande de Amets Goien */}
-      <section className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#D8BFB3' }}>
+      <section className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#F5ECE6' }}>
         <div className="w-full px-16">
           <div className="max-w-7xl mx-auto w-full text-center">
             <h1 className="text-6xl md:text-7xl font-bold mb-8" style={{ color: '#8A4D76', lineHeight: '1.1' }}>
               Amets Goien
             </h1>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#4A3A3C', lineHeight: '1.2' }}>
+            {/* Título unificado para sección HERO */}
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">
               Acogida, dignidad y acompañamiento
             </h2>
             <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto" style={{ color: '#6B5D5F', lineHeight: '1.5' }}>
@@ -36,13 +37,14 @@ const HomePage = () => {
         </div>
       </section>
       {/* SECCIÓN SOBRE AMETS GOIEN */}
-      <section className="min-h-screen flex items-center py-20" style={{ backgroundColor: '#D8BFB3' }}>
+      <section className="min-h-screen flex items-center py-20" style={{ backgroundColor: '#D8B8C4' }}>
         <div className="w-full px-16">
           <div className="max-w-7xl mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Columna izquierda - Texto */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: '#8A4D76', lineHeight: '1.2' }}>
+              {/* Título unificado para sección SOBRE */}
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-left mb-8 tracking-tight">
                 Sobre AMETS GOIEN
               </h2>
               <p className="text-base md:text-lg mb-6" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
@@ -59,10 +61,11 @@ const HomePage = () => {
         </div>
       </section>
       {/* BLOQUE DE LLAMADA A LA ACCIÓN */}
-      <section className="min-h-[40vh] flex items-center justify-center" style={{ backgroundColor: '#D8BFB3' }}>
+      <section className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#D8B8C4' }}>
         <div className="w-full px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-6" style={{ color: '#8A4D76', lineHeight: '1.1' }}>
+            {/* Título unificado para sección COLABORA */}
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">
               Colabora con AMETS GOIEN
             </h2>
             <p className="mb-8 max-w-3xl mx-auto text-base md:text-lg" style={{ color: '#6B5D5F', lineHeight: '1.5' }}>
@@ -84,18 +87,20 @@ const HomePage = () => {
         </div>
       </section>
       {/* SECCIÓN DE ÚLTIMAS NOTICIAS */}
-        <section className="py-24 bg-[#F5F0EB]">
+        <section className="py-24 bg-[#D8B8C4]">
           <div className="w-full px-4 md:px-16">
             <div className="max-w-7xl mx-auto w-full">
+
               <Gallery4Demo />
             </div>
           </div>
         </section>
       {/* SECCIÓN DE TESTIMONIOS */}
-      <section className="h-screen flex flex-col py-20" style={{ backgroundColor: '#FAF6F2' }}>
+      <section className="h-screen flex flex-col py-20" style={{ backgroundColor: '#D8B8C4' }}>
         <div className="w-full px-16">
           <div className="max-w-7xl mx-auto w-full">
-            <h2 className="text-5xl md:text-6xl font-bold mb-24 text-center" style={{ color: '#8A4D76' }}>
+            {/* Título unificado para sección TESTIMONIOS */}
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-left mb-8 tracking-tight">
               Testimonios
             </h2>
             <div className="flex justify-center">
@@ -106,7 +111,7 @@ const HomePage = () => {
       </section>
       {/* SECCIÓN DE ACTIVIDADES */}
 
-      <section className="min-h-screen flex flex-col justify-center bg-[#F5F0EB]">
+      <section className="min-h-screen flex flex-col justify-center bg-[#D8B8C4]">
         <div className="w-full px-4 md:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <h2 className="text-6xl font-bold text-[#8A4D76] mb-8 mt-12 text-left">
