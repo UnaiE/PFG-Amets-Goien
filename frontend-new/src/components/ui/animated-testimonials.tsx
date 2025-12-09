@@ -42,11 +42,11 @@ export const AnimatedTestimonials = ({
   const isActive = (index: number) => index === active;
 
   return (
-    <div className={`max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20 ${className ?? ""}`}
+    <div className={`max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-20 ${className ?? ""}`}
       style={{ position: "relative", zIndex: 1 }}>
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
         <div>
-          <div className="relative h-80 w-full" style={{ zIndex: 1 }}>
+          <div className="relative h-64 md:h-80 w-full" style={{ zIndex: 1 }}>
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
@@ -94,7 +94,7 @@ export const AnimatedTestimonials = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex justify-between flex-col py-4">
+        <div className="flex justify-between flex-col py-4 md:py-4">
           <motion.div
             key={active}
             initial={{ y: 20, opacity: 0 }}
@@ -103,13 +103,13 @@ export const AnimatedTestimonials = ({
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className=""
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-[#8A4D76] mb-2">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#8A4D76] mb-2">
               {testimonials[active].name}
             </h3>
-            <p className="text-base md:text-lg text-[#4A3A3C] mb-4">
+            <p className="text-sm md:text-base lg:text-lg text-[#4A3A3C] mb-4">
               {testimonials[active].designation}
             </p>
-            <motion.p className="text-lg md:text-xl text-[#4A3A3C] mt-8 font-medium" style={{ lineHeight: "1.7" }}>
+            <motion.p className="text-base md:text-lg lg:text-xl text-[#4A3A3C] mt-4 md:mt-8 font-medium" style={{ lineHeight: "1.7" }}>
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -135,18 +135,18 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div className="flex gap-3 md:gap-4 pt-6 md:pt-12 justify-center md:justify-start">
             <button
               onClick={handlePrev}
-              className="h-9 w-9 rounded-full bg-[#8A4D76] flex items-center justify-center group/button shadow-md"
+              className="h-10 w-10 md:h-9 md:w-9 rounded-full bg-[#8A4D76] flex items-center justify-center group/button shadow-md hover:bg-[#a98bb0] transition-colors"
             >
-              <IconArrowLeft className="h-6 w-6 text-white group-hover/button:rotate-12 transition-transform duration-300" />
+              <IconArrowLeft className="h-5 w-5 md:h-6 md:w-6 text-white group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-9 w-9 rounded-full bg-[#8A4D76] flex items-center justify-center group/button shadow-md"
+              className="h-10 w-10 md:h-9 md:w-9 rounded-full bg-[#8A4D76] flex items-center justify-center group/button shadow-md hover:bg-[#a98bb0] transition-colors"
             >
-              <IconArrowRight className="h-6 w-6 text-white group-hover/button:-rotate-12 transition-transform duration-300" />
+              <IconArrowRight className="h-5 w-5 md:h-6 md:w-6 text-white group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>
           </div>
         </div>
