@@ -1,22 +1,22 @@
 const Footer = () => {
   return (
-    <footer className="text-white px-12" style={{ backgroundColor: '#6b3f7a' }}>
-      <div className="max-w-7xl mx-auto py-16">
-        <div className="grid md:grid-cols-3 gap-12">
+    <footer className="text-white px-4 md:px-8 lg:px-12" style={{ backgroundColor: '#6b3f7a' }}>
+      <div className="max-w-7xl mx-auto py-8 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
           {/* Columna 1: Logo + Derechos */}
           <div>
-            <h3 className="text-white text-2xl font-bold mb-4">Amets Goien</h3>
-            <p className="text-white/80 mb-6 leading-relaxed">
+            <h3 className="text-white text-xl md:text-2xl font-bold mb-3 md:mb-4">Amets Goien</h3>
+            <p className="text-white/80 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
               Construyendo un refugio seguro junto a mujeres migrantes.
             </p>
-            <p className="text-white/60 text-sm">
+            <p className="text-white/60 text-xs md:text-sm">
               © 2025 Amets Goien.<br />
               Todos los derechos reservados.
             </p>
           </div>
           {/* Columna 2: Redes Sociales */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-4">Síguenos</h4>
+            <h4 className="text-white font-semibold text-base md:text-lg mb-3 md:mb-4">Síguenos</h4>
             <div className="flex flex-col space-y-3">
               <a href="#" className="flex items-center text-white/80 hover:text-white transition-colors">
                 {/* Facebook SVG */}
@@ -50,8 +50,8 @@ const Footer = () => {
           </div>
           {/* Columna 3: Contacto */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-4">Contacto</h4>
-            <ul className="space-y-3">
+            <h4 className="text-white font-semibold text-base md:text-lg mb-3 md:mb-4">Contacto</h4>
+            <ul className="space-y-2 md:space-y-3 text-sm md:text-base">
               <li className="flex items-start text-white/80">
                 {/* Ubicación SVG */}
                 <svg className="w-4 h-4 mr-3 mt-1 flex-shrink-0 max-w-[1.5rem] max-h-[1.5rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -102,14 +102,14 @@ const Gallery4 = ({
   return (
     <section className="py-8 md:py-12">
       <div className="container mx-auto bg-transparent">
-        <div className="mb-8 flex items-end justify-between md:mb-14 lg:mb-16 bg-transparent">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-2xl md:text-3xl font-semibold text-[#8a6783] tracking-tight mb-2">
+        <div className="mb-8 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 md:mb-14 lg:mb-16 bg-transparent">
+          <div className="flex flex-col gap-2 md:gap-4 flex-1">
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#8a6783] tracking-tight">
               {title}
             </h2>
-            <p className="max-w-lg text-[#444] text-base md:text-lg font-medium opacity-90">{description}</p>
+            <p className="max-w-lg text-[#444] text-sm md:text-base lg:text-lg font-medium opacity-90">{description}</p>
           </div>
-          <div className="hidden shrink-0 gap-2 md:flex">
+          <div className="flex shrink-0 gap-2">
             <Button
               size="icon"
               variant="ghost"
@@ -117,9 +117,9 @@ const Gallery4 = ({
                 carouselApi?.scrollPrev();
               }}
               disabled={!canScrollPrev}
-              className="disabled:pointer-events-auto bg-[#8a6783] border-2 border-[#8a6783] shadow-lg hover:bg-[#a98bb0] hover:border-[#a98bb0] transition-colors"
+              className="disabled:pointer-events-auto bg-[#8a6783] border-2 border-[#8a6783] shadow-lg hover:bg-[#a98bb0] hover:border-[#a98bb0] transition-colors h-8 w-8 md:h-10 md:w-10"
             >
-              <ArrowLeft className="size-5 text-white transition-colors group-hover:text-[#f7f5f2]" />
+              <ArrowLeft className="size-4 md:size-5 text-white transition-colors group-hover:text-[#f7f5f2]" />
             </Button>
             <Button
               size="icon"
@@ -128,9 +128,9 @@ const Gallery4 = ({
                 carouselApi?.scrollNext();
               }}
               disabled={!canScrollNext}
-              className="disabled:pointer-events-auto bg-[#8a6783] border-2 border-[#8a6783] shadow-lg hover:bg-[#a98bb0] hover:border-[#a98bb0] transition-colors"
+              className="disabled:pointer-events-auto bg-[#8a6783] border-2 border-[#8a6783] shadow-lg hover:bg-[#a98bb0] hover:border-[#a98bb0] transition-colors h-8 w-8 md:h-10 md:w-10"
             >
-              <ArrowRight className="size-5 text-white transition-colors group-hover:text-[#f7f5f2]" />
+              <ArrowRight className="size-4 md:size-5 text-white transition-colors group-hover:text-[#f7f5f2]" />
             </Button>
           </div>
         </div>

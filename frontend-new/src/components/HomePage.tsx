@@ -1,46 +1,20 @@
 import { AnimatedTestimonialsDemo } from "./ui/demo-testimonials";
 import Gallery4Demo from "@/components/blocks/gallery4-demo";
+import { ImagesSliderDemo } from "./ui/demo-images-slider";
 
 const HomePage = () => {
-  // Importing the animated testimonials component
+  
 
 
   return (
     <div className="bg-[#D8B8C4]">
-      {/* HERO - Nombre grande de Amets Goien */}
-      <section className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#F5ECE6' }}>
-        <div className="w-full px-16">
-          <div className="max-w-7xl mx-auto w-full text-center">
-            <h1 className="text-6xl md:text-7xl font-bold mb-8" style={{ color: '#8A4D76', lineHeight: '1.1' }}>
-              Amets Goien
-            </h1>
-            {/* Título unificado para sección HERO */}
-            <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">
-              Acogida, dignidad y acompañamiento
-            </h2>
-            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto" style={{ color: '#6B5D5F', lineHeight: '1.5' }}>
-              Construyendo un refugio seguro junto a mujeres migrantes.
-            </p>
-            <button 
-              className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer px-6 py-2"
-              style={{ 
-                backgroundColor: 'white', 
-                color: '#8A4D76',
-                border: '2.5px solid #8A4D76',
-                letterSpacing: '0.3px',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-              }}
-            >
-              Descubre Nuestro Trabajo
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* HERO - Slider de imágenes con Amets Goien */}
+      <ImagesSliderDemo />
       {/* SECCIÓN SOBRE AMETS GOIEN */}
-      <section className="min-h-screen flex items-center py-20" style={{ backgroundColor: '#D8B8C4' }}>
-        <div className="w-full px-16">
+      <section className="min-h-screen flex items-center py-12 md:py-16 lg:py-20" style={{ backgroundColor: '#D8B8C4' }}>
+        <div className="w-full px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Columna izquierda - Texto */}
             <div>
               {/* Título unificado para sección SOBRE */}
@@ -62,7 +36,7 @@ const HomePage = () => {
       </section>
       {/* BLOQUE DE LLAMADA A LA ACCIÓN */}
       <section className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#D8B8C4' }}>
-        <div className="w-full px-8">
+        <div className="w-full px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             {/* Título unificado para sección COLABORA */}
             <h2 className="text-3xl md:text-4xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">

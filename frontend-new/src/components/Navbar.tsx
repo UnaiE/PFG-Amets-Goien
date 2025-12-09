@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,19 +17,29 @@ const Navbar = () => {
 
   return (
     <nav 
-      className="fixed top-0 w-full z-50 transition-all duration-300 shadow-md px-12"
+      className="fixed top-0 w-full z-50 transition-all duration-300 shadow-md px-4 md:px-8 lg:px-12"
       style={{ backgroundColor: '#8A4D76' }}
     >
-      <div className="max-w-7xl mx-auto py-2">
+      <div className="max-w-7xl mx-auto py-2 md:py-2">
         <div className="flex items-center justify-between">
           {/* Logo a la izquierda */}
           <div className="flex items-center">
-            <h1 className="text-white text-base font-bold tracking-wide">
+            <h1 className="text-white text-sm md:text-base font-bold tracking-wide">
               AMETS GOIEN
             </h1>
           </div>
-          {/* Navegación a la derecha */}
-          <div className="flex items-center" style={{ gap: '1.2rem' }}>
+          
+          {/* Menú hamburguesa (móvil) */}
+          <button 
+            className="md:hidden text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Navegación desktop */}
+          <div className="hidden md:flex items-center gap-3 lg:gap-4 xl:gap-5">
             <a 
               href="#inicio" 
               className="text-white no-underline hover:scale-110 transition-all duration-200"
@@ -93,7 +105,7 @@ const Navbar = () => {
               Colabora
             </button>
             <a 
-              href="#acceso" 
+              href="/acceso-interno" 
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
@@ -107,6 +119,55 @@ const Navbar = () => {
             </a>
           </div>
         </div>
+
+        {/* Menú móvil */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-[#8A4D76] shadow-lg py-4 px-4">
+            <div className="flex flex-col space-y-4">
+              <a 
+                href="#inicio" 
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Inicio
+              </a>
+              <a 
+                href="#ong" 
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                La ONG
+              </a>
+              <a 
+                href="#noticias" 
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Noticias
+              </a>
+              <a 
+                href="#testimonios" 
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Testimonios
+              </a>
+              <button 
+                className="rounded-full font-medium px-6 py-2 bg-white text-[#8A4D76] border-2 border-[#8A4D76] w-full"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Colabora
+              </button>
+              <a 
+                href="/acceso-interno" 
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Acceso interno
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
