@@ -85,9 +85,14 @@ const Footer = () => {
       {/* Barra inferior */}
       <div className="border-t border-white/20 px-12">
         <div className="max-w-7xl mx-auto py-6 text-center">
-          <p className="text-white/60 text-sm">
+          <p className="text-white/60 text-sm mb-2">
             Desarrollado con ❤️ para crear un mundo más inclusivo
           </p>
+          <div className="text-white/60 text-xs">
+            <a href="/privacidad" className="hover:text-white transition-colors underline">
+              Política de Privacidad
+            </a>
+          </div>
         </div>
       </div>
     </footer>

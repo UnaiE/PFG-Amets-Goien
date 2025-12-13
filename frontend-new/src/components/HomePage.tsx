@@ -154,12 +154,14 @@ const HomePage = () => {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-5xl font-bold text-[#8A4D76] mb-6">Contacto</h2>
             <p className="text-xl text-[#4A3A3C] mb-10">Para más información o colaboración, visita nuestra página de contacto.</p>
-            <button
-              className="rounded-2xl font-semibold px-10 py-4 text-2xl bg-[#8A4D76] text-white shadow-lg hover:scale-105 transition-all duration-300 mx-auto"
-              style={{ boxShadow: "0 8px 24px 0 rgba(138,77,118,0.18)" }}
-            >
-              Ir a la página de contacto
-            </button>
+            <a href="/contacto">
+              <button
+                className="rounded-2xl font-semibold px-10 py-4 text-2xl bg-[#8A4D76] text-white shadow-lg hover:scale-105 transition-all duration-300 mx-auto"
+                style={{ boxShadow: "0 8px 24px 0 rgba(138,77,118,0.18)" }}
+              >
+                Ir a la página de contacto
+              </button>
+            </a>
           </div>
         </div>
       </section>

@@ -7,6 +7,7 @@ import empleadoRoutes from './routes/empleadoRoutes.js';
 import noticiaRoutes from './routes/noticiaRoutes.js';
 import tareaRoutes from './routes/tareaRoutes.js';
 import residenteRoutes from './routes/residenteRoutes.js';
+import contactoRoutes from './routes/contactoRoutes.js';
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use('/api/noticias', noticiaRoutes);
 app.use('/api/tareas', tareaRoutes);
 app.use('/api/residentes', residenteRoutes);
 app.use('/api/actividades', actividadRoutes);
+app.use('/api/contacto', contactoRoutes);
 
 export default app;

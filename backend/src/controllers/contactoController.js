@@ -1,0 +1,109 @@
+import nodemailer from "nodemailer";
+import { contactoSchema } from "../validations/contactoValidation.js";
+
+// Configurar el transporter de nodemailer
+const createTransporter = () => {
+  const config = {
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: parseInt(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  };
+
+  console.log("SMTP Config:", {
+    host: config.host,
+    port: config.port,
+    user: config.auth.user,
+    passLength: config.auth.pass ? config.auth.pass.length : 0
+  });
+
+  return nodemailer.createTransport(config);
+};
+
+const transporter = createTransporter();
+
+// Verificar la conexión SMTP al iniciar
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("Error en la configuración SMTP:", error);
+  } else {
+    console.log("Servidor SMTP listo para enviar emails");
+  }
+});
+
+export const enviarContacto = async (req, res) => {
+  try {
+    // Validar los datos del formulario
+    const { error, value } = contactoSchema.validate(req.body);
+    
+    if (error) {
+      return res.status(400).json({
+        message: "Datos inválidos",
+        errors: error.details.map(detail => detail.message)
+      });
+    }
+
+    const { nombre, apellidos, email, mensaje } = value;
+
+    // Configurar el email para el administrador
+    const mailOptionsAdmin = {
+      from: `"Formulario Amets Goien" <${process.env.SMTP_USER}>`,
+      to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
+      subject: `Nuevo mensaje de contacto: ${nombre} ${apellidos}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #8A4D76;">Nuevo mensaje de contacto</h2>
+          <div style="background-color: #F5ECE6; padding: 20px; border-radius: 10px;">
+            <p><strong>Nombre:</strong> ${nombre} ${apellidos}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Mensaje:</strong></p>
+            <p style="background-color: white; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${mensaje}</p>
+          </div>
+          <p style="color: #666; font-size: 12px; margin-top: 20px;">
+            Este mensaje fue enviado desde el formulario de contacto de Amets Goien.
+          </p>
+        </div>
+      `
+    };
+
+    // Configurar el email de confirmación para el usuario
+    const mailOptionsUsuario = {
+      from: `"Amets Goien" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Hemos recibido tu mensaje - Amets Goien",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #8A4D76;">¡Gracias por contactarnos!</h2>
+          <div style="background-color: #F5ECE6; padding: 20px; border-radius: 10px;">
+            <p>Hola ${nombre},</p>
+            <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.</p>
+            <p><strong>Tu mensaje:</strong></p>
+            <p style="background-color: white; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${mensaje}</p>
+          </div>
+          <p style="color: #666; font-size: 12px; margin-top: 20px;">
+            Este es un mensaje automático. Por favor, no respondas a este correo.
+          </p>
+        </div>
+      `
+    };
+
+    // Enviar ambos emails
+    await transporter.sendMail(mailOptionsAdmin);
+    await transporter.sendMail(mailOptionsUsuario);
+
+    res.status(200).json({
+      message: "Mensaje enviado correctamente",
+      success: true
+    });
+
+  } catch (error) {
+    console.error("Error al enviar el email:", error);
+    res.status(500).json({
+      message: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+      error: error.message
+    });
+  }
+};

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function AccesoInterno() {
   const [usuario, setUsuario] = useState("");
@@ -97,6 +98,7 @@ export default function AccesoInterno() {
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
