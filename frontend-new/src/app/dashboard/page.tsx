@@ -105,10 +105,17 @@ export default function Dashboard() {
   );
 }
 
+// Interfaz de notificación
+interface Notification {
+  message: string;
+  type: 'success' | 'error' | 'info';
+}
+
 // Sección de Publicación de Noticias y Actividades
 function PublicacionSection() {
   const [showNoticiaForm, setShowNoticiaForm] = useState(false);
   const [showActividadForm, setShowActividadForm] = useState(false);
+  const [notification, setNotification] = useState<Notification | null>(null);
   const [noticiaData, setNoticiaData] = useState({
     titulo: "",
     contenido: "",
@@ -121,6 +128,11 @@ function PublicacionSection() {
     fecha: "",
     creador_id: 1
   });
+
+  const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const handleCreateNoticia = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,15 +153,15 @@ function PublicacionSection() {
       });
 
       if (response.ok) {
-        alert("Noticia creada exitosamente");
+        showNotification("Noticia creada exitosamente", "success");
         setShowNoticiaForm(false);
         setNoticiaData({ titulo: "", contenido: "", url_imagen: "", creado_por: "" });
       } else {
-        alert("Error al crear noticia");
+        showNotification("Error al crear noticia", "error");
       }
     } catch (error) {
       console.error("Error creating noticia:", error);
-      alert("Error de conexión");
+      showNotification("Error de conexión", "error");
     }
   };
 
@@ -172,20 +184,32 @@ function PublicacionSection() {
       });
 
       if (response.ok) {
-        alert("Actividad creada exitosamente");
+        showNotification("Actividad creada exitosamente", "success");
         setShowActividadForm(false);
         setActividadData({ titulo: "", descripcion: "", fecha: "", creador_id: 1 });
       } else {
-        alert("Error al crear actividad");
+        showNotification("Error al crear actividad", "error");
       }
     } catch (error) {
       console.error("Error creating actividad:", error);
-      alert("Error de conexión");
+      showNotification("Error de conexión", "error");
     }
   };
 
   return (
     <div>
+      {/* Notificación */}
+      {notification && (
+        <div className="fixed top-24 right-8 z-50 animate-slide-in">
+          <div className={`rounded-2xl shadow-xl p-4 min-w-[300px] ${
+            notification.type === 'success' ? 'bg-green-500' :
+            notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+          }`}>
+            <p className="text-white font-semibold">{notification.message}</p>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
         Publicación de Noticias y Actividades
       </h2>
@@ -305,6 +329,8 @@ function ForoSection() {
   const [loading, setLoading] = useState(true);
   const [showTareaForm, setShowTareaForm] = useState(false);
   const [editingTarea, setEditingTarea] = useState<any>(null);
+  const [notification, setNotification] = useState<Notification | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null);
   const [tareaData, setTareaData] = useState({
     titulo: "",
     descripcion: "",
@@ -316,6 +342,11 @@ function ForoSection() {
   useEffect(() => {
     fetchTareas();
   }, []);
+
+  const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const fetchTareas = async () => {
     try {
@@ -356,16 +387,16 @@ function ForoSection() {
       });
 
       if (response.ok) {
-        alert("Tarea creada exitosamente");
+        showNotification("Tarea creada exitosamente", "success");
         setShowTareaForm(false);
         setTareaData({ titulo: "", descripcion: "", estado: "Pendiente", asignado_a: "", creado_por: "" });
         fetchTareas(); // Refrescar lista
       } else {
-        alert("Error al crear tarea");
+        showNotification("Error al crear tarea", "error");
       }
     } catch (error) {
       console.error("Error creating tarea:", error);
-      alert("Error de conexión");
+      showNotification("Error de conexión", "error");
     }
   };
 
@@ -395,8 +426,6 @@ function ForoSection() {
   };
 
   const handleDeleteTarea = async (id: number) => {
-    if (!confirm("¿Estás seguro de eliminar esta tarea?")) return;
-    
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:4000/api/tareas/${id}`, {
@@ -407,10 +436,15 @@ function ForoSection() {
       });
 
       if (response.ok) {
+        showNotification("Tarea eliminada exitosamente", "success");
+        setShowDeleteConfirm(null);
         fetchTareas(); // Refrescar lista
+      } else {
+        showNotification("Error al eliminar tarea", "error");
       }
     } catch (error) {
       console.error("Error deleting tarea:", error);
+      showNotification("Error de conexión", "error");
     }
   };
 
@@ -442,17 +476,17 @@ function ForoSection() {
       });
 
       if (response.ok) {
-        alert("Tarea actualizada exitosamente");
+        showNotification("Tarea actualizada exitosamente", "success");
         setShowTareaForm(false);
         setEditingTarea(null);
         setTareaData({ titulo: "", descripcion: "", estado: "Pendiente", asignado_a: "", creado_por: "" });
         fetchTareas();
       } else {
-        alert("Error al actualizar tarea");
+        showNotification("Error al actualizar tarea", "error");
       }
     } catch (error) {
       console.error("Error updating tarea:", error);
-      alert("Error de conexión");
+      showNotification("Error de conexión", "error");
     }
   };
 
@@ -468,6 +502,46 @@ function ForoSection() {
 
   return (
     <div>
+      {/* Notificación */}
+      {notification && (
+        <div className="fixed top-24 right-8 z-50 animate-slide-in">
+          <div className={`rounded-2xl shadow-xl p-4 min-w-[300px] ${
+            notification.type === 'success' ? 'bg-green-500' :
+            notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+          }`}>
+            <p className="text-white font-semibold">{notification.message}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmación de eliminación */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-4">
+            <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+              Confirmar eliminación
+            </h3>
+            <p className="text-gray-700 mb-6">
+              ¿Estás seguro de eliminar esta tarea? Esta acción no se puede deshacer.
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => handleDeleteTarea(showDeleteConfirm)}
+                className="flex-1 py-3 rounded-full bg-red-500 text-white font-semibold hover:bg-red-600 transition-all"
+              >
+                Eliminar
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(null)}
+                className="flex-1 py-3 rounded-full bg-gray-500 text-white font-semibold hover:bg-gray-600 transition-all"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
         Foro Interno de Tareas
       </h2>
@@ -513,7 +587,7 @@ function ForoSection() {
                   Modificar
                 </button>
                 <button
-                  onClick={() => handleDeleteTarea(tarea.id)}
+                  onClick={() => setShowDeleteConfirm(tarea.id)}
                   className="px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:opacity-90 transition-all"
                 >
                   Eliminar
@@ -615,9 +689,9 @@ function GestionSection() {
   const router = useRouter();
   const categorias = [
     {
-      titulo: "Refugiadas",
+      titulo: "Residentes",
       descripcion: "Acceso a fichas personales, historial y seguimiento.",
-      ruta: "/dashboard/refugiadas"
+      ruta: "/dashboard/residentes"
     },
     {
       titulo: "Colaboradores",
