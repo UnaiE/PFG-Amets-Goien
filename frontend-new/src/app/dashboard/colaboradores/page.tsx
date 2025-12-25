@@ -1,26 +1,21 @@
 /**
- * @file ResidentesPage - Gestión de Base de Datos de Residentes
- * @route /dashboard/residentes
- * @description CRUD completo para gestión de residentes con búsqueda y notificaciones
+ * @file ColaboradoresPage - Gestión de Base de Datos de Colaboradores
+ * @route /dashboard/colaboradores
+ * @description CRUD completo para gestión de colaboradores con búsqueda y notificaciones
  */
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
-interface Residente {
+interface Colaborador {
   id: number;
   nombre: string;
   apellidos: string;
-  nacionalidad: string | null;
-  fecha_nacimiento: string | null;
-  edad: number | null;
-  fecha_entrada: string | null;
-  fecha_salida: string | null;
-  sexo: string | null;
-  situacion: string | null;
-  anotacion: string | null;
+  email: string | null;
+  telefono: string | null;
   direccion: string | null;
+  anotacion: string | null;
 }
 
 interface Notification {
@@ -28,27 +23,22 @@ interface Notification {
   type: 'success' | 'error' | 'info';
 }
 
-export default function ResidentesPage() {
+export default function ColaboradoresPage() {
   const router = useRouter();
-  const [residentes, setResidentes] = useState<Residente[]>([]);
+  const [colaboradores, setColaboradores] = useState<Colaborador[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingResidente, setEditingResidente] = useState<Residente | null>(null);
+  const [editingColaborador, setEditingColaborador] = useState<Colaborador | null>(null);
   const [notification, setNotification] = useState<Notification | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [formData, setFormData] = useState<Partial<Residente>>({
+  const [formData, setFormData] = useState<Partial<Colaborador>>({
     nombre: "",
     apellidos: "",
-    nacionalidad: "",
-    fecha_nacimiento: "",
-    edad: undefined,
-    fecha_entrada: "",
-    fecha_salida: "",
-    sexo: "",
-    situacion: "",
-    anotacion: "",
-    direccion: ""
+    email: "",
+    telefono: "",
+    direccion: "",
+    anotacion: ""
   });
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
@@ -56,19 +46,43 @@ export default function ResidentesPage() {
     setTimeout(() => setNotification(null), 3000);
   };
 
+  const resetForm = () => {
+    setShowForm(false);
+    setEditingColaborador(null);
+    setFormData({
+      nombre: "",
+      apellidos: "",
+      email: "",
+      telefono: "",
+      direccion: "",
+      anotacion: ""
+    });
+  };
+
+  const filteredColaboradores = colaboradores.filter((colaborador) => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      colaborador.nombre.toLowerCase().includes(searchLower) ||
+      colaborador.apellidos.toLowerCase().includes(searchLower) ||
+      (colaborador.email?.toLowerCase().includes(searchLower) || false) ||
+      (colaborador.telefono?.toLowerCase().includes(searchLower) || false) ||
+      (colaborador.direccion?.toLowerCase().includes(searchLower) || false)
+    );
+  });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/acceso-interno");
       return;
     }
-    fetchResidentes();
+    fetchColaboradores();
   }, [router]);
 
-  const fetchResidentes = async () => {
+  const fetchColaboradores = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/residentes", {
+      const response = await fetch("http://localhost:4000/api/colaboradores", {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -76,12 +90,12 @@ export default function ResidentesPage() {
       
       if (response.ok) {
         const data = await response.json();
-        setResidentes(data);
+        setColaboradores(data);
       } else if (response.status === 401) {
         router.push("/acceso-interno");
       }
     } catch (error) {
-      console.error("Error fetching residentes:", error);
+      console.error("Error fetching colaboradores:", error);
     } finally {
       setLoading(false);
     }
@@ -91,7 +105,7 @@ export default function ResidentesPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/residentes", {
+      const response = await fetch("http://localhost:4000/api/colaboradores", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,26 +115,26 @@ export default function ResidentesPage() {
       });
 
       if (response.ok) {
-        showNotification("Residente creado/a exitosamente", "success");
+        showNotification("Colaborador/a creado/a exitosamente", "success");
         resetForm();
-        fetchResidentes();
+        fetchColaboradores();
       } else {
         const error = await response.json();
         showNotification(`Error: ${error.message || "No se pudo crear"}`, "error");
       }
     } catch (error) {
-      console.error("Error creating residente:", error);
+      console.error("Error creating colaborador:", error);
       showNotification("Error de conexión", "error");
     }
   };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!editingResidente) return;
+    if (!editingColaborador) return;
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/residentes/${editingResidente.id}`, {
+      const response = await fetch(`http://localhost:4000/api/colaboradores/${editingColaborador.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -130,15 +144,15 @@ export default function ResidentesPage() {
       });
 
       if (response.ok) {
-        showNotification("Residente actualizado/a exitosamente", "success");
+        showNotification("Colaborador/a actualizado/a exitosamente", "success");
         resetForm();
-        fetchResidentes();
+        fetchColaboradores();
       } else {
         const error = await response.json();
         showNotification(`Error: ${error.message || "No se pudo actualizar"}`, "error");
       }
     } catch (error) {
-      console.error("Error updating residente:", error);
+      console.error("Error updating colaborador:", error);
       showNotification("Error de conexión", "error");
     }
   };
@@ -146,7 +160,7 @@ export default function ResidentesPage() {
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/residentes/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/colaboradores/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -154,63 +168,29 @@ export default function ResidentesPage() {
       });
 
       if (response.ok) {
-        showNotification("Residente eliminado/a exitosamente", "success");
-        fetchResidentes();
+        showNotification("Colaborador/a eliminado/a exitosamente", "success");
+        fetchColaboradores();
         setShowDeleteConfirm(null);
       } else {
         showNotification("Error al eliminar", "error");
       }
     } catch (error) {
-      console.error("Error deleting residente:", error);
+      console.error("Error deleting colaborador:", error);
       showNotification("Error de conexión", "error");
     }
   };
 
-  const handleEdit = (residente: Residente) => {
-    setEditingResidente(residente);
+  const handleEdit = (colaborador: Colaborador) => {
+    setEditingColaborador(colaborador);
     setFormData({
-      nombre: residente.nombre,
-      apellidos: residente.apellidos,
-      nacionalidad: residente.nacionalidad || "",
-      fecha_nacimiento: residente.fecha_nacimiento || "",
-      edad: residente.edad || undefined,
-      fecha_entrada: residente.fecha_entrada || "",
-      fecha_salida: residente.fecha_salida || "",
-      sexo: residente.sexo || "",
-      situacion: residente.situacion || "",
-      anotacion: residente.anotacion || "",
-      direccion: residente.direccion || ""
+      nombre: colaborador.nombre,
+      apellidos: colaborador.apellidos,
+      email: colaborador.email || "",
+      telefono: colaborador.telefono || "",
+      direccion: colaborador.direccion || "",
+      anotacion: colaborador.anotacion || ""
     });
     setShowForm(true);
-  };
-
-  const filteredResidentes = residentes.filter((residente) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      residente.nombre.toLowerCase().includes(searchLower) ||
-      residente.apellidos.toLowerCase().includes(searchLower) ||
-      (residente.nacionalidad?.toLowerCase().includes(searchLower) || false) ||
-      (residente.situacion?.toLowerCase().includes(searchLower) || false) ||
-      (residente.direccion?.toLowerCase().includes(searchLower) || false)
-    );
-  });
-
-  const resetForm = () => {
-    setShowForm(false);
-    setEditingResidente(null);
-    setFormData({
-      nombre: "",
-      apellidos: "",
-      nacionalidad: "",
-      fecha_nacimiento: "",
-      edad: undefined,
-      fecha_entrada: "",
-      fecha_salida: "",
-      sexo: "",
-      situacion: "",
-      anotacion: "",
-      direccion: ""
-    });
   };
 
   if (loading) {
@@ -240,12 +220,12 @@ export default function ResidentesPage() {
                 ← Volver al Dashboard
               </button>
               <h1 className="text-4xl md:text-5xl font-bold" style={{ color: '#8A4D76' }}>
-                Gestión de Residentes
+                Gestión de Colaboradores
               </h1>
             </div>
           </div>
 
-          {/* Botón Nuevo/a Residente */}
+          {/* Botón Nuevo/a Colaborador/a */}
           <button
             onClick={() => {
               resetForm();
@@ -254,7 +234,7 @@ export default function ResidentesPage() {
             className="mb-6 px-8 py-3 rounded-2xl text-white font-semibold hover:shadow-xl transition-all"
             style={{ backgroundColor: '#8A4D76' }}
           >
-            {showForm ? "Cancelar" : "+ Nuevo/a Residente"}
+            {showForm ? "Cancelar" : "+ Nuevo/a Colaborador/a"}
           </button>
 
           {/* Buscador */}
@@ -262,7 +242,7 @@ export default function ResidentesPage() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="🔍 Buscar por nombre, apellidos, nacionalidad, situación o dirección..."
+                placeholder="🔍 Buscar por nombre, apellidos, email, teléfono o dirección..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-6 py-4 rounded-2xl border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-lg"
@@ -282,9 +262,9 @@ export default function ResidentesPage() {
           {showForm && (
             <div className="bg-white rounded-3xl shadow-lg p-8 mb-8 border border-gray-200">
               <h2 className="text-3xl font-bold mb-6" style={{ color: '#8A4D76' }}>
-                {editingResidente ? "Editar Residente" : "Nuevo/a Residente"}
+                {editingColaborador ? "Editar Colaborador/a" : "Nuevo/a Colaborador/a"}
               </h2>
-              <form onSubmit={editingResidente ? handleUpdate : handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={editingColaborador ? handleUpdate : handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-gray-800 font-semibold mb-2">Nombre *</label>
                   <input
@@ -308,87 +288,35 @@ export default function ResidentesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Nacionalidad</label>
+                  <label className="block text-gray-800 font-semibold mb-2">Email</label>
                   <input
-                    type="text"
-                    value={formData.nacionalidad || ""}
-                    onChange={(e) => setFormData({ ...formData, nacionalidad: e.target.value })}
+                    type="email"
+                    value={formData.email || ""}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
+                    placeholder="ejemplo@email.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Fecha de Nacimiento</label>
+                  <label className="block text-gray-800 font-semibold mb-2">Teléfono</label>
                   <input
-                    type="date"
-                    value={formData.fecha_nacimiento || ""}
-                    onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })}
+                    type="tel"
+                    value={formData.telefono || ""}
+                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                     className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
+                    placeholder="+34 600 000 000"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Edad</label>
-                  <input
-                    type="number"
-                    value={formData.edad || ""}
-                    onChange={(e) => setFormData({ ...formData, edad: e.target.value ? parseInt(e.target.value) : undefined })}
-                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Sexo</label>
-                  <select
-                    value={formData.sexo || ""}
-                    onChange={(e) => setFormData({ ...formData, sexo: e.target.value })}
-                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
-                  >
-                    <option value="">Seleccionar...</option>
-                    <option value="Mujer">Mujer</option>
-                    <option value="Hombre">Hombre</option>
-                    <option value="Otro">Otro</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Fecha de Entrada</label>
-                  <input
-                    type="date"
-                    value={formData.fecha_entrada || ""}
-                    onChange={(e) => setFormData({ ...formData, fecha_entrada: e.target.value })}
-                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Fecha de Salida</label>
-                  <input
-                    type="date"
-                    value={formData.fecha_salida || ""}
-                    onChange={(e) => setFormData({ ...formData, fecha_salida: e.target.value })}
-                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-800 font-semibold mb-2">Situación</label>
-                  <input
-                    type="text"
-                    value={formData.situacion || ""}
-                    onChange={(e) => setFormData({ ...formData, situacion: e.target.value })}
-                    placeholder="Ej: Activa, Salida definitiva..."
-                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
-                  />
-                </div>
-
-                <div>
+                <div className="md:col-span-2">
                   <label className="block text-gray-800 font-semibold mb-2">Dirección</label>
                   <input
                     type="text"
                     value={formData.direccion || ""}
                     onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
                     className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
+                    placeholder="Calle, número, ciudad..."
                   />
                 </div>
 
@@ -407,7 +335,7 @@ export default function ResidentesPage() {
                     type="submit"
                     className="flex-1 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-all"
                   >
-                    {editingResidente ? "Actualizar" : "Crear"}
+                    {editingColaborador ? "Actualizar" : "Crear"}
                   </button>
                   <button
                     type="button"
@@ -421,40 +349,43 @@ export default function ResidentesPage() {
             </div>
           )}
 
-          {/* Lista de Residentes */}
+          {/* Lista de Colaboradores */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-              Listado de Residentes ({filteredResidentes.length}{searchTerm && ` de ${residentes.length}`})
+              Listado de Colaboradores ({filteredColaboradores.length}{searchTerm && ` de ${colaboradores.length}`})
             </h2>
             
-            {filteredResidentes.length === 0 ? (
+            {filteredColaboradores.length === 0 ? (
               <div className="bg-white rounded-2xl shadow-md p-8 text-center border border-gray-200">
                 <p className="text-gray-600">
-                  {searchTerm ? `No se encontraron residentes con "${searchTerm}"` : "No hay residentes registrados/as"}
+                  {searchTerm ? `No se encontraron colaboradores con "${searchTerm}"` : "No hay colaboradores registrados/as"}
                 </p>
               </div>
             ) : (
-              filteredResidentes.map((residente) => (
-                <div key={residente.id} className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
+              filteredColaboradores.map((colaborador) => (
+                <div key={colaborador.id} className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h3 className="text-2xl font-bold" style={{ color: '#8A4D76' }}>
-                        {residente.nombre} {residente.apellidos}
+                        {colaborador.nombre} {colaborador.apellidos}
                       </h3>
-                      {residente.nacionalidad && (
-                        <p className="text-gray-700 mt-1">Nacionalidad: {residente.nacionalidad}</p>
+                      {colaborador.email && (
+                        <p className="text-gray-700 mt-1">📧 {colaborador.email}</p>
+                      )}
+                      {colaborador.telefono && (
+                        <p className="text-gray-700 mt-1">📱 {colaborador.telefono}</p>
                       )}
                     </div>
                     <div className="flex gap-3">
                       <button
-                        onClick={() => handleEdit(residente)}
+                        onClick={() => handleEdit(colaborador)}
                         className="px-6 py-2 rounded-lg text-white font-semibold hover:opacity-90 transition-all"
                         style={{ backgroundColor: '#8A4D76' }}
                       >
                         Editar
                       </button>
                       <button
-                        onClick={() => setShowDeleteConfirm(residente.id)}
+                        onClick={() => setShowDeleteConfirm(colaborador.id)}
                         className="px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:opacity-90 transition-all"
                       >
                         Eliminar
@@ -462,34 +393,16 @@ export default function ResidentesPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-800">
-                    {residente.edad && (
-                      <p><strong>Edad:</strong> {residente.edad} años</p>
-                    )}
-                    {residente.fecha_nacimiento && (
-                      <p><strong>Fecha Nacimiento:</strong> {new Date(residente.fecha_nacimiento).toLocaleDateString('es-ES')}</p>
-                    )}
-                    {residente.sexo && (
-                      <p><strong>Sexo:</strong> {residente.sexo}</p>
-                    )}
-                    {residente.fecha_entrada && (
-                      <p><strong>Fecha Entrada:</strong> {new Date(residente.fecha_entrada).toLocaleDateString('es-ES')}</p>
-                    )}
-                    {residente.fecha_salida && (
-                      <p><strong>Fecha Salida:</strong> {new Date(residente.fecha_salida).toLocaleDateString('es-ES')}</p>
-                    )}
-                    {residente.situacion && (
-                      <p><strong>Situación:</strong> {residente.situacion}</p>
-                    )}
-                    {residente.direccion && (
-                      <p className="md:col-span-2"><strong>Dirección:</strong> {residente.direccion}</p>
+                  <div className="grid grid-cols-1 gap-4 text-gray-800">
+                    {colaborador.direccion && (
+                      <p><strong>Dirección:</strong> {colaborador.direccion}</p>
                     )}
                   </div>
 
-                  {residente.anotacion && (
+                  {colaborador.anotacion && (
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <p className="text-gray-800"><strong>Anotaciones:</strong></p>
-                      <p className="text-gray-700 mt-2 whitespace-pre-wrap">{residente.anotacion}</p>
+                      <p className="text-gray-700 mt-2 whitespace-pre-wrap">{colaborador.anotacion}</p>
                     </div>
                   )}
                 </div>
@@ -518,7 +431,7 @@ export default function ResidentesPage() {
                 Confirmar eliminación
               </h3>
               <p className="text-gray-700 mb-6">
-                ¿Estás seguro/a de que deseas eliminar este/a residente? Esta acción no se puede deshacer.
+                ¿Estás seguro/a de que deseas eliminar este/a colaborador/a? Esta acción no se puede deshacer.
               </p>
               <div className="flex gap-4">
                 <button

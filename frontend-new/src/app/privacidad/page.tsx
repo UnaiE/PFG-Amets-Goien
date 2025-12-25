@@ -1,3 +1,8 @@
+/**
+ * @file PrivacidadPage - Página de Política de Privacidad
+ * @route /privacidad
+ * @description Política de privacidad GDPR con información sobre tratamiento de datos personales
+ */
 "use client";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";

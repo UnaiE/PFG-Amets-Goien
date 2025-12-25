@@ -1,3 +1,8 @@
+/**
+ * @file ContactoPage - Página de Formulario de Contacto
+ * @route /contacto
+ * @description Formulario de contacto público con envío de emails vía SMTP
+ */
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

@@ -1,3 +1,8 @@
+/**
+ * @file LoginPage - Página de Acceso Interno (Login)
+ * @route /acceso-interno
+ * @description Página de autenticación con JWT para acceso al dashboard administrativo
+ */
 "use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";

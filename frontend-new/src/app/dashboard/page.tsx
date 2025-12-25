@@ -1,3 +1,8 @@
+/**
+ * @file DashboardPage - Panel de Administración Principal
+ * @route /dashboard
+ * @description Dashboard con gestión de noticias, actividades, foro de tareas y acceso a BD
+ */
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
