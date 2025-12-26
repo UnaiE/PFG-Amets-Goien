@@ -8,14 +8,21 @@ import noticiaRoutes from './routes/noticiaRoutes.js';
 import tareaRoutes from './routes/tareaRoutes.js';
 import residenteRoutes from './routes/residenteRoutes.js';
 import contactoRoutes from './routes/contactoRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 
 const app = express();
 
 // CORS simple
 app.use(cors());
 
-// Parse JSON
-app.use(express.json());
+// Parse JSON (excepto para webhook de Stripe)
+app.use((req, res, next) => {
+  if (req.originalUrl === '/api/payment/webhook') {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
 
 // Health check route
 app.get('/health', (req, res) => {
@@ -31,5 +38,6 @@ app.use('/api/tareas', tareaRoutes);
 app.use('/api/residentes', residenteRoutes);
 app.use('/api/actividades', actividadRoutes);
 app.use('/api/contacto', contactoRoutes);
+app.use('/api/payment', paymentRoutes);
 
 export default app;
