@@ -13,8 +13,10 @@ import {
 
 export interface Gallery4Item {
   id: string;
+  noticiaId?: number;
   title: string;
   description: string;
+  fullContent?: string;
   href: string;
   image: string;
 }
@@ -23,6 +25,8 @@ export interface Gallery4Props {
   title?: string;
   description?: string;
   items: Gallery4Item[];
+  expandedNoticia?: number | null;
+  onNoticiaClick?: (noticiaId: number) => void;
 }
 
 const data = [
@@ -77,6 +81,8 @@ const Gallery4 = ({
   title = "Case Studies",
   description = "Discover how leading companies and developers are leveraging modern web technologies to build exceptional digital experiences. These case studies showcase real-world applications and success stories.",
   items = data,
+  expandedNoticia = null,
+  onNoticiaClick,
 }: Gallery4Props) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -98,6 +104,21 @@ const Gallery4 = ({
       carouselApi.off("select", updateSelection);
     };
   }, [carouselApi]);
+
+  // Auto-scroll cuando se expande una noticia
+  useEffect(() => {
+    if (!carouselApi || expandedNoticia === null) {
+      return;
+    }
+    // Encontrar el índice de la noticia expandida
+    const expandedIndex = items.findIndex(item => item.noticiaId === expandedNoticia);
+    if (expandedIndex !== -1) {
+      // Deslizar a esa noticia
+      setTimeout(() => {
+        carouselApi.scrollTo(expandedIndex);
+      }, 100);
+    }
+  }, [expandedNoticia, carouselApi, items]);
 
   return (
     <section className="py-8 md:py-12">
@@ -135,10 +156,11 @@ const Gallery4 = ({
           </div>
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full overflow-hidden">
         <Carousel
           setApi={setCarouselApi}
           opts={{
+            align: "start",
             breakpoints: {
               "(max-width: 768px)": {
                 dragFree: true,
@@ -146,37 +168,81 @@ const Gallery4 = ({
             },
           }}
         >
-          <CarouselContent className="ml-0 2xl:ml-[max(8rem,calc(50vw-700px))] 2xl:mr-[max(0rem,calc(50vw-700px))]">
-            {items.map((item) => (
-              <CarouselItem
-                key={item.id}
-                className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
-              >
-                <a href={item.href} className="group rounded-xl">
-                  <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl md:aspect-[5/4] lg:aspect-[16/9]">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                    />
-                    {/* Overlay oscuro para mejorar contraste */}
-                    <div className="absolute inset-0 h-full bg-black/60 z-0" />
-                    <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 md:p-8 z-10">
-                      <div className="mb-2 pt-4 text-xl font-bold md:mb-3 md:pt-4 lg:pt-4 text-white drop-shadow-lg">
-                        {item.title}
-                      </div>
-                      <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9 text-white/90 drop-shadow">
-                        {item.description}
-                      </div>
-                      <div className="flex items-center text-sm text-white/90 hover:text-yellow-200">
-                        Leer más
-                        <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
+          <CarouselContent className="ml-0 -mr-4">
+            {items.map((item) => {
+              const isExpanded = expandedNoticia === item.noticiaId;
+              
+              return (
+                <CarouselItem
+                  key={item.id}
+                  className={`pr-12 flex-shrink-0 transition-all duration-500 ${
+                    isExpanded 
+                      ? 'basis-full md:basis-[90%] lg:basis-[75%]' 
+                      : 'basis-[90%] md:basis-[48%] lg:basis-[32%]'
+                  }`}
+                >
+                  <div 
+                    onClick={() => item.noticiaId && onNoticiaClick?.(item.noticiaId)}
+                    className="group rounded-xl cursor-pointer h-full w-full"
+                  >
+                    <div className={`group relative overflow-hidden rounded-xl transition-all duration-500 w-full ${
+                      isExpanded 
+                        ? 'min-h-[550px] md:min-h-[650px] max-h-[80vh]' 
+                        : 'h-full min-h-[450px] md:min-h-[500px]'
+                    }`}>
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className={`absolute h-full w-full object-cover object-center transition-all duration-500 ${
+                          isExpanded 
+                            ? 'scale-110 blur-md opacity-20' 
+                            : 'group-hover:scale-105'
+                        }`}
+                      />
+                      {/* Overlay oscuro */}
+                      <div className={`absolute inset-0 h-full transition-all duration-500 z-0 ${
+                        isExpanded ? 'bg-black/95' : 'bg-black/65'
+                      }`} />
+                      
+                      <div className={`absolute inset-0 flex flex-col p-6 md:p-8 z-10 ${
+                        isExpanded ? 'justify-start overflow-y-auto' : 'justify-end'
+                      }`}>
+                        <div className={`transition-all duration-500 flex-shrink-0 ${
+                          isExpanded ? 'mb-6' : 'mb-3 pt-4 md:mb-4 md:pt-4'
+                        }`}>
+                          <h3 className={`font-bold text-white drop-shadow-2xl transition-all duration-500 ${
+                            isExpanded ? 'text-2xl md:text-3xl lg:text-4xl mb-5' : 'text-xl md:text-2xl lg:text-3xl'
+                          }`}>
+                            {item.title}
+                          </h3>
+                        </div>
+                        
+                        <div className={`text-white drop-shadow-lg transition-all duration-500 ${
+                          isExpanded 
+                            ? 'mb-6 text-base md:text-lg leading-relaxed overflow-y-auto pr-3 flex-grow' 
+                            : 'mb-8 line-clamp-3 md:mb-10 text-sm md:text-base flex-shrink-0'
+                        }`}>
+                          {isExpanded ? item.fullContent : item.description}
+                        </div>
+                        
+                        <div className={`flex items-center text-sm md:text-base font-bold transition-all duration-300 flex-shrink-0 ${
+                          isExpanded 
+                            ? 'text-yellow-300 hover:text-yellow-100 mt-4' 
+                            : 'text-white hover:text-yellow-200'
+                        }`}>
+                          {isExpanded ? 'Cerrar' : 'Leer más'}
+                          <ArrowRight className={`ml-2 size-5 transition-transform ${
+                            isExpanded 
+                              ? 'rotate-180' 
+                              : 'group-hover:translate-x-1'
+                          }`} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </a>
-              </CarouselItem>
-            ))}
+                </CarouselItem>
+              );
+            })}
           </CarouselContent>
         </Carousel>
         <div className="mt-8 flex justify-center gap-2">

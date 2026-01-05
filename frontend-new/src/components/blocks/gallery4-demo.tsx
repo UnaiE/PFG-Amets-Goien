@@ -5,6 +5,7 @@ import { Gallery4 } from "@/components/blocks/gallery4";
 const Gallery4Demo = () => {
   const [noticias, setNoticias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedNoticia, setExpandedNoticia] = useState<number | null>(null);
 
   useEffect(() => {
     fetchNoticias();
@@ -26,17 +27,25 @@ const Gallery4Demo = () => {
     }
   };
 
+  const handleNoticiaClick = (noticiaId: number) => {
+    setExpandedNoticia(expandedNoticia === noticiaId ? null : noticiaId);
+  };
+
   const demoData = {
     title: "Noticias",
     description:
       "Descubre las últimas noticias y logros de AMETS GOIEN. Aquí compartimos historias de superación, eventos y proyectos que transforman vidas.",
     items: noticias.map((noticia) => ({
       id: `noticia-${noticia.id}`,
+      noticiaId: noticia.id,
       title: noticia.titulo,
       description: noticia.contenido?.substring(0, 150) + "..." || "Sin descripción",
+      fullContent: noticia.contenido || "Sin contenido completo",
       href: "#",
       image: noticia.url_imagen || "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1080&q=80"
-    }))
+    })),
+    expandedNoticia,
+    onNoticiaClick: handleNoticiaClick
   };
 
   if (loading) {
