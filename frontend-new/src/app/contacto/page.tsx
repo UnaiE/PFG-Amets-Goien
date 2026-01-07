@@ -68,65 +68,67 @@ export default function ContactoPage() {
     <>
       <Navbar />
       <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F5ECE6' }}>
-        <div className="max-w-4xl mx-auto py-12">
+        <div className="max-w-3xl mx-auto py-8">
           <button
             onClick={() => router.push("/")}
-            className="mb-6 px-6 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all"
+            className="mb-4 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all text-sm"
           >
             ← Volver al inicio
           </button>
 
-          <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12 border border-gray-200">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: '#8A4D76' }}>
               Contacto
             </h1>
-            <p className="text-lg text-gray-700 mb-8">
-              ¿Tienes alguna pregunta o deseas colaborar con nosotros? Completa el formulario y nos pondremos en contacto contigo lo antes posible.
+            <p className="text-base text-gray-700 mb-6">
+              ¿Tienes alguna pregunta o deseas colaborar? Completa el formulario y nos pondremos en contacto contigo.
             </p>
 
             {success && (
-              <div className="mb-6 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700">
+              <div className="mb-4 p-3 rounded-lg bg-green-100 border border-green-400 text-green-700 text-sm">
                 ✓ Tu mensaje ha sido enviado correctamente. Te contactaremos pronto.
               </div>
             )}
 
             {error && (
-              <div className="mb-6 p-4 rounded-lg bg-red-100 border border-red-400 text-red-700">
+              <div className="mb-4 p-3 rounded-lg bg-red-100 border border-red-400 text-red-700 text-sm">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="nombre" className="block text-gray-700 font-semibold mb-2">
-                  Nombre *
-                </label>
-                <input
-                  type="text"
-                  id="nombre"
-                  value={formData.nombre}
-                  onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
-                  required
-                />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="nombre" className="block text-gray-700 font-semibold mb-1 text-sm">
+                    Nombre *
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    value={formData.nombre}
+                    onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="apellidos" className="block text-gray-700 font-semibold mb-1 text-sm">
+                    Apellidos *
+                  </label>
+                  <input
+                    type="text"
+                    id="apellidos"
+                    value={formData.apellidos}
+                    onChange={(e) => setFormData({ ...formData, apellidos: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
-                <label htmlFor="apellidos" className="block text-gray-700 font-semibold mb-2">
-                  Apellidos *
-                </label>
-                <input
-                  type="text"
-                  id="apellidos"
-                  value={formData.apellidos}
-                  onChange={(e) => setFormData({ ...formData, apellidos: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="email" className="block text-gray-700 font-semibold mb-1 text-sm">
                   Email *
                 </label>
                 <input
@@ -134,34 +136,34 @@ export default function ContactoPage() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="mensaje" className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="mensaje" className="block text-gray-700 font-semibold mb-1 text-sm">
                   Mensaje *
                 </label>
                 <textarea
                   id="mensaje"
                   value={formData.mensaje}
                   onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none h-40 resize-none"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none h-32 resize-none text-sm"
                   required
                 />
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2">
                 <input
                   type="checkbox"
                   id="consentimiento"
                   checked={formData.consentimiento}
                   onChange={(e) => setFormData({ ...formData, consentimiento: e.target.checked })}
-                  className="mt-1 w-5 h-5 text-[#8A4D76] border-2 border-gray-300 rounded focus:ring-[#8A4D76]"
+                  className="mt-1 w-4 h-4 text-[#8A4D76] border border-gray-300 rounded focus:ring-[#8A4D76]"
                   required
                 />
-                <label htmlFor="consentimiento" className="text-gray-700 text-sm">
+                <label htmlFor="consentimiento" className="text-gray-700 text-xs">
                   Acepto que mis datos personales sean utilizados para responder a mi consulta, de acuerdo con la{" "}
                   <a 
                     href="/privacidad" 
@@ -177,7 +179,7 @@ export default function ContactoPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-full text-white font-semibold text-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 rounded-full text-white font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: '#8A4D76' }}
               >
                 {loading ? "Enviando..." : "Enviar mensaje"}
