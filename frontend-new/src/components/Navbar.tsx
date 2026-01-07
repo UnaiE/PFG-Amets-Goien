@@ -76,8 +76,7 @@ const Navbar = () => {
               Inicio
             </a>
             <a 
-              href="#ong"
-              onClick={(e) => handleNavClick(e, 'ong')}
+              href="/sobre-nosotros"
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
@@ -104,8 +103,7 @@ const Navbar = () => {
               Noticias
             </a>
             <a 
-              href="#testimonios"
-              onClick={(e) => handleNavClick(e, 'testimonios')}
+              href="/actividades"
               className="text-white no-underline hover:scale-110 transition-all duration-200"
               style={{ 
                 textDecoration: 'none', 
@@ -115,11 +113,10 @@ const Navbar = () => {
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
               }}
             >
-              Testimonios
+              Actividades
             </a>
             <a
-              href="#colabora"
-              onClick={(e) => handleNavClick(e, 'colabora')}
+              href="/colaborar"
             >
               <button 
                 className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer px-6 py-2 md:px-8 md:py-2"
@@ -162,8 +159,8 @@ const Navbar = () => {
                 Inicio
               </a>
               <a 
-                href="#ong"
-                onClick={(e) => handleNavClick(e, 'ong')}
+                href="/sobre-nosotros"
+                onClick={() => setMobileMenuOpen(false)}
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
               >
                 La ONG
@@ -176,15 +173,15 @@ const Navbar = () => {
                 Noticias
               </a>
               <a 
-                href="#testimonios"
-                onClick={(e) => handleNavClick(e, 'testimonios')}
+                href="/actividades"
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Testimonios
+                Actividades
               </a>
               <a
-                href="#colabora"
-                onClick={(e) => handleNavClick(e, 'colabora')}
+                href="/colaborar"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <button 
                   className="rounded-full font-medium px-6 py-2 bg-white text-[#8A4D76] border-2 border-[#8A4D76] w-full"
