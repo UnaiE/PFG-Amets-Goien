@@ -12,8 +12,8 @@ router.get('/', getNoticias);
 router.get('/:id', getNoticiaById);
 
 // Rutas protegidas para el panel de administración
-router.post('/', auth, checkRole('admin', 'empleado'), validate(noticiaSchema), createNoticia);
-router.put('/:id', auth, checkRole('admin', 'empleado'), validate(noticiaSchema), updateNoticia);
+router.post('/', auth, checkRole('admin', 'empleado', 'user'), validate(noticiaSchema), createNoticia);
+router.put('/:id', auth, checkRole('admin', 'empleado', 'user'), validate(noticiaSchema), updateNoticia);
 router.delete('/:id', auth, checkRole('admin'), deleteNoticia);
 
 export default router;

@@ -28,6 +28,26 @@ function getUserFromToken(): string {
   }
 }
 
+// Función helper para obtener el rol del usuario desde el token
+function getUserRoleFromToken(): string {
+  const token = localStorage.getItem("token");
+  if (!token) return "";
+  
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    
+    const payload = JSON.parse(jsonPayload);
+    return payload.role || "";
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return "";
+  }
+}
+
 export default function Dashboard() {
   const router = useRouter();
   const [activeSection, setActiveSection] = useState<"publicacion" | "foro" | "gestion">("publicacion");
@@ -881,6 +901,8 @@ function ForoSection() {
 // Sección de Gestión de Base de Datos
 function GestionSection() {
   const router = useRouter();
+  const userRole = getUserRoleFromToken();
+  
   const categorias = [
     {
       titulo: "Residentes",
@@ -900,9 +922,15 @@ function GestionSection() {
     {
       titulo: "Usuarios Internos",
       descripcion: "Crear y gestionar cuentas autorizadas para acceder al panel interno.",
-      ruta: "/dashboard/usuarios"
+      ruta: "/dashboard/usuarios",
+      soloAdmin: true
     }
   ];
+  
+  // Filtrar categorías según el rol del usuario
+  const categoriasFiltradas = categorias.filter(categoria => 
+    !categoria.soloAdmin || userRole === 'admin'
+  );
 
   return (
     <div>
@@ -911,7 +939,7 @@ function GestionSection() {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {categorias.map((categoria, index) => (
+        {categoriasFiltradas.map((categoria, index) => (
           <div
             key={index}
             className="bg-white rounded-3xl shadow-lg p-6 border border-gray-200 flex flex-col justify-between min-h-[280px]"

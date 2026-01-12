@@ -68,6 +68,28 @@ export default function UsuariosPage() {
       router.push("/acceso-interno");
       return;
     }
+    
+    // Verificar que el usuario sea admin
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      
+      const payload = JSON.parse(jsonPayload);
+      const userRole = payload.role || "";
+      
+      if (userRole !== 'admin') {
+        router.push("/dashboard");
+        return;
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      router.push("/acceso-interno");
+      return;
+    }
+    
     fetchUsuarios();
   }, [router]);
 
