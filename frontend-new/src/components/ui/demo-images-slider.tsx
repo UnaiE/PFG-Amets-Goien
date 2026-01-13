@@ -26,7 +26,7 @@ export function ImagesSliderDemo() {
         className="z-50 flex flex-col justify-center items-center"
       >
         <h1 className="text-6xl md:text-7xl font-bold mb-8 text-white drop-shadow-2xl" style={{ lineHeight: '1.1' }}>
-          Amets Goien
+          Ametsgoien
         </h1>
         <h2 className="text-3xl md:text-4xl font-semibold text-white text-center mb-8 tracking-tight drop-shadow-lg">
           Acogida, dignidad y acompañamiento

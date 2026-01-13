@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Amets Goien - Acogida y acompañamiento a mujeres migrantes",
-  description: "ONG dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias. Construyendo un refugio seguro y digno.",
+  title: "Ametsgoien - Acogida y acompañamiento a mujeres migrantes",
+  description: "Asociación dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias. Construyendo un refugio seguro y digno.",
 };
 
 export default function RootLayout({

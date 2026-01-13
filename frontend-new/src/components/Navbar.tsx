@@ -59,7 +59,7 @@ const Navbar = () => {
           {/* Logo a la izquierda */}
           <div className="flex items-center">
             <h1 className="text-white text-sm md:text-base font-bold tracking-wide">
-              AMETS GOIEN
+              AMETSGOIEN
             </h1>
           </div>
           
@@ -105,7 +105,7 @@ const Navbar = () => {
               aria-label="Conocer más sobre la organización"
               role="menuitem"
             >
-              La ONG
+              La Asociación
             </a>
             <a 
               href="#noticias"
@@ -191,7 +191,7 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
               >
-                La ONG
+                La Asociación
               </a>
               <a 
                 href="#noticias"

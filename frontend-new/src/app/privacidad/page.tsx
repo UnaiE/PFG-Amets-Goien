@@ -15,7 +15,7 @@ export default function PrivacidadPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen pt-24 px-4 md:px-8 lg:px-16 bg-[#F5ECE6]">
+      <main className="min-h-screen pt-24 px-4 md:px-8 lg:px-16 bg-[#E8D5F2]">
         <div className="max-w-4xl mx-auto py-12">
           <button
             onClick={() => router.back()}
@@ -37,7 +37,7 @@ export default function PrivacidadPage() {
                   1. Responsable del tratamiento
                 </h2>
                 <p>
-                  El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación <strong>AMETS GOIEN</strong>, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.
+                  El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación <strong>AMETSGOIEN</strong>, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.
                 </p>
                 <p className="mt-2">
                   Para cualquier cuestión relacionada con la protección de datos personales, puedes contactar a través del correo electrónico facilitado en esta web.
@@ -80,7 +80,7 @@ export default function PrivacidadPage() {
                 <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
                   <li>Responder a consultas o solicitudes de información.</li>
                   <li>Gestionar solicitudes de colaboración o contacto con la entidad.</li>
-                  <li>Mantener comunicaciones relacionadas con la actividad de AMETS GOIEN, cuando el usuario lo haya autorizado expresamente.</li>
+                  <li>Mantener comunicaciones relacionadas con la actividad de AMETSGOIEN, cuando el usuario lo haya autorizado expresamente.</li>
                 </ul>
               </section>
 
@@ -110,7 +110,7 @@ export default function PrivacidadPage() {
                   7. Destinatarios y encargados de tratamiento
                 </h2>
                 <p>
-                  Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETS GOIEN podrá utilizar proveedores externos que actúan como encargados del tratamiento (por ejemplo, servicios de envío de correo electrónico o alojamiento web), con los que se han adoptado las garantías exigidas por la normativa vigente.
+                  Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETSGOIEN podrá utilizar proveedores externos que actúan como encargados del tratamiento (por ejemplo, servicios de envío de correo electrónico o alojamiento web), con los que se han adoptado las garantías exigidas por la normativa vigente.
                 </p>
               </section>
 
@@ -141,7 +141,7 @@ export default function PrivacidadPage() {
                   9. Medidas de seguridad
                 </h2>
                 <p>
-                  AMETS GOIEN adopta las medidas técnicas y organizativas necesarias para garantizar un nivel de seguridad adecuado al riesgo, evitando la pérdida, alteración, acceso no autorizado o divulgación indebida de los datos personales.
+                  AMETSGOIEN adopta las medidas técnicas y organizativas necesarias para garantizar un nivel de seguridad adecuado al riesgo, evitando la pérdida, alteración, acceso no autorizado o divulgación indebida de los datos personales.
                 </p>
               </section>
 
@@ -151,7 +151,7 @@ export default function PrivacidadPage() {
                   10. Modificaciones de la política
                 </h2>
                 <p>
-                  AMETS GOIEN se reserva el derecho a modificar la presente política de privacidad para adaptarla a cambios legislativos o a nuevos tratamientos de datos. Cualquier modificación será publicada en esta misma página.
+                  AMETSGOIEN se reserva el derecho a modificar la presente política de privacidad para adaptarla a cambios legislativos o a nuevos tratamientos de datos. Cualquier modificación será publicada en esta misma página.
                 </p>
               </section>
 

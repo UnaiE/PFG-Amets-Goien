@@ -1,5 +1,5 @@
 /**
- * @file SobreNosotrosPage - Página Sobre la ONG
+ * @file SobreNosotrosPage - Página Sobre la Asociación
  * @route /sobre-nosotros
  * @description Página informativa sobre Amets Goien, su misión, visión y equipo
  */
@@ -11,13 +11,13 @@ export default function SobreNosotrosPage() {
   return (
     <>
       <Navbar />
-      <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#F5ECE6' }} role="main">
+      <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#E8D5F2' }} role="main">
         
         {/* Hero Section */}
         <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#8A4D76' }}>
           <div className="max-w-6xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Sobre Amets Goien
+              Sobre Ametsgoien
             </h1>
             <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
               Acogida, dignidad y acompañamiento para mujeres migrantes
@@ -34,7 +34,7 @@ export default function SobreNosotrosPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  <strong>Amets Goien</strong> es una organización sin ánimo de lucro dedicada a proporcionar acogida, 
+                  <strong>Ametsgoien</strong> es una asociación sin ánimo de lucro dedicada a proporcionar acogida, 
                   apoyo y acompañamiento integral a mujeres migrantes y sus familias que se encuentran en 
                   situación de vulnerabilidad.
                 </p>
@@ -51,7 +51,7 @@ export default function SobreNosotrosPage() {
               <div className="bg-gray-100 rounded-2xl p-8 border-l-4 border-[#8A4D76]">
                 <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>Nuestra Historia</h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Amets Goien nació de la necesidad urgente de ofrecer un espacio seguro para mujeres que 
+                  Ametsgoien nació de la necesidad urgente de ofrecer un espacio seguro para mujeres que 
                   han tenido que dejar atrás sus países en busca de mejores oportunidades. Desde nuestros 
                   inicios, hemos trabajado incansablemente para convertir este sueño en realidad, creando 
                   programas que van más allá del simple alojamiento.

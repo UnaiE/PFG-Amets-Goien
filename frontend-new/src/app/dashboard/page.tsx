@@ -68,7 +68,7 @@ export default function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F5ECE6' }}>
+      <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="max-w-7xl mx-auto py-8">
           {/* Header con botón de cerrar sesión */}
           <div className="flex justify-between items-center mb-8">

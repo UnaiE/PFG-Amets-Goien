@@ -206,7 +206,7 @@ export default function TrabajadoresPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F5ECE6' }}>
+        <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
           <div className="text-center py-20">
             <p className="text-2xl text-gray-700">Cargando...</p>
           </div>
@@ -218,7 +218,7 @@ export default function TrabajadoresPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F5ECE6' }}>
+      <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="max-w-7xl mx-auto py-8">
           {/* Notificación */}
           {notification && (

@@ -67,7 +67,7 @@ export default function ContactoPage() {
   return (
     <>
       <Navbar />
-      <div id="main-content" className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F5ECE6' }} role="main">
+      <div id="main-content" className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }} role="main">
         <div className="max-w-3xl mx-auto py-8">
           <button
             onClick={() => router.push("/")}
@@ -172,7 +172,7 @@ export default function ContactoPage() {
                   >
                     política de privacidad
                   </a>
-                  {" "}de Amets Goien. *
+                  {" "}de Ametsgoien. *
                 </label>
               </div>
 

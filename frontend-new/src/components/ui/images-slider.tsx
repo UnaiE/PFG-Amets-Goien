@@ -126,7 +126,7 @@ export const ImagesSlider = ({
         perspective: "1000px",
       }}
       role="region"
-      aria-label="Presentación de Amets Goien"
+      aria-label="Presentación de Ametsgoien"
       aria-live="polite"
     >
       {areImagesLoaded && children}
@@ -141,14 +141,14 @@ export const ImagesSlider = ({
           <motion.img
             key={currentIndex}
             src={loadedImages[currentIndex]}
-            alt="Mujeres acogidas en Amets Goien compartiendo momentos de apoyo y comunidad"
+            alt="Mujeres acogidas en Ametsgoien compartiendo momentos de apoyo y comunidad"
             initial="initial"
             animate="visible"
             exit={direction === "up" ? "upExit" : "downExit"}
             variants={slideVariants}
             className="image h-full w-full absolute inset-0 object-cover object-center"
             role="img"
-            aria-label={`Imagen ${currentIndex + 1} de ${images.length}: Comunidad Amets Goien`}
+            aria-label={`Imagen ${currentIndex + 1} de ${images.length}: Comunidad Ametsgoien`}
           />
         </AnimatePresence>
       )}

@@ -48,13 +48,13 @@ export default function AccesoInterno() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center px-4 pt-20" style={{ backgroundColor: '#F5ECE6' }}>
+      <div className="min-h-screen flex items-center justify-center px-4 pt-20" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="w-full max-w-md">
           {/* Card principal */}
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-block p-4 rounded-full mb-4" style={{ backgroundColor: '#F5ECE6' }}>
+              <div className="inline-block p-4 rounded-full mb-4" style={{ backgroundColor: '#E8D5F2' }}>
                 <svg 
                   className="w-12 h-12" 
                   style={{ color: '#8A4D76' }}
@@ -185,7 +185,7 @@ export default function AccesoInterno() {
             {/* Mensaje informativo */}
             <div className="mt-8 pt-6 border-t border-gray-200">
               <p className="text-center text-gray-500 text-sm leading-relaxed">
-                🔒 Acceso restringido al personal de Amets Goien.<br />
+                🔒 Acceso restringido al personal de Ametsgoien.<br />
                 Si necesitas acceso, contacta con la administración.
               </p>
             </div>

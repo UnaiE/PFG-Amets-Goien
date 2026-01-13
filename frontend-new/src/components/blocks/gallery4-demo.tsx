@@ -34,7 +34,7 @@ const Gallery4Demo = () => {
   const demoData = {
     title: "",
     description:
-      "Descubre las últimas noticias y logros de AMETS GOIEN. Aquí compartimos historias de superación, eventos y proyectos que transforman vidas.",
+      "Descubre las últimas noticias y logros de AMETSGOIEN. Aquí compartimos historias de superación, eventos y proyectos que transforman vidas.",
     items: noticias.map((noticia) => ({
       id: `noticia-${noticia.id}`,
       noticiaId: noticia.id,

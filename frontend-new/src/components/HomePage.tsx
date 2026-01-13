@@ -11,7 +11,7 @@ const HomePage = () => {
         <ImagesSliderDemo />
       </section>
 
-      {/* SECCIÓN SOBRE AMETS GOIEN */}
+      {/* SECCIÓN SOBRE AMETSGOIEN */}
       <section id="ong" className="min-h-screen flex items-center justify-center py-20" style={{ backgroundColor: '#D8B8C4' }}>
         <div className="w-full px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto w-full">
@@ -19,10 +19,10 @@ const HomePage = () => {
               {/* Columna izquierda - Texto */}
               <div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-left mb-8 tracking-tight">
-                  Sobre AMETS GOIEN
+                  Sobre AMETSGOIEN
                 </h2>
                 <p className="text-base md:text-lg lg:text-xl mb-6" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
-                  AMETS GOIEN trabaja por ofrecer apoyo integral a mujeres migrantes y sus hijos, priorizando la dignidad, la seguridad emocional y el acompañamiento humano.
+                  AMETSGOIEN trabaja por ofrecer apoyo integral a mujeres migrantes y sus hijos, priorizando la dignidad, la seguridad emocional y el acompañamiento humano.
                 </p>
                 <p className="text-base md:text-lg lg:text-xl" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
                   Creemos en la importancia de construir un refugio seguro, cálido y humano, donde cada mujer pueda reencontrar su fuerza, recuperar esperanza y avanzar hacia una vida estable.
@@ -40,7 +40,7 @@ const HomePage = () => {
         <div className="w-full px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">
-              Colabora con AMETS GOIEN
+              Colabora con AMETSGOIEN
             </h2>
             <p className="mb-8 max-w-3xl mx-auto text-base md:text-lg lg:text-xl" style={{ color: '#6B5D5F', lineHeight: '1.5' }}>
               Tu apoyo transforma vidas y ayuda a construir un espacio seguro, humano y digno para mujeres migrantes.
@@ -87,7 +87,7 @@ const HomePage = () => {
       </section>
 
       {/* SECCIÓN DE CONTACTO */}
-      <section id="contacto" className="min-h-screen flex items-center justify-center py-20 bg-[#F5ECE6]">
+      <section id="contacto" className="min-h-screen flex items-center justify-center py-20 bg-[#E8D5F2]">
         <div className="w-full px-4 md:px-0">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] mb-8 tracking-tight">

@@ -5,12 +5,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
           {/* Columna 1: Logo + Derechos */}
           <div>
-            <h3 className="text-white text-xl md:text-2xl font-bold mb-3 md:mb-4">Amets Goien</h3>
+            <h3 className="text-white text-xl md:text-2xl font-bold mb-3 md:mb-4">Ametsgoien</h3>
             <p className="text-white/80 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
               Construyendo un refugio seguro junto a mujeres migrantes.
             </p>
             <p className="text-white/60 text-xs md:text-sm">
-              © 2025 Amets Goien.<br />
+              © 2025 Ametsgoien.<br />
               Todos los derechos reservados.
             </p>
           </div>
