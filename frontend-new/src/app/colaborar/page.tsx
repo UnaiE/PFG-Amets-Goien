@@ -4,8 +4,8 @@
  * @description Página para realizar donaciones mediante Bizum o tarjeta, guardando datos del colaborador
  */
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Navbar from "@/components/Navbar";
@@ -23,12 +23,14 @@ interface DonacionForm {
   direccion: string;
   anotacion: string;
   cantidad: string;
+  periodicidad: 'puntual' | 'mensual' | 'trimestral' | 'semestral' | 'anual';
   metodoPago: 'bizum' | 'tarjeta' | '';
   aceptaPolitica: boolean;
 }
 
 export default function ColaborarPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState<DonacionForm>({
     nombre: "",
     apellidos: "",
@@ -38,6 +40,7 @@ export default function ColaborarPage() {
     direccion: "",
     anotacion: "",
     cantidad: "",
+    periodicidad: "puntual",
     metodoPago: "",
     aceptaPolitica: false
   });
@@ -46,6 +49,54 @@ export default function ColaborarPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+
+  // Detectar retorno de Stripe Checkout
+  useEffect(() => {
+    const success = searchParams.get('success');
+    const canceled = searchParams.get('canceled');
+    const sessionId = searchParams.get('session_id');
+
+    if (success === 'true' && sessionId) {
+      // Confirmar la suscripción con el backend
+      fetch("http://localhost:4000/api/payment/confirm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ sessionId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setMensaje({ 
+            texto: "¡Suscripción activada! Gracias por tu donación recurrente. Recibirás un email de confirmación.", 
+            tipo: "success" 
+          });
+        } else {
+          setMensaje({ 
+            texto: "Hubo un problema al confirmar tu suscripción. Por favor, contacta con nosotros.", 
+            tipo: "error" 
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error confirmando suscripción:", error);
+        setMensaje({ 
+          texto: "Error al confirmar la suscripción.", 
+          tipo: "error" 
+        });
+      });
+
+      // Limpiar parámetros de URL
+      router.replace('/colaborar');
+    } else if (canceled === 'true') {
+      setMensaje({ 
+        texto: "Donación cancelada. Puedes intentarlo de nuevo cuando quieras.", 
+        tipo: "error" 
+      });
+      router.replace('/colaborar');
+    }
+  }, [searchParams, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,16 +120,17 @@ export default function ColaborarPage() {
     setMensaje(null);
 
     try {
-      // Guardar los datos del colaborador en la BD
+      // Preparar datos del colaborador
       const colaboradorData = {
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
         telefono: formData.telefono ? `${formData.prefijoTelefono} ${formData.telefono}` : null,
         direccion: formData.direccion || null,
+        periodicidad: formData.periodicidad,
         anotacion: formData.anotacion ? 
-          `Donación: ${formData.cantidad}€ - ${formData.anotacion}` : 
-          `Donación: ${formData.cantidad}€ via ${formData.metodoPago}`
+          `Donación ${formData.periodicidad}: ${formData.cantidad}€ - ${formData.anotacion}` : 
+          `Donación ${formData.periodicidad}: ${formData.cantidad}€ via ${formData.metodoPago}`
       };
 
       if (formData.metodoPago === 'bizum') {
@@ -92,13 +144,17 @@ export default function ColaborarPage() {
         });
 
         if (response.ok) {
+          const periodicidadTexto = formData.periodicidad !== 'puntual' 
+            ? `\nRecuerda: Has seleccionado donación ${formData.periodicidad}. Te enviaremos recordatorios.`
+            : '';
+          
           setMensaje({ 
-            texto: `¡Gracias por tu colaboración de ${formData.cantidad}€!`, 
+            texto: `¡Gracias por tu colaboración de ${formData.cantidad}€!${periodicidadTexto}`, 
             tipo: "success" 
           });
           
           setTimeout(() => {
-            alert(`Envía ${formData.cantidad}€ al número de Bizum: 600 000 000\nConcepto: Donación Amets Goien`);
+            alert(`Envía ${formData.cantidad}€ al número de Bizum: 600 000 000\nConcepto: Donación Ametsgoien${periodicidadTexto}`);
             
             // Resetear formulario
             setFormData({
@@ -110,6 +166,7 @@ export default function ColaborarPage() {
               direccion: "",
               anotacion: "",
               cantidad: "",
+              periodicidad: "puntual",
               metodoPago: "",
               aceptaPolitica: false
             });
@@ -119,7 +176,7 @@ export default function ColaborarPage() {
           setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
         }
       } else {
-        // Para tarjeta, crear Payment Intent con Stripe
+        // Para tarjeta, crear Payment Intent o Suscripción con Stripe
         const response = await fetch("http://localhost:4000/api/payment/create-intent", {
           method: "POST",
           headers: {
@@ -133,9 +190,17 @@ export default function ColaborarPage() {
 
         if (response.ok) {
           const data = await response.json();
-          setClientSecret(data.clientSecret);
-          setPaymentIntentId(data.paymentIntentId);
-          setShowPaymentForm(true);
+          
+          // Si es suscripción, redirigir a Stripe Checkout
+          if (data.subscriptionMode) {
+            // Redirigir a la URL de Stripe Checkout
+            window.location.href = data.sessionUrl;
+          } else {
+            // Donación puntual - mostrar formulario de pago
+            setClientSecret(data.clientSecret);
+            setPaymentIntentId(data.paymentIntentId);
+            setShowPaymentForm(true);
+          }
         } else {
           const error = await response.json();
           setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
@@ -150,8 +215,13 @@ export default function ColaborarPage() {
   };
 
   const handlePaymentSuccess = () => {
+    const esRecurrente = formData.periodicidad !== 'puntual';
+    const textoRecurrente = esRecurrente 
+      ? ` Te enviaremos un correo de confirmación con los detalles de tu suscripción ${formData.periodicidad}.` 
+      : ' Te enviaremos un correo de confirmación.';
+    
     setMensaje({ 
-      texto: `¡Pago exitoso! Gracias por tu donación de ${formData.cantidad}€`, 
+      texto: `🎉 ¡Donación confirmada! Gracias por tu contribución de ${formData.cantidad}€.${textoRecurrente}`, 
       tipo: "success" 
     });
     
@@ -166,6 +236,7 @@ export default function ColaborarPage() {
         direccion: "",
         anotacion: "",
         cantidad: "",
+        periodicidad: "puntual",
         metodoPago: "",
         aceptaPolitica: false
       });
@@ -181,7 +252,7 @@ export default function ColaborarPage() {
   return (
     <>
       <Navbar />
-      <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#F5ECE6' }} role="main">
+      <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#E8D5F2' }} role="main">
         {/* Hero Section */}
         <section className="py-12 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#8A4D76' }}>
           <div className="max-w-6xl mx-auto text-center text-white">
@@ -322,6 +393,19 @@ export default function ColaborarPage() {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <label htmlFor="donacion-direccion" className="block text-gray-800 font-semibold mb-1 text-sm">Dirección</label>
+                  <input
+                    type="text"
+                    id="donacion-direccion"
+                    value={formData.direccion}
+                    onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    placeholder="Calle, número, ciudad..."
+                    aria-label="Dirección postal"
+                  />
+                </div>
               </div>
 
               {/* Cantidad a Donar */}
@@ -359,6 +443,51 @@ export default function ColaborarPage() {
                   aria-required="true"
                   aria-label="Cantidad personalizada a donar"
                 />
+              </fieldset>
+
+              {/* Periodicidad */}
+              <fieldset>
+                <legend className="block text-gray-800 font-semibold mb-2 text-sm">Periodicidad *</legend>
+                <div className="grid grid-cols-3 gap-2" role="group" aria-label="Seleccionar periodicidad de la donación">
+                  {[
+                    { value: 'puntual', label: 'Puntual' },
+                    { value: 'mensual', label: 'Mensual' },
+                    { value: 'trimestral', label: 'Trimestral' },
+                    { value: 'semestral', label: 'Semestral' },
+                    { value: 'anual', label: 'Anual' }
+                  ].map((opcion) => (
+                    <button
+                      key={opcion.value}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, periodicidad: opcion.value as any })}
+                      className={`py-2 px-3 rounded-lg font-semibold text-xs transition-all ${
+                        formData.periodicidad === opcion.value
+                          ? 'text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 border border-gray-300 hover:border-[#8A4D76]'
+                      }`}
+                      style={formData.periodicidad === opcion.value ? { backgroundColor: '#8A4D76' } : {}}
+                      aria-pressed={formData.periodicidad === opcion.value}
+                      aria-label={`Donación ${opcion.label.toLowerCase()}`}
+                    >
+                      {opcion.label}
+                    </button>
+                  ))}
+                </div>
+                {formData.periodicidad !== 'puntual' && (
+                  <div className="mt-3 p-3 rounded-lg bg-blue-50 border border-blue-200">
+                    <p className="text-xs text-blue-800 font-semibold mb-1">
+                      💳 Donación Recurrente
+                    </p>
+                    <p className="text-xs text-blue-700">
+                      {formData.metodoPago === 'tarjeta' 
+                        ? `Se creará una suscripción automática ${formData.periodicidad}. Podrás cancelarla en cualquier momento.`
+                        : formData.metodoPago === 'bizum'
+                        ? `Recibirás recordatorios ${formData.periodicidad}es para realizar tu donación.`
+                        : `Selecciona un método de pago para más información.`
+                      }
+                    </p>
+                  </div>
+                )}
               </fieldset>
 
               {/* Método de Pago Compacto */}
