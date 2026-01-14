@@ -34,30 +34,58 @@ export default function SobreNosotrosPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  <strong>Ametsgoien</strong> es una asociación sin ánimo de lucro dedicada a proporcionar acogida, 
-                  apoyo y acompañamiento integral a mujeres migrantes y sus familias que se encuentran en 
-                  situación de vulnerabilidad.
+                  <strong>Ametsgoien</strong> es una asociación fundada por <strong>Aitor Arbaiza</strong> y <strong>Josu Beaskoetxea</strong>, 
+                  un matrimonio de Alonsotegi con tres hijos adolescentes que decidieron transformar una inquietud íntima en un proyecto colectivo.
                 </p>
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  Fundada con la visión de construir un refugio seguro y digno, trabajamos día a día para 
-                  ofrecer no solo alojamiento temporal, sino también herramientas que permitan a estas mujeres 
-                  alcanzar la autonomía económica y social.
+                  Todo comenzó con una historia que les marcó profundamente: <em>"No podía entender cómo una mujer con un bebé recién nacido 
+                  podía estar en la calle en el Bilbao de 2023"</em>. Aquel caso, llegado a través de la red solidaria CVX y el Centro Ignacio Ellacuría, 
+                  les hizo preguntarse: ¿qué podemos hacer nosotros?
                 </p>
                 <p className="text-gray-700 text-lg leading-relaxed">
-                  Creemos firmemente en el poder transformador de la solidaridad, el respeto y el acompañamiento 
-                  personalizado como pilares fundamentales de nuestra labor.
+                  La respuesta fue clara: <strong>"Si las instituciones no pueden dar una solución, decidimos endeudarnos de amor"</strong>. 
+                  Así nació Ametsgoien, una casa de 12 habitaciones en Orduña convertida en hogar seguro para mujeres migradas con menores a su cargo.
                 </p>
               </div>
               <div className="bg-gray-100 rounded-2xl p-8 border-l-4 border-[#8A4D76]">
                 <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>Nuestra Historia</h3>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  Durante la crisis de Ucrania, la familia acogió en su propia casa a cuatro mujeres y un traductor. 
+                  <em>"Pasamos de cinco a nueve en casa. Tuvimos que reorganizarlo todo, pero nuestros hijos lo vivieron con naturalidad"</em>.
+                </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Ametsgoien nació de la necesidad urgente de ofrecer un espacio seguro para mujeres que 
-                  han tenido que dejar atrás sus países en busca de mejores oportunidades. Desde nuestros 
-                  inicios, hemos trabajado incansablemente para convertir este sueño en realidad, creando 
-                  programas que van más allá del simple alojamiento.
+                  Esa experiencia confirmó que estaban preparados para algo más grande. Con un préstamo familiar y bancario, 
+                  adquirieron una casona de 185.000 euros. Y lo que vino después superó todas las expectativas: 
+                  <strong>más de 40 voluntarios</strong> de Barcelona, Burgos, San Sebastián, Balmaseda, Bilbao y Orduña 
+                  se unieron para lijar, pintar, barnizar y dar vida a este sueño colectivo.
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Video Entrevista */}
+        <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F3E8F7' }}>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold mb-8 text-center" style={{ color: '#8A4D76' }}>
+              Conoce Ametsgoien
+            </h2>
+            <p className="text-center text-gray-700 text-lg mb-8">
+              Descubre la historia detrás de nuestro proyecto en esta entrevista
+            </p>
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe 
+                className="absolute top-0 left-0 w-full h-full rounded-xl shadow-2xl"
+                src="https://www.youtube.com/embed/3Y2qE_eaICo"
+                title="Entrevista Ametsgoien"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <p className="text-center text-gray-600 text-sm mt-4 italic">
+              "A veces la solidaridad llega en goteo... pero llega" - Azul Tejerina
+            </p>
           </div>
         </section>
 
@@ -103,71 +131,35 @@ export default function SobreNosotrosPage() {
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
                 <div className="text-5xl mb-4 text-center">🏠</div>
                 <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Alojamiento Seguro
+                  Hogar Seguro
                 </h3>
                 <p className="text-gray-700 text-center">
-                  Proporcionamos un espacio digno, seguro y acogedor donde las mujeres y sus hijos pueden 
-                  vivir mientras reconstruyen sus vidas y encuentran estabilidad.
+                  Una casa de 12 habitaciones en Orduña, renovada con el esfuerzo de decenas de voluntarios, 
+                  donde las mujeres y sus hijos encuentran un espacio digno y acogedor.
                 </p>
               </div>
 
-              {/* Formación */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">📚</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Formación y Talleres
-                </h3>
-                <p className="text-gray-700 text-center">
-                  Ofrecemos talleres de formación laboral, idiomas, informática y habilidades para la vida 
-                  que facilitan la inserción sociolaboral y el desarrollo personal.
-                </p>
-              </div>
-
-              {/* Apoyo Psicológico */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">💚</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Apoyo Psicológico
-                </h3>
-                <p className="text-gray-700 text-center">
-                  Brindamos acompañamiento psicológico y emocional para ayudar a superar traumas, 
-                  fortalecer la autoestima y fomentar el bienestar mental.
-                </p>
-              </div>
-
-              {/* Asesoramiento Legal */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">⚖️</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Asesoramiento Legal
-                </h3>
-                <p className="text-gray-700 text-center">
-                  Orientamos en trámites legales, documentación, solicitudes de asilo y otros procesos 
-                  administrativos necesarios para regularizar su situación.
-                </p>
-              </div>
-
-              {/* Acompañamiento Social */}
+              {/* Acompañamiento */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
                 <div className="text-5xl mb-4 text-center">🤝</div>
                 <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Acompañamiento Social
+                  Acompañamiento Integral
                 </h3>
                 <p className="text-gray-700 text-center">
-                  Acompañamos en la búsqueda de empleo, gestiones administrativas, acceso a recursos 
-                  sociales y todo lo necesario para lograr la autonomía.
+                  Apoyo personalizado en gestiones administrativas, búsqueda de empleo, formación y todo 
+                  lo necesario para lograr la autonomía.
                 </p>
               </div>
 
-              {/* Actividades Comunitarias */}
+              {/* Comunidad */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">🎨</div>
+                <div className="text-5xl mb-4 text-center">💜</div>
                 <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Actividades Comunitarias
+                  Solidaridad Comunitaria
                 </h3>
                 <p className="text-gray-700 text-center">
-                  Organizamos actividades culturales, recreativas y deportivas que fomentan la integración, 
-                  el sentido de comunidad y el desarrollo de vínculos positivos.
+                  Un proyecto construido "gota a gota" por una comunidad de voluntarios que creen 
+                  en el poder transformador de la ayuda mutua.
                 </p>
               </div>
             </div>
@@ -184,27 +176,46 @@ export default function SobreNosotrosPage() {
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Dignidad</h3>
                 <p className="text-gray-700 text-sm">
-                  Respetamos y defendemos la dignidad de cada persona, sin importar su origen o situación.
+                  "Para una madre con hijos, tener un baño propio es la diferencia entre la seguridad y el miedo."
                 </p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Solidaridad</h3>
                 <p className="text-gray-700 text-sm">
-                  Trabajamos juntos para construir una sociedad más justa e inclusiva para todos.
+                  Un proyecto construido por la comunidad: voluntarios que llegan "en goteo", pero que llegan.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Empoderamiento</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Amor</h3>
                 <p className="text-gray-700 text-sm">
-                  Proporcionamos herramientas para que cada mujer alcance su máximo potencial.
+                  "Decidimos endeudarnos de amor" - El motor que impulsa cada acción de Ametsgoien.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Compromiso</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Comunidad</h3>
                 <p className="text-gray-700 text-sm">
-                  Nos comprometemos plenamente con la transformación positiva de vidas.
+                  Esto lo construye la comunidad, unidos por el sentido y el propósito común.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonio Esperanza */}
+        <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 shadow-xl border-l-4 border-[#8A4D76]">
+              <div className="text-6xl mb-4 text-center">💬</div>
+              <blockquote className="text-xl md:text-2xl text-gray-800 italic text-center mb-6 leading-relaxed">
+                "Yo sé exactamente lo que viven esas mujeres porque yo lo viví. Si puedo ayudar, ayudo. 
+                Todo lo que he recibido quiero devolverlo."
+              </blockquote>
+              <p className="text-center text-gray-600 font-semibold">
+                — Esperanza Acevedo
+              </p>
+              <p className="text-center text-gray-500 text-sm mt-2">
+                Voluntaria del proyecto y antigua solicitante de asilo, ahora con empleo estable y hogar propio
+              </p>
             </div>
           </div>
         </section>

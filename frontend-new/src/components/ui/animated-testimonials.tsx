@@ -4,12 +4,15 @@ import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Testimonial = {
   quote: string;
   name: string;
   designation: string;
   src: string;
+  id?: string;
+  fullStory?: string;
 };
 
 export const AnimatedTestimonials = ({
@@ -22,6 +25,7 @@ export const AnimatedTestimonials = ({
   className?: string;
 }) => {
   const [active, setActive] = useState(0);
+  const router = useRouter();
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -29,6 +33,12 @@ export const AnimatedTestimonials = ({
 
   const handlePrev = () => {
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const handleTestimonialClick = () => {
+    if (testimonials[active].id) {
+      router.push(`/testimonios/${testimonials[active].id}`);
+    }
   };
 
   useEffect(() => {
@@ -134,6 +144,18 @@ export const AnimatedTestimonials = ({
                 </motion.span>
               ))}
             </motion.p>
+            {testimonials[active].id && (
+              <button
+                onClick={handleTestimonialClick}
+                className="mt-6 px-6 py-2 rounded-full text-sm font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
+                style={{ 
+                  backgroundColor: '#8A4D76', 
+                  color: 'white',
+                }}
+              >
+                Leer historia completa →
+              </button>
+            )}
           </motion.div>
           <div className="flex gap-3 md:gap-4 pt-6 md:pt-12 justify-center md:justify-start">
             <button

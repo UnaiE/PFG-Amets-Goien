@@ -57,8 +57,21 @@ export default function Dashboard() {
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/acceso-interno");
+      return;
+    }
+
+    // Restaurar la sección activa guardada
+    const savedSection = localStorage.getItem("dashboardActiveSection") as "publicacion" | "foro" | "gestion" | null;
+    if (savedSection && ["publicacion", "foro", "gestion"].includes(savedSection)) {
+      setActiveSection(savedSection);
     }
   }, [router]);
+
+  // Guardar la sección activa cuando cambie
+  const handleSectionChange = (section: "publicacion" | "foro" | "gestion") => {
+    setActiveSection(section);
+    localStorage.setItem("dashboardActiveSection", section);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -86,7 +99,7 @@ export default function Dashboard() {
           {/* Navegación entre secciones */}
           <div className="flex flex-wrap gap-4 mb-8">
             <button
-              onClick={() => setActiveSection("publicacion")}
+              onClick={() => handleSectionChange("publicacion")}
               className={`px-6 py-3 rounded-full font-semibold transition-all ${
                 activeSection === "publicacion"
                   ? "text-white shadow-lg"
@@ -97,7 +110,7 @@ export default function Dashboard() {
               Publicación de Noticias y Actividades
             </button>
             <button
-              onClick={() => setActiveSection("foro")}
+              onClick={() => handleSectionChange("foro")}
               className={`px-6 py-3 rounded-full font-semibold transition-all ${
                 activeSection === "foro"
                   ? "text-white shadow-lg"
@@ -108,7 +121,7 @@ export default function Dashboard() {
               Foro Interno de Tareas
             </button>
             <button
-              onClick={() => setActiveSection("gestion")}
+              onClick={() => handleSectionChange("gestion")}
               className={`px-6 py-3 rounded-full font-semibold transition-all ${
                 activeSection === "gestion"
                   ? "text-white shadow-lg"
@@ -955,7 +968,10 @@ function GestionSection() {
             <button
               className="w-full py-3 rounded-full text-white font-semibold hover:shadow-xl transition-all"
               style={{ backgroundColor: '#8A4D76' }}
-              onClick={() => router.push(categoria.ruta)}
+              onClick={() => {
+                localStorage.setItem("dashboardActiveSection", "gestion");
+                router.push(categoria.ruta);
+              }}
             >
               Gestionar
             </button>

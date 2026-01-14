@@ -109,6 +109,11 @@ export const enviarEmailDonacion = async ({
         <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #E8D5F2;">
           <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; margin-top: 20px; margin-bottom: 20px;">
             
+            <!-- Logo -->
+            <div style="text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #E8D5F2;">
+              <img src="${process.env.FRONTEND_URL || 'http://localhost:3000'}/logo.png" alt="Ametsgoien" style="max-width: 200px; height: auto;" />
+            </div>
+
             <!-- Header -->
             <div style="text-align: center; margin-bottom: 30px;">
               <h1 style="color: #8A4D76; margin: 0; font-size: 28px;">¡Gracias ${nombre}!</h1>

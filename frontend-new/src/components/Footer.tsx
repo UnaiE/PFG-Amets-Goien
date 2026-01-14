@@ -5,7 +5,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
           {/* Columna 1: Logo + Derechos */}
           <div>
-            <h3 className="text-white text-xl md:text-2xl font-bold mb-3 md:mb-4">Ametsgoien</h3>
+            <img 
+              src="/logo.png" 
+              alt="Ametsgoien" 
+              className="h-12 md:h-16 w-auto mb-3 md:mb-4"
+            />
             <p className="text-white/80 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
               Construyendo un refugio seguro junto a mujeres migrantes.
             </p>
@@ -44,8 +48,8 @@ const Footer = () => {
                 <svg className="w-4 h-4 mr-3 flex-shrink-0 max-w-[1.5rem] max-h-[1.5rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:info@ametsgoien.org" className="hover:text-white transition-colors">
-                  info@ametsgoien.org
+                <a href="mailto:ametsgoien@gmail.com" className="hover:text-white transition-colors">
+                  ametsgoien@gmail.com
                 </a>
               </li>
               <li className="flex items-center text-white/80">

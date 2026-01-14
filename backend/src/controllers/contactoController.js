@@ -54,7 +54,10 @@ export const enviarContacto = async (req, res) => {
       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
       subject: `Nuevo mensaje de contacto: ${nombre} ${apellidos}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #E8D5F2;">
+            <img src="${process.env.FRONTEND_URL || 'http://localhost:3000'}/logo.png" alt="Ametsgoien" style="max-width: 180px; height: auto;" />
+          </div>
           <h2 style="color: #8A4D76;">Nuevo mensaje de contacto</h2>
           <div style="background-color: #E8D5F2; padding: 20px; border-radius: 10px;">
             <p><strong>Nombre:</strong> ${nombre} ${apellidos}</p>
@@ -75,7 +78,10 @@ export const enviarContacto = async (req, res) => {
       to: email,
       subject: "Hemos recibido tu mensaje - Ametsgoien",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #E8D5F2;">
+            <img src="${process.env.FRONTEND_URL || 'http://localhost:3000'}/logo.png" alt="Ametsgoien" style="max-width: 180px; height: auto;" />
+          </div>
           <h2 style="color: #8A4D76;">¡Gracias por contactarnos!</h2>
           <div style="background-color: #E8D5F2; padding: 20px; border-radius: 10px;">
             <p>Hola ${nombre},</p>

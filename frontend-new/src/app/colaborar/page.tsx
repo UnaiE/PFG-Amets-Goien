@@ -260,7 +260,7 @@ export default function ColaborarPage() {
               Tu ayuda transforma vidas
             </h1>
             <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-              Cada donación contribuye a ofrecer un refugio seguro, apoyo integral y oportunidades de futuro para mujeres migrantes y sus hijos.
+              Cada donación contribuye a ofrecer un refugio seguro, apoyo integral y oportunidades de futuro para mujeres refugiadas y sus hijos en nuestra casa de acogida en Orduña.
             </p>
           </div>
         </section>
@@ -277,7 +277,7 @@ export default function ColaborarPage() {
                     ¿Cómo ayuda tu donación?
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    Cada aportación contribuye directamente a mejorar la vida de las mujeres migrantes y sus familias.
+                    Cada aportación contribuye directamente a mantener nuestra casa de acogida en Orduña, donde ofrecemos dignidad, solidaridad y amor a mujeres refugiadas y sus familias.
                   </p>
                 </div>
 
@@ -285,24 +285,24 @@ export default function ColaborarPage() {
                   <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
                     <div className="text-3xl">🏠</div>
                     <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Alojamiento Seguro</h3>
-                      <p className="text-gray-700 text-sm">Proporcionamos un espacio digno y seguro donde las mujeres y sus hijos pueden reconstruir sus vidas.</p>
+                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Casa de Acogida</h3>
+                      <p className="text-gray-700 text-sm">Nuestra casa de 12 habitaciones en Orduña, renovada por más de 40 voluntarios, proporciona un hogar seguro y digno.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
-                    <div className="text-3xl">📚</div>
+                    <div className="text-3xl">❤️</div>
                     <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Formación y Apoyo</h3>
-                      <p className="text-gray-700 text-sm">Ofrecemos talleres, formación laboral y acompañamiento psicológico para su desarrollo personal.</p>
+                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Acompañamiento Humano</h3>
+                      <p className="text-gray-700 text-sm">Priorizamos la dignidad y seguridad emocional, ofreciendo apoyo psicológico y acompañamiento en cada etapa.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
-                    <div className="text-3xl">🤝</div>
+                    <div className="text-3xl">🌱</div>
                     <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Autonomía</h3>
-                      <p className="text-gray-700 text-sm">Ayudamos a conseguir autonomía económica y social para un futuro independiente y estable.</p>
+                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Construyendo Futuro</h3>
+                      <p className="text-gray-700 text-sm">"Gota a gota" ayudamos a cada mujer a reencontrar su fuerza y avanzar hacia una vida estable e independiente.</p>
                     </div>
                   </div>
                 </div>
@@ -310,10 +310,11 @@ export default function ColaborarPage() {
                 <div className="bg-purple-50 rounded-xl p-5 border-l-4 border-[#8A4D76]">
                   <h3 className="text-xl font-bold mb-3" style={{ color: '#8A4D76' }}>El impacto de tu aportación</h3>
                   <div className="space-y-2 text-gray-700 text-sm">
-                    <p><strong>20€</strong> - Material escolar para un niño durante un mes</p>
-                    <p><strong>50€</strong> - Taller formativo para 5 mujeres</p>
-                    <p><strong>100€</strong> - Alojamiento de una familia durante una semana</p>
-                    <p><strong>200€</strong> - Apoyo psicológico mensual para 3 personas</p>
+                    <p><strong>30€</strong> - Alimentación para una familia durante una semana</p>
+                    <p><strong>60€</strong> - Material escolar y educativo para los niños</p>
+                    <p><strong>100€</strong> - Mantenimiento mensual de una habitación</p>
+                    <p><strong>200€</strong> - Apoyo integral mensual para una familia</p>
+                    <p className="text-xs italic mt-3">Tu donación ayuda a mantener la asociación, dirigida con amor y solidaridad.</p>
                   </div>
                 </div>
               </div>

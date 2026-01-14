@@ -58,9 +58,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo a la izquierda */}
           <div className="flex items-center">
-            <h1 className="text-white text-sm md:text-base font-bold tracking-wide">
-              AMETSGOIEN
-            </h1>
+            <a href="/" className="flex items-center" aria-label="Ir a inicio">
+              <img 
+                src="/logo.png" 
+                alt="Ametsgoien" 
+                className="h-10 md:h-12 w-auto"
+              />
+            </a>
           </div>
           
           {/* Menú hamburguesa (móvil) */}
