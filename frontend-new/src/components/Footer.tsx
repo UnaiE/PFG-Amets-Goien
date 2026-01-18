@@ -67,15 +67,32 @@ const Footer = () => {
       </div>
       {/* Barra inferior */}
       <div className="border-t border-white/20 px-12">
-        <div className="max-w-7xl mx-auto py-6 text-center">
-          <p className="text-white/60 text-sm mb-2">
-            Desarrollado con ❤️ para crear un mundo más inclusivo
-          </p>
-          <div className="text-white/60 text-xs">
-            <a href="/privacidad" className="hover:text-white transition-colors underline">
-              Política de Privacidad
-            </a>
+        <div className="max-w-7xl mx-auto py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-white/60 text-sm">
+              Desarrollado con ❤️ para crear un mundo más inclusivo
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-white/60 text-xs">
+              <a href="/privacidad" className="hover:text-white transition-colors underline">
+                Política de Privacidad
+              </a>
+              <span className="text-white/40">•</span>
+              <a href="/privacidad#reembolsos" className="hover:text-white transition-colors underline">
+                Política de Reembolsos
+              </a>
+              <span className="text-white/40">•</span>
+              <a href="/sobre-nosotros" className="hover:text-white transition-colors underline">
+                Sobre Nosotros
+              </a>
+              <span className="text-white/40">•</span>
+              <a href="/contacto" className="hover:text-white transition-colors underline">
+                Contacto
+              </a>
+            </div>
           </div>
+          <p className="text-white/50 text-xs text-center mt-3">
+            © 2026 Asociación Ametsgoien • CIF: [Pendiente] • Orduña, Bizkaia
+          </p>
         </div>
       </div>
     </footer>

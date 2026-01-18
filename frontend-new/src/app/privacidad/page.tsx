@@ -36,11 +36,18 @@ export default function PrivacidadPage() {
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   1. Responsable del tratamiento
                 </h2>
-                <p>
+                <p className="mb-3">
                   El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación <strong>AMETSGOIEN</strong>, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.
                 </p>
-                <p className="mt-2">
-                  Para cualquier cuestión relacionada con la protección de datos personales, puedes contactar a través del correo electrónico facilitado en esta web.
+                <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#8A4D76]">
+                  <p className="text-sm mb-1"><strong>Denominación:</strong> Asociación AMETSGOIEN</p>
+                  <p className="text-sm mb-1"><strong>CIF:</strong> [Pendiente - Añadir CIF real]</p>
+                  <p className="text-sm mb-1"><strong>Dirección:</strong> Orduña (Bizkaia), España</p>
+                  <p className="text-sm mb-1"><strong>Email:</strong> ametsgoien@gmail.com</p>
+                  <p className="text-sm"><strong>Teléfono:</strong> +34 697 858 343</p>
+                </div>
+                <p className="mt-3">
+                  Para cualquier cuestión relacionada con la protección de datos personales, puedes contactar a través de los medios facilitados arriba.
                 </p>
               </section>
 
@@ -60,13 +67,28 @@ export default function PrivacidadPage() {
                   3. Datos personales tratados
                 </h2>
                 <p>
-                  A través del formulario de contacto se podrán recabar los siguientes datos personales:
+                  A través de este sitio web se podrán recabar los siguientes datos personales:
                 </p>
-                <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>Nombre y apellidos</li>
-                  <li>Dirección de correo electrónico</li>
-                  <li>Contenido del mensaje o consulta</li>
-                </ul>
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <h3 className="font-bold text-gray-800 mb-1">Formulario de contacto:</h3>
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                      <li>Nombre y apellidos</li>
+                      <li>Dirección de correo electrónico</li>
+                      <li>Contenido del mensaje o consulta</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-800 mb-1">Donaciones y colaboraciones:</h3>
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                      <li>Nombre y apellidos</li>
+                      <li>Email</li>
+                      <li>Teléfono (opcional)</li>
+                      <li>Dirección (opcional)</li>
+                      <li>Datos de pago procesados por <strong>Stripe</strong> (tarjeta bancaria)</li>
+                    </ul>
+                  </div>
+                </div>
               </section>
 
               {/* 4 */}
@@ -109,8 +131,16 @@ export default function PrivacidadPage() {
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   7. Destinatarios y encargados de tratamiento
                 </h2>
-                <p>
-                  Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETSGOIEN podrá utilizar proveedores externos que actúan como encargados del tratamiento (por ejemplo, servicios de envío de correo electrónico o alojamiento web), con los que se han adoptado las garantías exigidas por la normativa vigente.
+                <p className="mb-3">
+                  Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETSGOIEN utiliza los siguientes proveedores externos que actúan como encargados del tratamiento:
+                </p>
+                <ul className="list-disc list-inside ml-4 space-y-2 text-gray-700">
+                  <li><strong>Stripe</strong> (procesamiento de pagos): Los datos de pago se procesan de forma segura a través de Stripe, Inc., que cumple con el estándar PCI-DSS. AMETSGOIEN no almacena datos completos de tarjetas bancarias. Más información en <a href="https://stripe.com/es/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">stripe.com/privacy</a></li>
+                  <li><strong>Servicio de hosting web</strong>: Para el alojamiento del sitio web</li>
+                  <li><strong>Servicio de email</strong>: Para el envío de confirmaciones y comunicaciones</li>
+                </ul>
+                <p className="mt-3">
+                  Con todos los proveedores se han adoptado las garantías exigidas por la normativa vigente mediante acuerdos de confidencialidad y cláusulas contractuales.
                 </p>
               </section>
 
@@ -146,9 +176,40 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 10 */}
+              <section id="reembolsos">
+                <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
+                  10. Política de reembolsos y cancelaciones
+                </h2>
+                <p className="mb-3">
+                  Las donaciones realizadas a AMETSGOIEN son contribuciones voluntarias destinadas a financiar proyectos de acogida y acompañamiento social.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="font-bold text-gray-800 mb-1">Donaciones puntuales:</h3>
+                    <p className="text-gray-700">
+                      Una vez procesada la donación, esta es definitiva. Si detectas un error en tu donación, contacta con nosotros en <strong>ametsgoien@gmail.com</strong> en un plazo de 48 horas y evaluaremos tu caso de forma individualizada.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-800 mb-1">Donaciones recurrentes (suscripciones):</h3>
+                    <p className="text-gray-700 mb-2">
+                      Puedes cancelar tu suscripción en cualquier momento sin coste adicional. Para ello:
+                    </p>
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                      <li>Accede al enlace de gestión enviado en el email de confirmación</li>
+                      <li>O contacta con nosotros en ametsgoien@gmail.com</li>
+                    </ul>
+                    <p className="text-gray-700 mt-2">
+                      La cancelación será efectiva desde el siguiente periodo de facturación. Las cantidades ya abonadas no son reembolsables.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* 11 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  10. Modificaciones de la política
+                  11. Modificaciones de la política
                 </h2>
                 <p>
                   AMETSGOIEN se reserva el derecho a modificar la presente política de privacidad para adaptarla a cambios legislativos o a nuevos tratamientos de datos. Cualquier modificación será publicada en esta misma página.
@@ -156,8 +217,11 @@ export default function PrivacidadPage() {
               </section>
 
               <div className="mt-10 p-4 bg-gray-100 rounded-lg">
+                <p className="text-sm text-gray-600 mb-2">
+                  <strong>Última actualización:</strong> Enero 2026
+                </p>
                 <p className="text-sm text-gray-600">
-                  <strong>Última actualización:</strong> Diciembre 2025
+                  Para consultas sobre política de privacidad, reembolsos o gestión de suscripciones, contacta: <strong>ametsgoien@gmail.com</strong>
                 </p>
               </div>
 

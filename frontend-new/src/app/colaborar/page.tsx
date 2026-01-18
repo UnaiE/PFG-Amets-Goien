@@ -24,7 +24,7 @@ interface DonacionForm {
   anotacion: string;
   cantidad: string;
   periodicidad: 'puntual' | 'mensual' | 'trimestral' | 'semestral' | 'anual';
-  metodoPago: 'bizum' | 'tarjeta' | '';
+  metodoPago: 'tarjeta' | '';
   aceptaPolitica: boolean;
 }
 
@@ -49,6 +49,7 @@ export default function ColaborarPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [bizumCopiado, setBizumCopiado] = useState(false);
 
   // Detectar retorno de Stripe Checkout
   useEffect(() => {
@@ -130,81 +131,37 @@ export default function ColaborarPage() {
         periodicidad: formData.periodicidad,
         anotacion: formData.anotacion ? 
           `Donación ${formData.periodicidad}: ${formData.cantidad}€ - ${formData.anotacion}` : 
-          `Donación ${formData.periodicidad}: ${formData.cantidad}€ via ${formData.metodoPago}`
+          `Donación ${formData.periodicidad}: ${formData.cantidad}€ via tarjeta`
       };
 
-      if (formData.metodoPago === 'bizum') {
-        // Para Bizum, guardar colaborador y mostrar instrucciones
-        const response = await fetch("http://localhost:4000/api/colaboradores", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(colaboradorData)
-        });
+      // Para tarjeta, crear Payment Intent o Suscripción con Stripe
+      const response = await fetch("http://localhost:4000/api/payment/create-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount: parseFloat(formData.cantidad),
+          colaboradorData
+        })
+      });
 
-        if (response.ok) {
-          const periodicidadTexto = formData.periodicidad !== 'puntual' 
-            ? `\nRecuerda: Has seleccionado donación ${formData.periodicidad}. Te enviaremos recordatorios.`
-            : '';
-          
-          setMensaje({ 
-            texto: `¡Gracias por tu colaboración de ${formData.cantidad}€!${periodicidadTexto}`, 
-            tipo: "success" 
-          });
-          
-          setTimeout(() => {
-            alert(`Envía ${formData.cantidad}€ al número de Bizum: 600 000 000\nConcepto: Donación Ametsgoien${periodicidadTexto}`);
-            
-            // Resetear formulario
-            setFormData({
-              nombre: "",
-              apellidos: "",
-              email: "",
-              prefijoTelefono: "+34",
-              telefono: "",
-              direccion: "",
-              anotacion: "",
-              cantidad: "",
-              periodicidad: "puntual",
-              metodoPago: "",
-              aceptaPolitica: false
-            });
-          }, 1000);
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Si es suscripción, redirigir a Stripe Checkout
+        if (data.subscriptionMode) {
+          // Redirigir a la URL de Stripe Checkout
+          window.location.href = data.sessionUrl;
         } else {
-          const error = await response.json();
-          setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
+          // Donación puntual - mostrar formulario de pago
+          setClientSecret(data.clientSecret);
+          setPaymentIntentId(data.paymentIntentId);
+          setShowPaymentForm(true);
         }
       } else {
-        // Para tarjeta, crear Payment Intent o Suscripción con Stripe
-        const response = await fetch("http://localhost:4000/api/payment/create-intent", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            amount: parseFloat(formData.cantidad),
-            colaboradorData
-          })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          
-          // Si es suscripción, redirigir a Stripe Checkout
-          if (data.subscriptionMode) {
-            // Redirigir a la URL de Stripe Checkout
-            window.location.href = data.sessionUrl;
-          } else {
-            // Donación puntual - mostrar formulario de pago
-            setClientSecret(data.clientSecret);
-            setPaymentIntentId(data.paymentIntentId);
-            setShowPaymentForm(true);
-          }
-        } else {
-          const error = await response.json();
-          setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
-        }
+        const error = await response.json();
+        setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -481,10 +438,8 @@ export default function ColaborarPage() {
                     </p>
                     <p className="text-xs text-blue-700">
                       {formData.metodoPago === 'tarjeta' 
-                        ? `Se creará una suscripción automática ${formData.periodicidad}. Podrás cancelarla en cualquier momento.`
-                        : formData.metodoPago === 'bizum'
-                        ? `Recibirás recordatorios ${formData.periodicidad}es para realizar tu donación.`
-                        : `Selecciona un método de pago para más información.`
+                        ? `Se creará una suscripción automática ${formData.periodicidad}. Podrás cancelarla en cualquier momento desde tu panel de gestión.`
+                        : `Se creará una suscripción automática con tu tarjeta. Elige "Tarjeta Bancaria" como método de pago.`
                       }
                     </p>
                   </div>
@@ -494,31 +449,11 @@ export default function ColaborarPage() {
               {/* Método de Pago Compacto */}
               <fieldset>
                 <legend className="block text-gray-800 font-semibold mb-2 text-sm">Método de Pago *</legend>
-                <div className="grid grid-cols-2 gap-3" role="group" aria-label="Seleccionar método de pago">
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, metodoPago: 'bizum' })}
-                    className={`p-4 rounded-lg border-2 transition-all text-left ${
-                      formData.metodoPago === 'bizum'
-                        ? 'border-[#8A4D76] bg-purple-50'
-                        : 'border-gray-300 bg-white hover:border-[#8A4D76]'
-                    }`}
-                    aria-pressed={formData.metodoPago === 'bizum'}
-                    aria-label="Pagar con Bizum"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold" style={{ backgroundColor: '#8A4D76' }} aria-hidden="true">B</div>
-                      <div>
-                        <h3 className="font-bold text-gray-900">Bizum</h3>
-                        <p className="text-xs text-gray-600">Rápido y seguro</p>
-                      </div>
-                    </div>
-                  </button>
-
+                <div className="space-y-3">
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, metodoPago: 'tarjeta' })}
-                    className={`p-4 rounded-lg border-2 transition-all text-left ${
+                    className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
                       formData.metodoPago === 'tarjeta'
                         ? 'border-[#8A4D76] bg-purple-50'
                         : 'border-gray-300 bg-white hover:border-[#8A4D76]'
@@ -533,11 +468,46 @@ export default function ColaborarPage() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900">Tarjeta</h3>
-                        <p className="text-xs text-gray-600">Débito o crédito</p>
+                        <h3 className="font-bold text-gray-900">Tarjeta Bancaria</h3>
+                        <p className="text-xs text-gray-600">Pago seguro con Stripe • Soporta suscripciones automáticas</p>
                       </div>
                     </div>
                   </button>
+
+                  {/* Información de Bizum para donaciones manuales */}
+                  <div className="p-4 rounded-lg border-2 border-gray-300 bg-gradient-to-br from-purple-50 to-pink-50">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold flex-shrink-0" style={{ backgroundColor: '#8A4D76' }} aria-hidden="true">B</div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-gray-900 mb-1">También puedes donar por Bizum</h3>
+                        <div className="bg-white rounded-lg p-3 border border-gray-200 mb-2">
+                          <p className="text-xs text-gray-600 mb-1">Envía tu donación al número:</p>
+                          <div className="flex items-center justify-between">
+                            <p className="text-2xl font-bold" style={{ color: '#8A4D76' }}>12892</p>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                navigator.clipboard.writeText('12892');
+                                setBizumCopiado(true);
+                                setTimeout(() => setBizumCopiado(false), 2000);
+                              }}
+                              className={`px-3 py-1 text-xs rounded-full transition-all ${
+                                bizumCopiado 
+                                  ? 'bg-green-100 text-green-700' 
+                                  : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                              }`}
+                              aria-label="Copiar número de Bizum"
+                            >
+                              {bizumCopiado ? '✓ Copiado' : 'Copiar'}
+                            </button>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 italic">
+                          💡 Recuerda incluir tu nombre en el concepto para que podamos agradecerte personalmente
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </fieldset>
 
