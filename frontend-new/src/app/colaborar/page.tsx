@@ -211,6 +211,48 @@ function ColaborarPageContent() {
     <>
       <Navbar />
       <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#E8D5F2' }} role="main">
+        
+        {/* Mensaje de confirmación destacado al volver de Stripe */}
+        {mensaje && (searchParams.get('success') === 'true' || searchParams.get('canceled') === 'true') && (
+          <div className="px-4 py-6 md:px-8 lg:px-16" style={{ backgroundColor: mensaje.tipo === 'success' ? '#10B981' : '#EF4444' }}>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
+                <div className="text-6xl mb-4">
+                  {mensaje.tipo === 'success' ? '🎉' : '❌'}
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: mensaje.tipo === 'success' ? '#10B981' : '#EF4444' }}>
+                  {mensaje.tipo === 'success' ? '¡Donación Exitosa!' : 'Donación Cancelada'}
+                </h2>
+                <p className="text-lg md:text-xl text-gray-700 mb-6">
+                  {mensaje.texto}
+                </p>
+                {mensaje.tipo === 'success' && (
+                  <div className="mt-6 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+                    <p className="text-gray-700 mb-4">
+                      <strong>Próximos pasos:</strong>
+                    </p>
+                    <ul className="text-left text-gray-600 space-y-2 max-w-2xl mx-auto">
+                      <li>✅ Recibirás un email de confirmación en breve</li>
+                      <li>✅ Tu donación está siendo procesada</li>
+                      <li>✅ Puedes contactarnos en <a href="mailto:info@ametsgoien.org" className="font-semibold underline" style={{ color: '#8A4D76' }}>info@ametsgoien.org</a></li>
+                    </ul>
+                  </div>
+                )}
+                <button
+                  onClick={() => {
+                    setMensaje(null);
+                    router.replace('/colaborar');
+                  }}
+                  className="mt-8 px-8 py-3 rounded-full text-white font-bold hover:shadow-lg transition-all"
+                  style={{ backgroundColor: '#8A4D76' }}
+                >
+                  {mensaje.tipo === 'success' ? 'Continuar' : 'Intentar de nuevo'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Hero Section */}
         <section className="py-12 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#8A4D76' }}>
           <div className="max-w-6xl mx-auto text-center text-white">

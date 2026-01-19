@@ -560,7 +560,7 @@ function ForoSection() {
   const [tareaData, setTareaData] = useState({
     titulo: "",
     descripcion: "",
-    estado: "Pendiente",
+    estado: "sin asignar",
     asignado_a: "",
     creado_por: ""
   });
@@ -615,7 +615,7 @@ function ForoSection() {
       if (response.ok) {
         showNotification("Tarea creada exitosamente", "success");
         setShowTareaForm(false);
-        setTareaData({ titulo: "", descripcion: "", estado: "Pendiente", asignado_a: "", creado_por: "" });
+        setTareaData({ titulo: "", descripcion: "", estado: "sin asignar", asignado_a: "", creado_por: "" });
         fetchTareas(); // Refrescar lista
       } else {
         showNotification("Error al crear tarea", "error");
@@ -832,7 +832,7 @@ function ForoSection() {
         onClick={() => {
           if (!showTareaForm) {
             setEditingTarea(null);
-            setTareaData({ titulo: "", descripcion: "", estado: "Pendiente", asignado_a: "", creado_por: "" });
+            setTareaData({ titulo: "", descripcion: "", estado: "sin asignar", asignado_a: "", creado_por: "" });
           }
           setShowTareaForm(!showTareaForm);
         }}
@@ -886,9 +886,9 @@ function ForoSection() {
                 onChange={(e) => setTareaData({ ...tareaData, estado: e.target.value })}
                 className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
               >
-                <option>Pendiente</option>
-                <option>Asignada</option>
-                <option>Finalizada</option>
+                <option value="sin asignar">Sin asignar</option>
+                <option value="asignado">Asignado</option>
+                <option value="realizado">Realizado</option>
               </select>
             </div>
             <button
