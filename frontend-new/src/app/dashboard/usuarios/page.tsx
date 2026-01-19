@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "${API_URL}";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 interface Usuario {
   id: number;
@@ -98,7 +98,7 @@ export default function UsuariosPage() {
   const fetchUsuarios = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${API_URL}/api/users", {
+      const response = await fetch(`${API_URL}/api/users`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -127,7 +127,7 @@ export default function UsuariosPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${API_URL}/api/users/register", {
+      const response = await fetch(`${API_URL}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
