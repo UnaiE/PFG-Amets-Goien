@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 // Función helper para decodificar el JWT y obtener el nombre del usuario
 function getUserFromToken(): string {
   const token = localStorage.getItem("token");
@@ -183,7 +185,7 @@ function PublicacionSection() {
 
   const fetchNoticias = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/noticias");
+      const response = await fetch(`${API_URL}/api/noticias`);
       if (response.ok) {
         const data = await response.json();
         setNoticias(data);
@@ -195,7 +197,7 @@ function PublicacionSection() {
 
   const fetchActividades = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/actividades");
+      const response = await fetch(`${API_URL}/api/actividades`);
       if (response.ok) {
         const data = await response.json();
         setActividades(data);
@@ -211,7 +213,7 @@ function PublicacionSection() {
       const token = localStorage.getItem("token");
       const username = getUserFromToken();
       
-      const response = await fetch("http://localhost:4000/api/noticias", {
+      const response = await fetch(`${API_URL}/api/noticias`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,7 +242,7 @@ function PublicacionSection() {
   const handleDeleteNoticia = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/noticias/${id}`, {
+      const response = await fetch(`${API_URL}/api/noticias/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -266,7 +268,7 @@ function PublicacionSection() {
       const token = localStorage.getItem("token");
       const username = getUserFromToken();
       
-      const response = await fetch("http://localhost:4000/api/actividades", {
+      const response = await fetch(`${API_URL}/api/actividades`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -295,7 +297,7 @@ function PublicacionSection() {
   const handleDeleteActividad = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/actividades/${id}`, {
+      const response = await fetch(`${API_URL}/api/actividades/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -575,7 +577,7 @@ function ForoSection() {
   const fetchTareas = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/tareas", {
+      const response = await fetch(`${API_URL}/api/tareas`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -598,7 +600,7 @@ function ForoSection() {
       const token = localStorage.getItem("token");
       const username = getUserFromToken();
       
-      const response = await fetch("http://localhost:4000/api/tareas", {
+      const response = await fetch(`${API_URL}/api/tareas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -629,7 +631,7 @@ function ForoSection() {
       const token = localStorage.getItem("token");
       const tarea = tareas.find(t => t.id === id);
       
-      const response = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+      const response = await fetch(`${API_URL}/api/tareas/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -656,7 +658,7 @@ function ForoSection() {
   const handleDeleteTarea = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+      const response = await fetch(`${API_URL}/api/tareas/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -694,7 +696,7 @@ function ForoSection() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/tareas/${editingTarea.id}`, {
+      const response = await fetch(`${API_URL}/api/tareas/${editingTarea.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

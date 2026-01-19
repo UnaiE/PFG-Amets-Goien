@@ -2,6 +2,8 @@
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 export default function CheckoutForm({ amount, paymentIntentId, onSuccess, onError }: { 
   amount: number;
   paymentIntentId: string;
@@ -35,7 +37,7 @@ export default function CheckoutForm({ amount, paymentIntentId, onSuccess, onErr
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
       // Confirmar el pago en el backend para guardar en BD
       try {
-        const response = await fetch('http://localhost:4000/api/payment/confirm', {
+        const response = await fetch(`${API_URL}/api/payment/confirm`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

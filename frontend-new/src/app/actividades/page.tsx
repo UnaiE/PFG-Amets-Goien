@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 interface Actividad {
   id: number;
   titulo: string;
@@ -26,7 +28,7 @@ export default function ActividadesPage() {
 
   const fetchActividades = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/actividades");
+      const response = await fetch(`${API_URL}/api/actividades`);
       if (response.ok) {
         const data = await response.json();
         setActividades(data);

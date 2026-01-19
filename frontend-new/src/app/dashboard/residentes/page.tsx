@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "${API_URL}";
+
 interface Residente {
   id: number;
   nombre: string;
@@ -68,7 +70,7 @@ export default function ResidentesPage() {
   const fetchResidentes = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/residentes", {
+      const response = await fetch(`${API_URL}/api/residentes`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -91,7 +93,7 @@ export default function ResidentesPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/residentes", {
+      const response = await fetch(`${API_URL}/api/residentes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +122,7 @@ export default function ResidentesPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/residentes/${editingResidente.id}`, {
+      const response = await fetch(`${API_URL}/api/residentes/${editingResidente.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -146,7 +148,7 @@ export default function ResidentesPage() {
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/residentes/${id}`, {
+      const response = await fetch(`${API_URL}/api/residentes/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

@@ -8,6 +8,8 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 export default function AccesoInterno() {
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -20,7 +22,7 @@ export default function AccesoInterno() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:4000/api/users/login", {
+      const response = await fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

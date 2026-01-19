@@ -12,8 +12,23 @@ import paymentRoutes from './routes/paymentRoutes.js';
 
 const app = express();
 
-// CORS simple
-app.use(cors());
+// CORS configurado para permitir requests desde el frontend
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:3000',
+  'http://localhost:3000' // Permitir desarrollo local
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Permitir requests sin origin (como Postman) o desde orígenes permitidos
+    if (!origin || allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 // Parse JSON (excepto para webhook de Stripe)
 app.use((req, res, next) => {

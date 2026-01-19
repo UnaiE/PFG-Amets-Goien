@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import CheckoutForm from "@/components/CheckoutForm";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 interface DonacionForm {
   nombre: string;
@@ -59,7 +60,7 @@ export default function ColaborarPage() {
 
     if (success === 'true' && sessionId) {
       // Confirmar la suscripción con el backend
-      fetch("http://localhost:4000/api/payment/confirm", {
+      fetch(`${API_URL}/api/payment/confirm`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -135,7 +136,7 @@ export default function ColaborarPage() {
       };
 
       // Para tarjeta, crear Payment Intent o Suscripción con Stripe
-      const response = await fetch("http://localhost:4000/api/payment/create-intent", {
+      const response = await fetch(`${API_URL}/api/payment/create-intent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

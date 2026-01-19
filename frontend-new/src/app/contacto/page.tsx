@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 export default function ContactoPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -35,7 +37,7 @@ export default function ContactoPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:4000/api/contacto", {
+      const response = await fetch(`${API_URL}/api/contacto`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

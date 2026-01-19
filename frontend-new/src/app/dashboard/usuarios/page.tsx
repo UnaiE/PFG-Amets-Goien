@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "${API_URL}";
+
 interface Usuario {
   id: number;
   username: string;
@@ -96,7 +98,7 @@ export default function UsuariosPage() {
   const fetchUsuarios = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/users", {
+      const response = await fetch("${API_URL}/api/users", {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -125,7 +127,7 @@ export default function UsuariosPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/users/register", {
+      const response = await fetch("${API_URL}/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -165,7 +167,7 @@ export default function UsuariosPage() {
         updateData.password = formData.password;
       }
 
-      const response = await fetch(`http://localhost:4000/api/users/${editingUsuario.id}`, {
+      const response = await fetch(`${API_URL}/api/users/${editingUsuario.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -191,7 +193,7 @@ export default function UsuariosPage() {
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/users/${id}`, {
+      const response = await fetch(`${API_URL}/api/users/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

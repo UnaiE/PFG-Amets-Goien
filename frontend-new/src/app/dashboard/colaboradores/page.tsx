@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "${API_URL}";
+
 interface Colaborador {
   id: number;
   nombre: string;
@@ -82,7 +84,7 @@ export default function ColaboradoresPage() {
   const fetchColaboradores = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/colaboradores", {
+      const response = await fetch("${API_URL}/api/colaboradores", {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -105,7 +107,7 @@ export default function ColaboradoresPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/colaboradores", {
+      const response = await fetch("${API_URL}/api/colaboradores", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +136,7 @@ export default function ColaboradoresPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/colaboradores/${editingColaborador.id}`, {
+      const response = await fetch(`${API_URL}/api/colaboradores/${editingColaborador.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +162,7 @@ export default function ColaboradoresPage() {
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:4000/api/colaboradores/${id}`, {
+      const response = await fetch(`${API_URL}/api/colaboradores/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

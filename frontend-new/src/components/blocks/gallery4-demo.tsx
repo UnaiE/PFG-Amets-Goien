@@ -14,7 +14,7 @@ const Gallery4Demo = () => {
   const fetchNoticias = async () => {
     try {
       // Hacemos la llamada sin autenticación para que sea pública
-      const response = await fetch("http://localhost:4000/api/noticias");
+      const response = await fetch(`${API_URL}/api/noticias`);
       
       if (response.ok) {
         const data = await response.json();
