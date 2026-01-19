@@ -100,7 +100,7 @@ export const createPaymentIntent = async (req, res) => {
           colaborador_direccion: colaboradorData.direccion || '',
           colaborador_anotacion: colaboradorData.anotacion || '',
           periodicidad: periodicidad,
-          importe: amount.toString()
+          cantidad: amount.toString()
         }
       });
 
@@ -122,7 +122,7 @@ export const createPaymentIntent = async (req, res) => {
           colaborador_direccion: colaboradorData.direccion || '',
           colaborador_anotacion: colaboradorData.anotacion || '',
           periodicidad: 'puntual',
-          importe: amount.toString()
+          cantidad: amount.toString()
         },
         automatic_payment_methods: {
           enabled: true,
@@ -180,17 +180,20 @@ export const confirmPayment = async (req, res) => {
         // Crear donación inicial
         await Donacion.create({
           colaborador_id: colaborador.id,
-          importe: parseFloat(metadata.importe),
+          cantidad: parseFloat(metadata.cantidad),
           metodo_pago: 'tarjeta',
           stripe_payment_intent_id: subscription.latest_invoice,
-          estado: 'completada'
+          stripe_subscription_id: session.subscription,
+          periodicidad: metadata.periodicidad,
+          estado: 'completada',
+          anotacion: `Donación ${metadata.periodicidad}: ${metadata.cantidad}€ via tarjeta`
         });
 
         // Enviar email de confirmación
         await enviarEmailDonacion({
           email: metadata.colaborador_email,
           nombre: metadata.colaborador_nombre,
-          cantidad: metadata.importe,
+          cantidad: metadata.cantidad,
           periodicidad: metadata.periodicidad,
           stripeSubscriptionId: session.subscription
         });
@@ -234,17 +237,19 @@ export const confirmPayment = async (req, res) => {
 
           await Donacion.create({
             colaborador_id: colaborador.id,
-            importe: parseFloat(metadata.importe),
+            cantidad: parseFloat(metadata.cantidad),
             metodo_pago: 'tarjeta',
             stripe_payment_intent_id: paymentIntentId,
-            estado: 'completada'
+            periodicidad: 'puntual',
+            estado: 'completada',
+            anotacion: `Donación puntual: ${metadata.cantidad}€ via tarjeta`
           });
 
           // Enviar email de confirmación para donación puntual
           await enviarEmailDonacion({
             email: metadata.colaborador_email,
             nombre: metadata.colaborador_nombre,
-            cantidad: metadata.importe,
+            cantidad: metadata.cantidad,
             periodicidad: 'puntual',
             stripeSubscriptionId: null
           });
@@ -318,10 +323,12 @@ export const stripeWebhook = async (req, res) => {
         // Crear donación completada
         await Donacion.create({
           colaborador_id: colaborador.id,
-          importe: parseFloat(metadata.importe),
+          cantidad: parseFloat(metadata.cantidad),
           metodo_pago: 'tarjeta',
           stripe_payment_intent_id: paymentIntent.id,
-          estado: 'completada'
+          periodicidad: metadata.periodicidad || 'puntual',
+          estado: 'completada',
+          anotacion: `Donación ${metadata.periodicidad || 'puntual'}: ${metadata.cantidad}€ via tarjeta`
         });
       }
       break;
@@ -362,10 +369,13 @@ export const stripeWebhook = async (req, res) => {
         // Crear donación inicial
         await Donacion.create({
           colaborador_id: colaborador.id,
-          importe: parseFloat(sessionMetadata.importe),
+          cantidad: parseFloat(sessionMetadata.cantidad),
           metodo_pago: 'tarjeta',
           stripe_payment_intent_id: subscription.latest_invoice,
-          estado: 'completada'
+          stripe_subscription_id: session.subscription,
+          periodicidad: sessionMetadata.periodicidad,
+          estado: 'completada',
+          anotacion: `Donación ${sessionMetadata.periodicidad}: ${sessionMetadata.cantidad}€ via tarjeta`
         });
       }
       break;
@@ -384,10 +394,13 @@ export const stripeWebhook = async (req, res) => {
           // Crear donación por el pago recurrente
           await Donacion.create({
             colaborador_id: colaborador.id,
-            importe: invoice.amount_paid / 100, // Convertir de centavos
+            cantidad: invoice.amount_paid / 100, // Convertir de centavos
             metodo_pago: 'tarjeta',
             stripe_payment_intent_id: invoice.payment_intent,
-            estado: 'completada'
+            stripe_subscription_id: invoice.subscription,
+            periodicidad: colaborador.periodicidad,
+            estado: 'completada',
+            anotacion: `Pago recurrente ${colaborador.periodicidad}: ${(invoice.amount_paid / 100)}€ via tarjeta`
           });
           console.log(`📝 Donación recurrente registrada para colaborador ${colaborador.id}`);
           

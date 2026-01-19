@@ -17,12 +17,12 @@ class Donacion {
   }
 
   static async create(data) {
-    const { colaborador_id, importe, metodo_pago, stripe_payment_intent_id, estado } = data;
+    const { colaborador_id, cantidad, metodo_pago, stripe_payment_intent_id, stripe_subscription_id, periodicidad, estado, anotacion } = data;
     const result = await pool.query(
-      `INSERT INTO donaciones (colaborador_id, importe, metodo_pago, stripe_payment_intent_id, estado, created_at)
-       VALUES ($1, $2, $3, $4, $5, NOW())
+      `INSERT INTO donaciones (colaborador_id, cantidad, metodo_pago, stripe_payment_intent_id, stripe_subscription_id, periodicidad, estado, anotacion, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
        RETURNING *`,
-      [colaborador_id, importe, metodo_pago, stripe_payment_intent_id, estado || 'pendiente']
+      [colaborador_id, cantidad, metodo_pago, stripe_payment_intent_id, stripe_subscription_id, periodicidad || 'puntual', estado || 'pendiente', anotacion]
     );
     return result.rows[0];
   }
