@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { createTransport } from "nodemailer";
 import { contactoSchema } from "../validations/contactoValidation.js";
 
 // Configurar el transporter de nodemailer con timeout reducido
@@ -23,7 +23,7 @@ const createTransporter = () => {
     passLength: config.auth.pass ? config.auth.pass.length : 0
   });
 
-  return nodemailer.createTransporter(config);
+  return createTransport(config);
 };
 
 const transporter = createTransporter();
