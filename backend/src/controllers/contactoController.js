@@ -97,19 +97,33 @@ export const enviarContacto = async (req, res) => {
       `
     };
 
-    // Enviar ambos emails
-    await transporter.sendMail(mailOptionsAdmin);
-    await transporter.sendMail(mailOptionsUsuario);
+    // Enviar ambos emails (con manejo de errores no bloqueante)
+    try {
+      await Promise.all([
+        transporter.sendMail(mailOptionsAdmin),
+        transporter.sendMail(mailOptionsUsuario)
+      ]);
+      console.log(`✅ Email de contacto enviado correctamente a ${email}`);
+    } catch (emailError) {
+      console.error("❌ Error enviando email de contacto:", emailError);
+      // NO fallar el endpoint - registrar el mensaje en consola
+      console.log("📝 Mensaje de contacto recibido (email falló):", {
+        nombre: `${nombre} ${apellidos}`,
+        email,
+        mensaje: mensaje.substring(0, 100) + "..."
+      });
+    }
 
+    // Siempre responder exitosamente al usuario
     res.status(200).json({
-      message: "Mensaje enviado correctamente",
+      message: "Mensaje recibido correctamente. Te contactaremos pronto.",
       success: true
     });
 
   } catch (error) {
-    console.error("Error al enviar el email:", error);
+    console.error("Error al procesar el contacto:", error);
     res.status(500).json({
-      message: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+      message: "Error al procesar el mensaje. Por favor, inténtalo de nuevo más tarde.",
       error: error.message
     });
   }
