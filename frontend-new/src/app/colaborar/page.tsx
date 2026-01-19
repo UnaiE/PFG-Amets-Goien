@@ -4,7 +4,7 @@
  * @description Página para realizar donaciones mediante Bizum o tarjeta, guardando datos del colaborador
  */
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -29,7 +29,7 @@ interface DonacionForm {
   aceptaPolitica: boolean;
 }
 
-export default function ColaborarPage() {
+function ColaborarPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState<DonacionForm>({
@@ -598,5 +598,23 @@ export default function ColaborarPage() {
       </div>
       <Footer />
     </>
+  );
+}
+
+export default function ColaborarPage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Navbar />
+        <div className="min-h-screen pt-20 flex items-center justify-center" style={{ backgroundColor: '#E8D5F2' }}>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#8A4D76] mx-auto"></div>
+            <p className="mt-4 text-gray-600">Cargando...</p>
+          </div>
+        </div>
+      </>
+    }>
+      <ColaborarPageContent />
+    </Suspense>
   );
 }
