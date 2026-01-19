@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "${API_URL}";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 interface Empleado {
   id: number;
@@ -91,7 +91,7 @@ export default function TrabajadoresPage() {
   const fetchEmpleados = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${API_URL}/api/empleados", {
+      const response = await fetch(`${API_URL}/api/empleados`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -114,7 +114,7 @@ export default function TrabajadoresPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${API_URL}/api/empleados", {
+      const response = await fetch(`${API_URL}/api/empleados`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -27,7 +27,16 @@ export const getTareaById = async (req, res) => {
 // Create new tarea
 export const createTarea = async (req, res) => {
   try {
-    const newTarea = await Tarea.create(req.body);
+    // Obtener el user ID del token JWT (está disponible en req.user gracias al middleware auth)
+    const userId = req.user?.id;
+    
+    const tareaData = {
+      ...req.body,
+      creado_por: userId,
+      asignado_a: req.body.asignado_a || null
+    };
+    
+    const newTarea = await Tarea.create(tareaData);
     res.status(201).json(newTarea);
   } catch (error) {
     console.error("Error creating tarea:", error);

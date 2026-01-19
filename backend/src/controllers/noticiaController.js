@@ -28,8 +28,16 @@ export const getNoticiaById = async (req, res) => {
 
 // Create new noticia
 export const createNoticia = async (req, res) => {
-  try { 
-    const newNoticia = await Noticia.create(req.body);
+  try {
+    // Obtener el user ID del token JWT
+    const userId = req.user?.id;
+    
+    const noticiaData = {
+      ...req.body,
+      creado_por: userId
+    };
+    
+    const newNoticia = await Noticia.create(noticiaData);
     res.status(201).json(newNoticia);
     } catch (error) {
     console.error('Error creating noticia:', error);

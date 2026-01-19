@@ -29,7 +29,17 @@ export const getActividadById = async (req, res) => {
 // Create new actividad
 export const createActividad = async (req, res) => {
   try {
-    const newActividad = await Actividad.create(req.body);
+    // Obtener el user ID del token JWT
+    const userId = req.user?.id;
+    
+    const actividadData = {
+      titulo: req.body.titulo,
+      descripcion: req.body.descripcion,
+      fecha: req.body.fecha || null,
+      creador_id: userId
+    };
+    
+    const newActividad = await Actividad.create(actividadData);
     res.status(201).json(newActividad);
     } catch (error) {
     console.error('Error creating actividad:', error);
