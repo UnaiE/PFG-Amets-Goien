@@ -803,7 +803,7 @@ function ForoSection() {
               {tarea.descripcion && (
                 <p className="text-gray-600 mb-2">{tarea.descripcion}</p>
               )}
-              <p className="text-gray-600 mb-2">Publicado por: {tarea.creado_por || "Sistema"}</p>
+              <p className="text-gray-600 mb-2">Publicado por: {tarea.creado_por_username || "Sistema"}</p>
               <p className="font-semibold mb-4" style={{ color: '#8A4D76' }}>
                 Asignada a: {tarea.asignado_a || "Sin asignar"}
               </p>

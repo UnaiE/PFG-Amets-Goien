@@ -1,12 +1,15 @@
 import nodemailer from "nodemailer";
 import { contactoSchema } from "../validations/contactoValidation.js";
 
-// Configurar el transporter de nodemailer
+// Configurar el transporter de nodemailer con timeout reducido
 const createTransporter = () => {
   const config = {
     host: process.env.SMTP_HOST || "smtp.gmail.com",
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: false,
+    connectionTimeout: 10000, // 10 segundos
+    greetingTimeout: 10000,   // 10 segundos
+    socketTimeout: 10000,     // 10 segundos
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
@@ -20,7 +23,7 @@ const createTransporter = () => {
     passLength: config.auth.pass ? config.auth.pass.length : 0
   });
 
-  return nodemailer.createTransport(config);
+  return nodemailer.createTransporter(config);
 };
 
 const transporter = createTransporter();
@@ -103,11 +106,20 @@ export const enviarContacto = async (req, res) => {
       `
     };
 
-    // Enviar ambos emails (con manejo de errores no bloqueante)
+    // Enviar ambos emails con timeout de 10 segundos
+    const sendEmailWithTimeout = async (mailOptions, timeout = 10000) => {
+      return Promise.race([
+        transporter.sendMail(mailOptions),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Email timeout')), timeout)
+        )
+      ]);
+    };
+
     try {
       await Promise.all([
-        transporter.sendMail(mailOptionsAdmin),
-        transporter.sendMail(mailOptionsUsuario)
+        sendEmailWithTimeout(mailOptionsAdmin),
+        sendEmailWithTimeout(mailOptionsUsuario)
       ]);
       console.log(`✅ Email de contacto enviado correctamente a ${email}`);
     } catch (emailError) {

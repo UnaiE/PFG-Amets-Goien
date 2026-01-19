@@ -2,7 +2,12 @@ import pool from "../config/db.js";
 
 const Tarea = {
   getAll: async () => {
-    const result = await pool.query("SELECT * FROM tareas ORDER BY id DESC");
+    const result = await pool.query(`
+      SELECT t.*, u.username as creado_por_username 
+      FROM tareas t 
+      LEFT JOIN users u ON t.creado_por = u.id 
+      ORDER BY t.created_at DESC
+    `);
     return result.rows;
   },
 
