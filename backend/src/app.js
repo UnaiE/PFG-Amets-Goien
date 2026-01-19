@@ -13,19 +13,30 @@ import paymentRoutes from './routes/paymentRoutes.js';
 const app = express();
 
 // CORS configurado para permitir requests desde el frontend
-const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:3000',
-  'http://localhost:3000' // Permitir desarrollo local
-];
-
 app.use(cors({
   origin: function(origin, callback) {
-    // Permitir requests sin origin (como Postman) o desde orígenes permitidos
-    if (!origin || allowedOrigins.some(allowed => origin.startsWith(allowed))) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    // Permitir requests sin origin (como Postman, mobile apps, etc)
+    if (!origin) {
+      return callback(null, true);
     }
+    
+    // Permitir localhost para desarrollo
+    if (origin.includes('localhost')) {
+      return callback(null, true);
+    }
+    
+    // Permitir todas las URLs de Vercel (producción y preview)
+    if (origin.includes('vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Permitir el frontend configurado en variables de entorno
+    if (process.env.FRONTEND_URL && origin.startsWith(process.env.FRONTEND_URL)) {
+      return callback(null, true);
+    }
+    
+    // Bloquear otros orígenes
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true
 }));
