@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Gallery4 } from "@/components/blocks/gallery4";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 const Gallery4Demo = () => {
   const [noticias, setNoticias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

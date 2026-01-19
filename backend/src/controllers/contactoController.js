@@ -25,14 +25,15 @@ const createTransporter = () => {
 
 const transporter = createTransporter();
 
-// Verificar la conexión SMTP al iniciar
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("Error en la configuración SMTP:", error);
-  } else {
-    console.log("Servidor SMTP listo para enviar emails");
-  }
-});
+// Verificar la conexión SMTP al iniciar (no bloqueante)
+transporter.verify()
+  .then(() => {
+    console.log("✅ Servidor SMTP listo para enviar emails");
+  })
+  .catch((error) => {
+    console.error("⚠️ Error en la configuración SMTP:", error.message);
+    console.log("El servidor continuará funcionando, pero los emails pueden fallar");
+  });
 
 export const enviarContacto = async (req, res) => {
   try {
