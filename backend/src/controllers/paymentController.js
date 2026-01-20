@@ -217,6 +217,7 @@ export const confirmPayment = async (req, res) => {
             console.log('✅ Suscripción creada:', subscriptionId);
             
             await Colaborador.update(colaborador.id, {
+              ...colaborador,
               stripe_subscription_id: subscriptionId,
               periodicidad: metadata.periodicidad
             });
