@@ -93,11 +93,35 @@ export const createPaymentIntent = async (req, res) => {
         }
       });
 
+      console.log('📦 Suscripción creada:', subscription.id);
+      
+      // Obtener el invoice con el payment_intent
+      let invoice = subscription.latest_invoice;
+      
+      // Si latest_invoice es solo un ID, recuperarlo
+      if (typeof invoice === 'string') {
+        console.log('🔄 Recuperando invoice:', invoice);
+        invoice = await stripe.invoices.retrieve(invoice, {
+          expand: ['payment_intent']
+        });
+      }
+      
+      console.log('📄 Invoice recuperado:', invoice.id);
+      
+      // Verificar que el payment_intent esté disponible
+      if (!invoice || !invoice.payment_intent) {
+        console.error('❌ Payment Intent no disponible. Invoice:', invoice);
+        throw new Error('Payment Intent no disponible en la suscripción');
+      }
+
+      const paymentIntent = invoice.payment_intent;
+      console.log('✅ Payment Intent:', paymentIntent.id);
+      
       res.json({
         subscriptionMode: true,
         subscriptionId: subscription.id,
-        clientSecret: subscription.latest_invoice.payment_intent.client_secret,
-        paymentIntentId: subscription.latest_invoice.payment_intent.id
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id
       });
     } else {
       // Donación puntual - crear Payment Intent normal
