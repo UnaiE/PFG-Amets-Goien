@@ -46,7 +46,7 @@ function ColaborarPageContent() {
     aceptaPolitica: false
   });
   const [loading, setLoading] = useState(false);
-  const [mensaje, setMensaje] = useState<{ texto: string; tipo: 'success' | 'error' } | null>(null);
+  const [mensaje, setMensaje] = useState<{ texto: string; tipo: 'success' | 'error' | 'info' } | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
@@ -59,6 +59,12 @@ function ColaborarPageContent() {
     const sessionId = searchParams.get('session_id');
 
     if (success === 'true' && sessionId) {
+      // Mostrar mensaje de carga primero
+      setMensaje({ 
+        texto: "Procesando tu suscripción...", 
+        tipo: "info" 
+      });
+
       // Confirmar la suscripción con el backend
       fetch(`${API_URL}/api/payment/confirm`, {
         method: "POST",
@@ -80,6 +86,10 @@ function ColaborarPageContent() {
             tipo: "error" 
           });
         }
+        // Limpiar URL después de 3 segundos
+        setTimeout(() => {
+          router.replace('/colaborar', { scroll: false });
+        }, 5000);
       })
       .catch(error => {
         console.error("Error confirmando suscripción:", error);
@@ -87,16 +97,20 @@ function ColaborarPageContent() {
           texto: "Error al confirmar la suscripción.", 
           tipo: "error" 
         });
+        // Limpiar URL después de 3 segundos
+        setTimeout(() => {
+          router.replace('/colaborar', { scroll: false });
+        }, 5000);
       });
-
-      // Limpiar parámetros de URL
-      router.replace('/colaborar');
     } else if (canceled === 'true') {
       setMensaje({ 
         texto: "Donación cancelada. Puedes intentarlo de nuevo cuando quieras.", 
         tipo: "error" 
       });
-      router.replace('/colaborar');
+      // Limpiar URL después de 3 segundos
+      setTimeout(() => {
+        router.replace('/colaborar', { scroll: false });
+      }, 3000);
     }
   }, [searchParams, router]);
 
@@ -214,14 +228,18 @@ function ColaborarPageContent() {
         
         {/* Mensaje de confirmación destacado al volver de Stripe */}
         {mensaje && (searchParams.get('success') === 'true' || searchParams.get('canceled') === 'true') && (
-          <div className="px-4 py-6 md:px-8 lg:px-16" style={{ backgroundColor: mensaje.tipo === 'success' ? '#10B981' : '#EF4444' }}>
+          <div className="px-4 py-6 md:px-8 lg:px-16" style={{ 
+            backgroundColor: mensaje.tipo === 'success' ? '#10B981' : mensaje.tipo === 'info' ? '#3B82F6' : '#EF4444' 
+          }}>
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
                 <div className="text-6xl mb-4">
-                  {mensaje.tipo === 'success' ? '🎉' : '❌'}
+                  {mensaje.tipo === 'success' ? '🎉' : mensaje.tipo === 'info' ? '⏳' : '❌'}
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: mensaje.tipo === 'success' ? '#10B981' : '#EF4444' }}>
-                  {mensaje.tipo === 'success' ? '¡Donación Exitosa!' : 'Donación Cancelada'}
+                <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ 
+                  color: mensaje.tipo === 'success' ? '#10B981' : mensaje.tipo === 'info' ? '#3B82F6' : '#EF4444' 
+                }}>
+                  {mensaje.tipo === 'success' ? '¡Donación Exitosa!' : mensaje.tipo === 'info' ? 'Procesando...' : 'Donación Cancelada'}
                 </h2>
                 <p className="text-lg md:text-xl text-gray-700 mb-6">
                   {mensaje.texto}
@@ -238,16 +256,18 @@ function ColaborarPageContent() {
                     </ul>
                   </div>
                 )}
-                <button
-                  onClick={() => {
-                    setMensaje(null);
-                    router.replace('/colaborar');
-                  }}
-                  className="mt-8 px-8 py-3 rounded-full text-white font-bold hover:shadow-lg transition-all"
-                  style={{ backgroundColor: '#8A4D76' }}
-                >
-                  {mensaje.tipo === 'success' ? 'Continuar' : 'Intentar de nuevo'}
-                </button>
+                {mensaje.tipo !== 'info' && (
+                  <button
+                    onClick={() => {
+                      setMensaje(null);
+                      router.replace('/colaborar');
+                    }}
+                    className="mt-8 px-8 py-3 rounded-full text-white font-bold hover:shadow-lg transition-all"
+                    style={{ backgroundColor: '#8A4D76' }}
+                  >
+                    {mensaje.tipo === 'success' ? 'Continuar' : 'Intentar de nuevo'}
+                  </button>
+                )}
               </div>
             </div>
           </div>
