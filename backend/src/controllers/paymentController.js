@@ -148,83 +148,22 @@ export const confirmPayment = async (req, res) => {
   try {
     const { paymentIntentId, sessionId } = req.body;
 
-    // Si es una suscripción, verificar la sesión de checkout
-    if (sessionId) {
-      const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-      if (session.payment_status === 'paid') {
-        const metadata = session.metadata;
-        const subscription = await stripe.subscriptions.retrieve(session.subscription);
-
-        // Buscar o crear colaborador
-        const existingColaboradores = await Colaborador.getAll();
-        let colaborador = existingColaboradores.find(c => c.email === metadata.colaborador_email);
-
-        if (!colaborador) {
-          colaborador = await Colaborador.create({
-            nombre: metadata.colaborador_nombre,
-            apellidos: metadata.colaborador_apellidos,
-            email: metadata.colaborador_email,
-            telefono: metadata.colaborador_telefono || null,
-            direccion: metadata.colaborador_direccion || null,
-            anotacion: metadata.colaborador_anotacion || null,
-            periodicidad: metadata.periodicidad,
-            stripe_subscription_id: session.subscription
-          });
-        } else {
-          // Actualizar con el subscription_id
-          await Colaborador.update(colaborador.id, {
-            ...colaborador,
-            periodicidad: metadata.periodicidad,
-            stripe_subscription_id: session.subscription
-          });
-        }
-
-        // Crear donación inicial
-        await Donacion.create({
-          colaborador_id: colaborador.id,
-          cantidad: parseFloat(metadata.cantidad),
-          metodo_pago: 'tarjeta',
-          stripe_payment_intent_id: subscription.latest_invoice,
-          stripe_subscription_id: session.subscription,
-          periodicidad: metadata.periodicidad,
-          estado: 'completada',
-          anotacion: `Donación ${metadata.periodicidad}: ${metadata.cantidad}€ via tarjeta`
-        });
-
-        // Enviar email de confirmación
-        await enviarEmailDonacion({
-          email: metadata.colaborador_email,
-          nombre: metadata.colaborador_nombre,
-          cantidad: metadata.cantidad,
-          periodicidad: metadata.periodicidad,
-          stripeSubscriptionId: session.subscription
-        });
-
-        res.json({
-          success: true,
-          estado: 'completada',
-          subscriptionId: session.subscription
-        });
-      } else {
-        res.json({
-          success: false,
-          estado: session.payment_status
-        });
-      }
-    } else if (paymentIntentId) {
-      // Donación puntual - lógica existente
+    console.log('✅ Confirmación de pago recibida:', { paymentIntentId, sessionId });
+    
+    if (paymentIntentId) {
       const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-
+      
       if (paymentIntent.status === 'succeeded') {
+        // Verificar si ya existe en BD
         let donacion = await Donacion.getByPaymentIntentId(paymentIntentId);
-
+        
         if (!donacion) {
+          // Procesar y guardar en BD
           const metadata = paymentIntent.metadata;
-
+          
           const existingColaboradores = await Colaborador.getAll();
           let colaborador = existingColaboradores.find(c => c.email === metadata.colaborador_email);
-
+          
           if (!colaborador) {
             colaborador = await Colaborador.create({
               nombre: metadata.colaborador_nombre,
@@ -237,45 +176,95 @@ export const confirmPayment = async (req, res) => {
               stripe_subscription_id: null
             });
           }
-
+          
+          // Si es modo suscripción, crear la suscripción en Stripe
+          let subscriptionId = null;
+          if (metadata.subscription_mode === 'true' && metadata.price_id) {
+            console.log('🔄 Creando suscripción en Stripe...');
+            
+            const paymentMethodId = paymentIntent.payment_method;
+            
+            if (paymentMethodId) {
+              try {
+                await stripe.paymentMethods.attach(paymentMethodId, {
+                  customer: paymentIntent.customer,
+                });
+                
+                await stripe.customers.update(paymentIntent.customer, {
+                  invoice_settings: {
+                    default_payment_method: paymentMethodId,
+                  },
+                });
+              } catch (err) {
+                console.log('⚠️ Método de pago ya adjuntado');
+              }
+            }
+            
+            const subscription = await stripe.subscriptions.create({
+              customer: paymentIntent.customer,
+              items: [{ price: metadata.price_id }],
+              default_payment_method: paymentMethodId,
+              metadata: {
+                colaborador_nombre: metadata.colaborador_nombre,
+                colaborador_apellidos: metadata.colaborador_apellidos,
+                colaborador_email: metadata.colaborador_email,
+                periodicidad: metadata.periodicidad,
+                cantidad: metadata.cantidad
+              }
+            });
+            
+            subscriptionId = subscription.id;
+            console.log('✅ Suscripción creada:', subscriptionId);
+            
+            await Colaborador.update(colaborador.id, {
+              stripe_subscription_id: subscriptionId,
+              periodicidad: metadata.periodicidad
+            });
+          }
+          
           await Donacion.create({
             colaborador_id: colaborador.id,
             cantidad: parseFloat(metadata.cantidad),
             metodo_pago: 'tarjeta',
             stripe_payment_intent_id: paymentIntentId,
-            periodicidad: 'puntual',
+            stripe_subscription_id: subscriptionId || null,
+            periodicidad: metadata.periodicidad || 'puntual',
             estado: 'completada',
-            anotacion: `Donación puntual: ${metadata.cantidad}€ via tarjeta`
+            anotacion: subscriptionId 
+              ? `Primer pago de suscripción ${metadata.periodicidad}: ${metadata.cantidad}€`
+              : `Donación puntual: ${metadata.cantidad}€`
           });
-
-          // Enviar email de confirmación para donación puntual
-          await enviarEmailDonacion({
-            email: metadata.colaborador_email,
-            nombre: metadata.colaborador_nombre,
-            cantidad: metadata.cantidad,
-            periodicidad: 'puntual',
-            stripeSubscriptionId: null
-          });
+          
+          console.log('✅ Donación guardada en BD');
         }
-
+        
         res.json({
           success: true,
-          estado: 'completada',
-          paymentStatus: paymentIntent.status
+          estado: 'completada'
         });
       } else {
         res.json({
           success: false,
-          estado: paymentIntent.status,
-          paymentStatus: paymentIntent.status
+          estado: paymentIntent.status
         });
       }
+    } else if (sessionId) {
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+      
+      res.json({
+        success: session.payment_status === 'paid',
+        estado: session.payment_status
+      });
     } else {
       res.status(400).json({ message: 'Payment Intent ID o Session ID requerido' });
     }
   } catch (error) {
     console.error('Error confirmando pago:', error);
-    res.status(500).json({ message: 'Error al confirmar el pago', error: error.message });
+    res.status(500).json({ 
+      success: false,
+      message: 'Error al confirmar el pago', 
+      error: error.message 
+    });
   }
 };
 

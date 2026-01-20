@@ -35,7 +35,7 @@ export default function CheckoutForm({ amount, paymentIntentId, onSuccess, onErr
       onError(error.message || "Error al procesar el pago");
       setIsProcessing(false);
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      // Confirmar el pago en el backend para guardar en BD
+      // Confirmar el pago en el backend para guardar en BD y crear suscripción
       try {
         const response = await fetch(`${API_URL}/api/payment/confirm`, {
           method: 'POST',
@@ -47,14 +47,17 @@ export default function CheckoutForm({ amount, paymentIntentId, onSuccess, onErr
           }),
         });
 
-        if (response.ok) {
+        const data = await response.json();
+
+        if (response.ok && data.success) {
           onSuccess();
         } else {
-          onError("Pago exitoso pero error al guardar en base de datos");
+          console.error('Error del servidor:', data);
+          onError(data.message || "Error al procesar el pago en el servidor");
         }
       } catch (err) {
         console.error('Error confirmando pago:', err);
-        onError("Pago exitoso pero error al guardar en base de datos");
+        onError("Error de conexión al procesar el pago");
       }
       setIsProcessing(false);
     } else {
