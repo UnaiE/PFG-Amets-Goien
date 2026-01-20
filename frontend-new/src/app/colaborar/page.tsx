@@ -52,6 +52,16 @@ function ColaborarPageContent() {
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [bizumCopiado, setBizumCopiado] = useState(false);
 
+  // Auto-ocultar mensaje después de 5 segundos
+  useEffect(() => {
+    if (mensaje) {
+      const timer = setTimeout(() => {
+        setMensaje(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [mensaje]);
+
   // Detectar retorno de Stripe Checkout
   useEffect(() => {
     const success = searchParams.get('success');
@@ -59,13 +69,7 @@ function ColaborarPageContent() {
     const sessionId = searchParams.get('session_id');
 
     if (success === 'true' && sessionId) {
-      // Mostrar mensaje de carga primero
-      setMensaje({ 
-        texto: "Procesando tu suscripción...", 
-        tipo: "info" 
-      });
-
-      // Confirmar la suscripción con el backend
+      // Confirmar la suscripción con el backend (en segundo plano)
       fetch(`${API_URL}/api/payment/confirm`, {
         method: "POST",
         headers: {
@@ -82,35 +86,28 @@ function ColaborarPageContent() {
           });
         } else {
           setMensaje({ 
-            texto: "Hubo un problema al confirmar tu suscripción. Por favor, contacta con nosotros.", 
-            tipo: "error" 
+            texto: "Donación procesada. Recibirás un email de confirmación en breve.", 
+            tipo: "success" 
           });
         }
-        // Limpiar URL después de 3 segundos
-        setTimeout(() => {
-          router.replace('/colaborar', { scroll: false });
-        }, 5000);
       })
       .catch(error => {
         console.error("Error confirmando suscripción:", error);
         setMensaje({ 
-          texto: "Error al confirmar la suscripción.", 
-          tipo: "error" 
+          texto: "Donación procesada. Recibirás un email de confirmación en breve.", 
+          tipo: "success" 
         });
-        // Limpiar URL después de 3 segundos
-        setTimeout(() => {
-          router.replace('/colaborar', { scroll: false });
-        }, 5000);
       });
+
+      // Limpiar URL inmediatamente
+      router.replace('/colaborar', { scroll: false });
     } else if (canceled === 'true') {
       setMensaje({ 
         texto: "Donación cancelada. Puedes intentarlo de nuevo cuando quieras.", 
         tipo: "error" 
       });
-      // Limpiar URL después de 3 segundos
-      setTimeout(() => {
-        router.replace('/colaborar', { scroll: false });
-      }, 3000);
+      // Limpiar URL
+      router.replace('/colaborar', { scroll: false });
     }
   }, [searchParams, router]);
 
@@ -226,49 +223,15 @@ function ColaborarPageContent() {
       <Navbar />
       <div id="main-content" className="min-h-screen pt-20" style={{ backgroundColor: '#E8D5F2' }} role="main">
         
-        {/* Mensaje de confirmación destacado al volver de Stripe */}
-        {mensaje && (searchParams.get('success') === 'true' || searchParams.get('canceled') === 'true') && (
-          <div className="px-4 py-6 md:px-8 lg:px-16" style={{ 
-            backgroundColor: mensaje.tipo === 'success' ? '#10B981' : mensaje.tipo === 'info' ? '#3B82F6' : '#EF4444' 
-          }}>
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
-                <div className="text-6xl mb-4">
-                  {mensaje.tipo === 'success' ? '🎉' : mensaje.tipo === 'info' ? '⏳' : '❌'}
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ 
-                  color: mensaje.tipo === 'success' ? '#10B981' : mensaje.tipo === 'info' ? '#3B82F6' : '#EF4444' 
-                }}>
-                  {mensaje.tipo === 'success' ? '¡Donación Exitosa!' : mensaje.tipo === 'info' ? 'Procesando...' : 'Donación Cancelada'}
-                </h2>
-                <p className="text-lg md:text-xl text-gray-700 mb-6">
-                  {mensaje.texto}
-                </p>
-                {mensaje.tipo === 'success' && (
-                  <div className="mt-6 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
-                    <p className="text-gray-700 mb-4">
-                      <strong>Próximos pasos:</strong>
-                    </p>
-                    <ul className="text-left text-gray-600 space-y-2 max-w-2xl mx-auto">
-                      <li>✅ Recibirás un email de confirmación en breve</li>
-                      <li>✅ Tu donación está siendo procesada</li>
-                      <li>✅ Puedes contactarnos en <a href="mailto:info@ametsgoien.org" className="font-semibold underline" style={{ color: '#8A4D76' }}>info@ametsgoien.org</a></li>
-                    </ul>
-                  </div>
-                )}
-                {mensaje.tipo !== 'info' && (
-                  <button
-                    onClick={() => {
-                      setMensaje(null);
-                      router.replace('/colaborar');
-                    }}
-                    className="mt-8 px-8 py-3 rounded-full text-white font-bold hover:shadow-lg transition-all"
-                    style={{ backgroundColor: '#8A4D76' }}
-                  >
-                    {mensaje.tipo === 'success' ? 'Continuar' : 'Intentar de nuevo'}
-                  </button>
-                )}
-              </div>
+        {/* Notificación de confirmación de suscripción */}
+        {mensaje && !searchParams.get('success') && !searchParams.get('canceled') && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
+            <div className={`px-6 py-4 rounded-xl shadow-2xl ${
+              mensaje.tipo === 'success' ? 'bg-green-500' : mensaje.tipo === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`}>
+              <p className="text-white font-semibold text-center">
+                {mensaje.tipo === 'success' ? '✅' : mensaje.tipo === 'error' ? '❌' : 'ℹ️'} {mensaje.texto}
+              </p>
             </div>
           </div>
         )}
