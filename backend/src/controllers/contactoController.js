@@ -1,42 +1,10 @@
-import { createTransport } from "nodemailer";
+import sgMail from '@sendgrid/mail';
 import { contactoSchema } from "../validations/contactoValidation.js";
 
-// Configurar el transporter de nodemailer con timeout reducido
-const createTransporter = () => {
-  const config = {
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: false,
-    connectionTimeout: 10000, // 10 segundos
-    greetingTimeout: 10000,   // 10 segundos
-    socketTimeout: 10000,     // 10 segundos
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  };
+// Configurar SendGrid con API Key
+sgMail.setApiKey(process.env.SMTP_PASS);
 
-  console.log("SMTP Config:", {
-    host: config.host,
-    port: config.port,
-    user: config.auth.user,
-    passLength: config.auth.pass ? config.auth.pass.length : 0
-  });
-
-  return createTransport(config);
-};
-
-const transporter = createTransporter();
-
-// Verificar la conexión SMTP al iniciar (no bloqueante)
-transporter.verify()
-  .then(() => {
-    console.log("✅ Servidor SMTP listo para enviar emails");
-  })
-  .catch((error) => {
-    console.error("⚠️ Error en la configuración SMTP:", error.message);
-    console.log("El servidor continuará funcionando, pero los emails pueden fallar");
-  });
+console.log('✅ SendGrid configurado para emails de contacto');
 
 export const enviarContacto = async (req, res) => {
   try {
@@ -106,29 +74,26 @@ export const enviarContacto = async (req, res) => {
       `
     };
 
-    // Enviar ambos emails con timeout de 10 segundos
-    const sendEmailWithTimeout = async (mailOptions, timeout = 10000) => {
-      return Promise.race([
-        transporter.sendMail(mailOptions),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Email timeout')), timeout)
-        )
-      ]);
-    };
-
+    // Enviar emails usando SendGrid API
     try {
-      const results = await Promise.all([
-        sendEmailWithTimeout(mailOptionsAdmin),
-        sendEmailWithTimeout(mailOptionsUsuario)
+      await Promise.all([
+        sgMail.send({
+          to: mailOptionsAdmin.to,
+          from: mailOptionsAdmin.from,
+          subject: mailOptionsAdmin.subject,
+          html: mailOptionsAdmin.html
+        }),
+        sgMail.send({
+          to: mailOptionsUsuario.to,
+          from: mailOptionsUsuario.from,
+          subject: mailOptionsUsuario.subject,
+          html: mailOptionsUsuario.html
+        })
       ]);
-      console.log(`✅ Emails de contacto enviados correctamente:`, results);
+      console.log(`✅ Emails de contacto enviados correctamente`);
     } catch (emailError) {
       console.error("❌ Error enviando email de contacto:");
       console.error("Error completo:", emailError);
-      console.error("Stack:", emailError.stack);
-      console.error("Código de error:", emailError.code);
-      console.error("Response:", emailError.response);
-      console.error("ResponseCode:", emailError.responseCode);
       
       // NO fallar el endpoint - registrar el mensaje en consola
       console.log("📝 Mensaje de contacto recibido (email falló):", {

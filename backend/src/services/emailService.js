@@ -1,24 +1,9 @@
-import { createTransport } from "nodemailer";
+import sgMail from '@sendgrid/mail';
 
-// Configurar el transporter de nodemailer con SendGrid
-const createEmailTransporter = () => {
-  const config = {
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: false,
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  };
+// Configurar SendGrid con API Key
+sgMail.setApiKey(process.env.SMTP_PASS); // SMTP_PASS contiene la API key de SendGrid
 
-  return createTransport(config);
-};
-
-const transporter = createEmailTransporter();
+console.log('✅ SendGrid configurado con API Key');
 
 /**
  * Enviar email de confirmación de donación
@@ -192,9 +177,16 @@ export const enviarEmailDonacion = async ({
       `
     };
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email de confirmación enviado:', info.messageId);
-    return { success: true, messageId: info.messageId };
+    const msg = {
+      to: email,
+      from: process.env.CONTACT_EMAIL,
+      subject: mailOptions.subject,
+      html: mailOptions.html
+    };
+
+    await sgMail.send(msg);
+    console.log('✅ Email de confirmación enviado a', email);
+    return { success: true };
 
   } catch (error) {
     console.error('❌ Error enviando email de confirmación:', error);
