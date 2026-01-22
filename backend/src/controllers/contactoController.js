@@ -60,8 +60,8 @@ export const enviarContacto = async (req, res) => {
 
     // Configurar el email para el administrador
     const mailOptionsAdmin = {
-      from: `"Formulario Ametsgoien" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
+      from: `"Formulario Ametsgoien" <${process.env.CONTACT_EMAIL}>`,
+      to: process.env.CONTACT_EMAIL,
       subject: `Nuevo mensaje de contacto: ${nombre} ${apellidos}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -84,7 +84,7 @@ export const enviarContacto = async (req, res) => {
 
     // Configurar el email de confirmación para el usuario
     const mailOptionsUsuario = {
-      from: `"Ametsgoien" <${process.env.SMTP_USER}>`,
+      from: `"Ametsgoien" <${process.env.CONTACT_EMAIL}>`,
       to: email,
       subject: "Hemos recibido tu mensaje - Ametsgoien",
       html: `
@@ -117,13 +117,19 @@ export const enviarContacto = async (req, res) => {
     };
 
     try {
-      await Promise.all([
+      const results = await Promise.all([
         sendEmailWithTimeout(mailOptionsAdmin),
         sendEmailWithTimeout(mailOptionsUsuario)
       ]);
-      console.log(`✅ Email de contacto enviado correctamente a ${email}`);
+      console.log(`✅ Emails de contacto enviados correctamente:`, results);
     } catch (emailError) {
-      console.error("❌ Error enviando email de contacto:", emailError);
+      console.error("❌ Error enviando email de contacto:");
+      console.error("Error completo:", emailError);
+      console.error("Stack:", emailError.stack);
+      console.error("Código de error:", emailError.code);
+      console.error("Response:", emailError.response);
+      console.error("ResponseCode:", emailError.responseCode);
+      
       // NO fallar el endpoint - registrar el mensaje en consola
       console.log("📝 Mensaje de contacto recibido (email falló):", {
         nombre: `${nombre} ${apellidos}`,

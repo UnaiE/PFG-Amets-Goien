@@ -237,6 +237,20 @@ export const confirmPayment = async (req, res) => {
           });
           
           console.log('✅ Donación guardada en BD');
+          
+          // Enviar email de confirmación
+          try {
+            await enviarEmailDonacion({
+              email: metadata.colaborador_email,
+              nombre: metadata.colaborador_nombre,
+              cantidad: metadata.cantidad,
+              periodicidad: metadata.periodicidad || 'puntual',
+              stripeSubscriptionId: subscriptionId || null
+            });
+            console.log('✅ Email de confirmación enviado');
+          } catch (emailError) {
+            console.error('⚠️ Error enviando email de confirmación:', emailError.message);
+          }
         }
         
         res.json({

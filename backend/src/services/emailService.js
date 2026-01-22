@@ -1,21 +1,24 @@
-import nodemailer from "nodemailer";
+import { createTransport } from "nodemailer";
 
-// Configurar el transporter de nodemailer
-const createTransporter = () => {
+// Configurar el transporter de nodemailer con SendGrid
+const createEmailTransporter = () => {
   const config = {
     host: process.env.SMTP_HOST || "smtp.gmail.com",
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: false,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
     }
   };
 
-  return nodemailer.createTransport(config);
+  return createTransport(config);
 };
 
-const transporter = createTransporter();
+const transporter = createEmailTransporter();
 
 /**
  * Enviar email de confirmación de donación
@@ -94,7 +97,7 @@ export const enviarEmailDonacion = async ({
     `;
 
     const mailOptions = {
-      from: `"Ametsgoien Asociación" <${process.env.SMTP_USER}>`,
+      from: `"Ametsgoien Asociación" <${process.env.CONTACT_EMAIL}>`,
       to: email,
       subject: esRecurrente 
         ? `🎉 ¡Gracias por tu donación recurrente! - Ametsgoien` 
