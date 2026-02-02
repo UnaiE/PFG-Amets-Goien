@@ -7,6 +7,7 @@ export const colaboradorSchema = Joi.object({
   telefono: Joi.string().trim().pattern(/^[0-9+\-\s()]{7,20}$/).optional().allow('', null),
   direccion: Joi.string().trim().optional().allow('', null),
   anotacion: Joi.string().trim().optional().allow('', null),
+  tipo_colaboracion: Joi.string().valid('monetario', 'voluntario', 'ambos').optional().default('monetario'),
   periodicidad: Joi.string().valid('puntual', 'mensual', 'trimestral', 'semestral', 'anual').optional().default('puntual'),
   stripe_subscription_id: Joi.string().trim().optional().allow('', null)
 }).unknown(false);

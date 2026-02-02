@@ -172,6 +172,7 @@ export const confirmPayment = async (req, res) => {
               telefono: metadata.colaborador_telefono || null,
               direccion: metadata.colaborador_direccion || null,
               anotacion: metadata.colaborador_anotacion || null,
+              tipo_colaboracion: 'monetario',
               periodicidad: metadata.periodicidad || 'puntual',
               stripe_subscription_id: null
             });
@@ -322,6 +323,7 @@ export const stripeWebhook = async (req, res) => {
             telefono: metadata.colaborador_telefono || null,
             direccion: metadata.colaborador_direccion || null,
             anotacion: metadata.colaborador_anotacion || null,
+            tipo_colaboracion: 'monetario',
             periodicidad: metadata.periodicidad || 'puntual',
             stripe_subscription_id: null
           });
@@ -430,6 +432,7 @@ export const stripeWebhook = async (req, res) => {
             telefono: sessionMetadata.colaborador_telefono || null,
             direccion: sessionMetadata.colaborador_direccion || null,
             anotacion: sessionMetadata.colaborador_anotacion || null,
+            tipo_colaboracion: 'monetario',
             periodicidad: sessionMetadata.periodicidad,
             stripe_subscription_id: session.subscription
           });

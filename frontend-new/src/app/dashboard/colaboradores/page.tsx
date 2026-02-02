@@ -18,6 +18,7 @@ interface Colaborador {
   telefono: string | null;
   direccion: string | null;
   anotacion: string | null;
+  tipo_colaboracion?: string;
 }
 
 interface Notification {
@@ -34,13 +35,15 @@ export default function ColaboradoresPage() {
   const [notification, setNotification] = useState<Notification | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterTipo, setFilterTipo] = useState<string>("todos");
   const [formData, setFormData] = useState<Partial<Colaborador>>({
     nombre: "",
     apellidos: "",
     email: "",
     telefono: "",
     direccion: "",
-    anotacion: ""
+    anotacion: "",
+    tipo_colaboracion: "monetario"
   });
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
@@ -57,19 +60,22 @@ export default function ColaboradoresPage() {
       email: "",
       telefono: "",
       direccion: "",
-      anotacion: ""
+      anotacion: "",
+      tipo_colaboracion: "monetario"
     });
   };
 
   const filteredColaboradores = colaboradores.filter((colaborador) => {
     const searchLower = searchTerm.toLowerCase();
-    return (
+    const matchesSearch = (
       colaborador.nombre.toLowerCase().includes(searchLower) ||
       colaborador.apellidos.toLowerCase().includes(searchLower) ||
       (colaborador.email?.toLowerCase().includes(searchLower) || false) ||
       (colaborador.telefono?.toLowerCase().includes(searchLower) || false) ||
       (colaborador.direccion?.toLowerCase().includes(searchLower) || false)
     );
+    const matchesTipo = filterTipo === "todos" || colaborador.tipo_colaboracion === filterTipo;
+    return matchesSearch && matchesTipo;
   });
 
   useEffect(() => {
@@ -239,8 +245,8 @@ export default function ColaboradoresPage() {
             {showForm ? "Cancelar" : "+ Nuevo/a Colaborador/a"}
           </button>
 
-          {/* Buscador */}
-          <div className="mb-6">
+          {/* Buscador y Filtros */}
+          <div className="mb-6 space-y-4">
             <div className="relative">
               <input
                 type="text"
@@ -257,6 +263,50 @@ export default function ColaboradoresPage() {
                   ✕
                 </button>
               )}
+            </div>
+
+            {/* Filtro por tipo de colaboración */}
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={() => setFilterTipo("todos")}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  filterTipo === "todos"
+                    ? "bg-[#8A4D76] text-white"
+                    : "bg-white text-[#8A4D76] border-2 border-[#8A4D76]"
+                }`}
+              >
+                Todos ({colaboradores.length})
+              </button>
+              <button
+                onClick={() => setFilterTipo("monetario")}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  filterTipo === "monetario"
+                    ? "bg-[#8A4D76] text-white"
+                    : "bg-white text-[#8A4D76] border-2 border-[#8A4D76]"
+                }`}
+              >
+                💰 Monetario ({colaboradores.filter(c => c.tipo_colaboracion === "monetario").length})
+              </button>
+              <button
+                onClick={() => setFilterTipo("voluntario")}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  filterTipo === "voluntario"
+                    ? "bg-[#8A4D76] text-white"
+                    : "bg-white text-[#8A4D76] border-2 border-[#8A4D76]"
+                }`}
+              >
+                🤝 Voluntario ({colaboradores.filter(c => c.tipo_colaboracion === "voluntario").length})
+              </button>
+              <button
+                onClick={() => setFilterTipo("ambos")}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  filterTipo === "ambos"
+                    ? "bg-[#8A4D76] text-white"
+                    : "bg-white text-[#8A4D76] border-2 border-[#8A4D76]"
+                }`}
+              >
+                ✨ Ambos ({colaboradores.filter(c => c.tipo_colaboracion === "ambos").length})
+              </button>
             </div>
           </div>
 
@@ -309,6 +359,20 @@ export default function ColaboradoresPage() {
                     className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
                     placeholder="+34 600 000 000"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-gray-800 font-semibold mb-2">Tipo de Colaboración *</label>
+                  <select
+                    value={formData.tipo_colaboracion || "monetario"}
+                    onChange={(e) => setFormData({ ...formData, tipo_colaboracion: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
+                    required
+                  >
+                    <option value="monetario">💰 Monetario</option>
+                    <option value="voluntario">🤝 Voluntario</option>
+                    <option value="ambos">✨ Ambos</option>
+                  </select>
                 </div>
 
                 <div className="md:col-span-2">
@@ -366,11 +430,24 @@ export default function ColaboradoresPage() {
             ) : (
               filteredColaboradores.map((colaborador) => (
                 <div key={colaborador.id} className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-bold" style={{ color: '#8A4D76' }}>
-                        {colaborador.nombre} {colaborador.apellidos}
-                      </h3>
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2 flex-wrap">
+                        <h3 className="text-2xl font-bold" style={{ color: '#8A4D76' }}>
+                          {colaborador.nombre} {colaborador.apellidos}
+                        </h3>
+                        {colaborador.tipo_colaboracion && (
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                            colaborador.tipo_colaboracion === 'monetario' ? 'bg-green-100 text-green-800' :
+                            colaborador.tipo_colaboracion === 'voluntario' ? 'bg-blue-100 text-blue-800' :
+                            'bg-purple-100 text-purple-800'
+                          }`}>
+                            {colaborador.tipo_colaboracion === 'monetario' ? '💰 Monetario' :
+                             colaborador.tipo_colaboracion === 'voluntario' ? '🤝 Voluntario' :
+                             '✨ Ambos'}
+                          </span>
+                        )}
+                      </div>
                       {colaborador.email && (
                         <p className="text-gray-700 mt-1">📧 {colaborador.email}</p>
                       )}
@@ -378,17 +455,17 @@ export default function ColaboradoresPage() {
                         <p className="text-gray-700 mt-1">📱 {colaborador.telefono}</p>
                       )}
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 w-full sm:w-auto">
                       <button
                         onClick={() => handleEdit(colaborador)}
-                        className="px-6 py-2 rounded-lg text-white font-semibold hover:opacity-90 transition-all"
+                        className="flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg text-white font-semibold hover:opacity-90 transition-all text-sm sm:text-base"
                         style={{ backgroundColor: '#8A4D76' }}
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => setShowDeleteConfirm(colaborador.id)}
-                        className="px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:opacity-90 transition-all"
+                        className="flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:opacity-90 transition-all text-sm sm:text-base"
                       >
                         Eliminar
                       </button>
