@@ -23,6 +23,7 @@ interface Residente {
   situacion: string | null;
   anotacion: string | null;
   direccion: string | null;
+  enlaces_documentos: string | null;
 }
 
 interface Notification {
@@ -50,7 +51,8 @@ export default function ResidentesPage() {
     sexo: "",
     situacion: "",
     anotacion: "",
-    direccion: ""
+    direccion: "",
+    enlaces_documentos: ""
   });
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
@@ -211,7 +213,8 @@ export default function ResidentesPage() {
       sexo: "",
       situacion: "",
       anotacion: "",
-      direccion: ""
+      direccion: "",
+      enlaces_documentos: ""
     });
   };
 
@@ -394,6 +397,18 @@ export default function ResidentesPage() {
                   />
                 </div>
 
+                <div>
+                  <label className="block text-gray-800 font-semibold mb-2">Enlaces de Documentos 🔗</label>
+                  <input
+                    type="text"
+                    value={formData.enlaces_documentos || ""}
+                    onChange={(e) => setFormData({ ...formData, enlaces_documentos: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white"
+                    placeholder="Ej: https://drive.google.com/..."
+                  />
+                  <p className="text-sm text-gray-600 mt-1">Enlaces a Drive, fotos DNI, etc.</p>
+                </div>
+
                 <div className="md:col-span-2">
                   <label className="block text-gray-800 font-semibold mb-2">Anotaciones</label>
                   <textarea
@@ -485,6 +500,19 @@ export default function ResidentesPage() {
                     )}
                     {residente.direccion && (
                       <p className="md:col-span-2"><strong>Dirección:</strong> {residente.direccion}</p>
+                    )}
+                    {residente.enlaces_documentos && (
+                      <p className="md:col-span-3">
+                        <strong>Documentos:</strong>{' '}
+                        <a 
+                          href={residente.enlaces_documentos} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline font-semibold"
+                        >
+                          🔗 Abrir enlace
+                        </a>
+                      </p>
                     )}
                   </div>
 

@@ -40,9 +40,9 @@ export default function PrivacidadPage() {
                   El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación <strong>AMETSGOIEN</strong>, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.
                 </p>
                 <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#8A4D76]">
-                  <p className="text-sm mb-1"><strong>Denominación:</strong> Asociación AMETSGOIEN</p>
-                  <p className="text-sm mb-1"><strong>CIF:</strong> [Pendiente - Añadir CIF real]</p>
-                  <p className="text-sm mb-1"><strong>Dirección:</strong> Orduña (Bizkaia), España</p>
+                  <p className="text-sm mb-1"><strong>Denominación:</strong> Asociación AMETSGOIEN PARA LA ACOGIDA Y LA INTEGRACIÓN SOCICULTURAL</p>
+                  <p className="text-sm mb-1"><strong>CIF:</strong> [G23919251]</p>
+                  <p className="text-sm mb-1"><strong>Dirección:</strong> CL/ BURGOS, 4-1 48460, ORDUÑA, BIZKAIA, España</p>
                   <p className="text-sm mb-1"><strong>Email:</strong> ametsgoien@gmail.com</p>
                   <p className="text-sm"><strong>Teléfono:</strong> +34 697 858 343</p>
                 </div>

@@ -11,5 +11,6 @@ export const residenteSchema = Joi.object({
   sexo: Joi.string().trim().max(20).optional().allow('', null),
   situacion: Joi.string().trim().max(100).optional().allow('', null),
   anotacion: Joi.string().trim().optional().allow('', null),
-  direccion: Joi.string().trim().optional().allow('', null)
+  direccion: Joi.string().trim().optional().allow('', null),
+  enlaces_documentos: Joi.string().trim().optional().allow('', null)
 }).unknown(false);
