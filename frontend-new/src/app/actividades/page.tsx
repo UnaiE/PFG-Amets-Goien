@@ -60,7 +60,7 @@ export default function ActividadesPage() {
 
         {/* Lista de actividades */}
         <section className="py-16 px-4 md:px-8 lg:px-16">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="text-center py-20">
                 <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-[#8A4D76]"></div>
@@ -72,36 +72,47 @@ export default function ActividadesPage() {
                 <p className="text-lg text-gray-500 mt-2">Vuelve pronto para ver las próximas actividades.</p>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {actividades.map((actividad) => (
                   <div
                     key={actividad.id}
-                    className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200"
+                    className="group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-[#8A4D76]/30 hover:-translate-y-1"
                   >
-                    <div className="p-8">
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#8A4D76] flex-1">
-                          {actividad.titulo}
-                        </h3>
-                        {actividad.fecha && (
-                          <div className="bg-[#E8D5F2] px-4 py-2 rounded-lg border border-[#8A4D76]/20">
-                            <p className="text-sm font-semibold text-[#8A4D76]">
-                              {actividad.fecha}
-                            </p>
-                          </div>
-                        )}
+                    {/* Barra superior decorativa con fecha */}
+                    <div className="bg-gradient-to-r from-[#8A4D76] to-[#A65D8E] px-5 py-3 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-sm font-semibold text-white">
+                          {actividad.fecha || 'Fecha por confirmar'}
+                        </span>
                       </div>
+                      <div className="bg-white/20 px-2 py-1 rounded">
+                        <span className="text-xs text-white font-medium">Actividad</span>
+                      </div>
+                    </div>
+
+                    {/* Contenido principal */}
+                    <div className="p-5">
+                      <h3 className="text-xl font-bold text-[#8A4D76] mb-3 line-clamp-2 group-hover:text-[#6B3A5E] transition-colors">
+                        {actividad.titulo}
+                      </h3>
                       
-                      <p className="text-gray-700 leading-relaxed text-lg">
+                      <p className="text-gray-600 leading-relaxed text-sm mb-4 line-clamp-3">
                         {actividad.descripcion}
                       </p>
 
-                      <div className="mt-6 pt-4 border-t border-gray-200">
-                        <p className="text-sm text-gray-500">
-                          Publicado: {new Date(actividad.created_at).toLocaleDateString('es-ES', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
+                      {/* Footer con icono de publicación */}
+                      <div className="pt-3 border-t border-gray-100 flex items-center gap-2">
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p className="text-xs text-gray-500">
+                          {new Date(actividad.created_at).toLocaleDateString('es-ES', { 
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric' 
                           })}
                         </p>
                       </div>

@@ -169,8 +169,7 @@ function PublicacionSection() {
   const [actividadData, setActividadData] = useState({
     titulo: "",
     descripcion: "",
-    fecha: "",
-    creador_id: 1
+    fecha: ""
   });
 
   useEffect(() => {
@@ -275,7 +274,7 @@ function PublicacionSection() {
       if (response.ok) {
         showNotification("Actividad creada exitosamente", "success");
         setShowActividadForm(false);
-        setActividadData({ titulo: "", descripcion: "", fecha: "", creador_id: 1 });
+        setActividadData({ titulo: "", descripcion: "", fecha: "" });
         fetchActividades(); // Refrescar lista
       } else {
         showNotification("Error al crear actividad", "error");
