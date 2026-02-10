@@ -1,0 +1,16 @@
+# robots.txt para Ametsgoien
+User-agent: *
+Allow: /
+Allow: /sobre-nosotros
+Allow: /colaborar
+Allow: /actividades
+Allow: /contacto
+Allow: /privacidad
+
+# Bloquear acceso al dashboard administrativo
+Disallow: /dashboard/
+Disallow: /acceso-interno/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://ametsgoien.org/sitemap.xml

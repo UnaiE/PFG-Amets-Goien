@@ -102,6 +102,51 @@ export default function DonacionesPage() {
     return parseFloat(cantidad).toFixed(2) + '€';
   };
 
+  // Funciones de exportación para donaciones
+  const exportDonacionesToJSON = () => {
+    const dataStr = JSON.stringify(donacionesFiltradas, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `donaciones_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportDonacionesToCSV = () => {
+    if (donacionesFiltradas.length === 0) {
+      alert('No hay donaciones para exportar');
+      return;
+    }
+    
+    const headers = ['ID', 'Colaborador', 'Email', 'Cantidad', 'Método Pago', 'Periodicidad', 'Estado', 'Payment Intent ID', 'Subscription ID', 'Anotación', 'Fecha Creación'];
+    const csvContent = [
+      headers.join(','),
+      ...donacionesFiltradas.map(d => [
+        d.id,
+        `"${d.colaborador_nombre || ''}"`,
+        `"${d.colaborador_email || ''}"`,
+        d.cantidad,
+        `"${d.metodo_pago}"`,
+        `"${d.periodicidad}"`,
+        `"${d.estado}"`,
+        `"${d.stripe_payment_intent_id || ''}"`,
+        `"${d.stripe_subscription_id || ''}"`,
+        `"${d.anotacion?.replace(/"/g, '""') || ''}"`,
+        d.created_at || ''
+      ].join(','))
+    ].join('\n');
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `donaciones_backup_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getEstadoBadge = (estado: string) => {
     const colors: Record<string, string> = {
       'completada': 'bg-green-100 text-green-800',
@@ -167,12 +212,35 @@ export default function DonacionesPage() {
               </h1>
               <p className="text-gray-700">Vista de solo lectura de todas las donaciones registradas</p>
             </div>
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="px-6 py-2 rounded-full bg-white text-[#8A4D76] hover:shadow-md transition-all"
-            >
-              Volver al Dashboard
-            </button>
+            <div className="flex gap-3">
+              {/* Botones de exportación */}
+              <button
+                onClick={exportDonacionesToJSON}
+                className="px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg transition-all flex items-center gap-2"
+                title="Exportar donaciones a JSON"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                JSON
+              </button>
+              <button
+                onClick={exportDonacionesToCSV}
+                className="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-lg transition-all flex items-center gap-2"
+                title="Exportar donaciones a CSV"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                CSV
+              </button>
+              <button
+                onClick={() => router.push('/dashboard')}
+                className="px-6 py-2 rounded-full bg-white text-[#8A4D76] hover:shadow-md transition-all"
+              >
+                Volver al Dashboard
+              </button>
+            </div>
           </div>
 
           {/* Estadísticas */}

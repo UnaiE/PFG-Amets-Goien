@@ -3,9 +3,19 @@
  * @route /sobre-nosotros
  * @description Página informativa sobre Amets Goien, su misión, visión y equipo
  */
-"use client";
+import { Metadata } from 'next';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: 'Sobre Nosotros - Nuestra Misión y Valores',
+  description: 'Conoce la historia, misión y valores de Ametsgoien. Asociación dedicada desde 2020 a la acogida y apoyo integral de mujeres migrantes y sus familias en Bilbao, País Vasco.',
+  keywords: ['sobre ametsgoien', 'misión', 'valores', 'equipo', 'historia asociación', 'ONG Bilbao'],
+  openGraph: {
+    title: 'Sobre Nosotros - Ametsgoien',
+    description: 'Conoce nuestra historia, misión y el equipo que hace posible la acogida y apoyo a mujeres migrantes.',
+  },
+};
 
 export default function SobreNosotrosPage() {
   return (

@@ -169,8 +169,7 @@ function PublicacionSection() {
   const [actividadData, setActividadData] = useState({
     titulo: "",
     descripcion: "",
-    fecha: "",
-    creador_id: 1
+    fecha: ""
   });
 
   useEffect(() => {
@@ -181,6 +180,89 @@ function PublicacionSection() {
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
+  };
+
+  // Funciones de exportación para noticias
+  const exportNoticiasToJSON = () => {
+    const dataStr = JSON.stringify(noticias, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `noticias_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Noticias exportadas exitosamente', 'success');
+  };
+
+  const exportNoticiasToCSV = () => {
+    if (noticias.length === 0) {
+      showNotification('No hay noticias para exportar', 'info');
+      return;
+    }
+    
+    const headers = ['ID', 'Título', 'Contenido', 'URL Imagen', 'Creado Por', 'Fecha Creación'];
+    const csvContent = [
+      headers.join(','),
+      ...noticias.map(n => [
+        n.id,
+        `"${n.titulo || ''}"`,
+        `"${n.contenido?.replace(/"/g, '""') || ''}"`,
+        `"${n.url_imagen || ''}"`,
+        `"${n.creado_por_username || ''}"`,
+        n.created_at || ''
+      ].join(','))
+    ].join('\n');
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `noticias_backup_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Noticias exportadas exitosamente', 'success');
+  };
+
+  // Funciones de exportación para actividades
+  const exportActividadesToJSON = () => {
+    const dataStr = JSON.stringify(actividades, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `actividades_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Actividades exportadas exitosamente', 'success');
+  };
+
+  const exportActividadesToCSV = () => {
+    if (actividades.length === 0) {
+      showNotification('No hay actividades para exportar', 'info');
+      return;
+    }
+    
+    const headers = ['ID', 'Título', 'Descripción', 'Fecha', 'Fecha Creación'];
+    const csvContent = [
+      headers.join(','),
+      ...actividades.map(a => [
+        a.id,
+        `"${a.titulo || ''}"`,
+        `"${a.descripcion?.replace(/"/g, '""') || ''}"`,
+        a.fecha || '',
+        a.created_at || ''
+      ].join(','))
+    ].join('\n');
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `actividades_backup_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Actividades exportadas exitosamente', 'success');
   };
 
   const fetchNoticias = async () => {
@@ -275,7 +357,7 @@ function PublicacionSection() {
       if (response.ok) {
         showNotification("Actividad creada exitosamente", "success");
         setShowActividadForm(false);
-        setActividadData({ titulo: "", descripcion: "", fecha: "", creador_id: 1 });
+        setActividadData({ titulo: "", descripcion: "", fecha: "" });
         fetchActividades(); // Refrescar lista
       } else {
         showNotification("Error al crear actividad", "error");
@@ -390,9 +472,28 @@ function PublicacionSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card Publicar Noticias */}
         <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-3xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-            Publicar Noticias
-          </h3>
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-3xl font-bold" style={{ color: '#8A4D76' }}>
+              Publicar Noticias
+            </h3>
+            {/* Botones de exportación de noticias */}
+            <div className="flex gap-2">
+              <button
+                onClick={exportNoticiasToJSON}
+                className="px-3 py-2 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700 transition-all"
+                title="Exportar noticias a JSON"
+              >
+                JSON
+              </button>
+              <button
+                onClick={exportNoticiasToCSV}
+                className="px-3 py-2 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-all"
+                title="Exportar noticias a CSV"
+              >
+                CSV
+              </button>
+            </div>
+          </div>
           <p className="text-gray-700 mb-6">
             Crear nuevas noticias, editar las existentes y gestionar su aparición en la web pública.
           </p>
@@ -468,9 +569,28 @@ function PublicacionSection() {
 
         {/* Card Publicar Actividades */}
         <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-3xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-            Publicar Actividades
-          </h3>
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-3xl font-bold" style={{ color: '#8A4D76' }}>
+              Publicar Actividades
+            </h3>
+            {/* Botones de exportación de actividades */}
+            <div className="flex gap-2">
+              <button
+                onClick={exportActividadesToJSON}
+                className="px-3 py-2 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700 transition-all"
+                title="Exportar actividades a JSON"
+              >
+                JSON
+              </button>
+              <button
+                onClick={exportActividadesToCSV}
+                className="px-3 py-2 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-all"
+                title="Exportar actividades a CSV"
+              >
+                CSV
+              </button>
+            </div>
+          </div>
           <p className="text-gray-700 mb-6">
             Añadir, actualizar o eliminar actividades del tablón semanal visible en la web pública.
           </p>
@@ -569,6 +689,50 @@ function ForoSection() {
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
+  };
+
+  // Funciones de exportación para tareas
+  const exportTareasToJSON = () => {
+    const dataStr = JSON.stringify(tareas, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `tareas_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Tareas exportadas exitosamente', 'success');
+  };
+
+  const exportTareasToCSV = () => {
+    if (tareas.length === 0) {
+      showNotification('No hay tareas para exportar', 'info');
+      return;
+    }
+    
+    const headers = ['ID', 'Título', 'Descripción', 'Estado', 'Asignado A', 'Creado Por', 'Fecha Creación', 'Fecha Actualización'];
+    const csvContent = [
+      headers.join(','),
+      ...tareas.map(t => [
+        t.id,
+        `"${t.titulo || ''}"`,
+        `"${t.descripcion?.replace(/"/g, '""') || ''}"`,
+        `"${t.estado || ''}"`,
+        `"${t.asignado_a || ''}"`,
+        `"${t.creado_por || ''}"`,
+        t.created_at || '',
+        t.updated_at || ''
+      ].join(','))
+    ].join('\n');
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `tareas_backup_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Tareas exportadas exitosamente', 'success');
   };
 
   const fetchTareas = async () => {
@@ -770,12 +934,40 @@ function ForoSection() {
         </div>
       )}
 
-      <h2 className="text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-        Foro Interno de Tareas
-      </h2>
-      <p className="text-lg text-gray-700 mb-8">
-        Espacio interno donde el equipo puede publicar, comentar y revisar tareas pendientes.
-      </p>
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h2 className="text-4xl font-bold" style={{ color: '#8A4D76' }}>
+            Foro Interno de Tareas
+          </h2>
+          <p className="text-lg text-gray-700 mt-2">
+            Espacio interno donde el equipo puede publicar, comentar y revisar tareas pendientes.
+          </p>
+        </div>
+        
+        {/* Botones de exportación de tareas */}
+        <div className="flex gap-3">
+          <button
+            onClick={exportTareasToJSON}
+            className="px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg transition-all flex items-center gap-2"
+            title="Exportar tareas a JSON"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            JSON
+          </button>
+          <button
+            onClick={exportTareasToCSV}
+            className="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-lg transition-all flex items-center gap-2"
+            title="Exportar tareas a CSV"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            CSV
+          </button>
+        </div>
+      </div>
 
       {/* Lista de tareas */}
       <div className="space-y-4 mb-6">

@@ -1,6 +1,6 @@
 "use client";
 import { AnimatedTestimonialsDemo } from "./ui/demo-testimonials";
-import Gallery4Demo from "@/components/blocks/gallery4-demo";
+import NoticiasCarousel from "@/components/NoticiasCarousel";
 import { ImagesSliderDemo } from "./ui/demo-images-slider";
 
 const HomePage = () => {
@@ -76,7 +76,7 @@ const HomePage = () => {
       <section id="noticias" className="py-16 bg-[#D8B8C4]">
         <div className="w-full px-4 md:px-16">
           <div className="max-w-7xl mx-auto w-full">
-            <Gallery4Demo />
+            <NoticiasCarousel />
           </div>
         </div>
       </section>

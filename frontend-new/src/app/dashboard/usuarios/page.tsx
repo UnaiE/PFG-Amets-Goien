@@ -55,6 +55,47 @@ export default function UsuariosPage() {
     });
   };
 
+  // Función para exportar datos a JSON
+  const exportToJSON = () => {
+    const dataStr = JSON.stringify(usuarios, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `usuarios_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Datos exportados exitosamente', 'success');
+  };
+
+  // Función para exportar datos a CSV
+  const exportToCSV = () => {
+    if (usuarios.length === 0) {
+      showNotification('No hay datos para exportar', 'info');
+      return;
+    }
+    
+    const headers = ['ID', 'Username', 'Email', 'Role'];
+    const csvContent = [
+      headers.join(','),
+      ...usuarios.map(u => [
+        u.id,
+        `"${u.username || ''}"`,
+        `"${u.email || ''}"`,
+        `"${u.role || ''}"`
+      ].join(','))
+    ].join('\n');
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `usuarios_backup_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification('Datos exportados exitosamente', 'success');
+  };
+
   const filteredUsuarios = usuarios.filter((usuario) => {
     const searchLower = searchTerm.toLowerCase();
     return (
@@ -295,6 +336,30 @@ export default function UsuariosPage() {
                 Gestión de Usuarios Internos
               </h1>
               <p className="text-gray-600 mt-2">Administra las cuentas con acceso al panel interno</p>
+            </div>
+            
+            {/* Botones de exportación */}
+            <div className="flex gap-3">
+              <button
+                onClick={exportToJSON}
+                className="px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg transition-all flex items-center gap-2"
+                title="Descargar copia de seguridad en formato JSON"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                JSON
+              </button>
+              <button
+                onClick={exportToCSV}
+                className="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-lg transition-all flex items-center gap-2"
+                title="Descargar copia de seguridad en formato CSV (Excel)"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                CSV
+              </button>
             </div>
           </div>
 
