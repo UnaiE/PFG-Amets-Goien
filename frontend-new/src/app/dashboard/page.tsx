@@ -12,6 +12,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 // Función helper para decodificar el JWT y obtener el nombre del usuario
 function getUserFromToken(): string {
+  if (typeof window === 'undefined') return "";
+  
   const token = localStorage.getItem("token");
   if (!token) return "";
   
@@ -32,6 +34,8 @@ function getUserFromToken(): string {
 
 // Función helper para obtener el rol del usuario desde el token
 function getUserRoleFromToken(): string {
+  if (typeof window === 'undefined') return "";
+  
   const token = localStorage.getItem("token");
   if (!token) return "";
   
@@ -55,6 +59,9 @@ export default function Dashboard() {
   const [activeSection, setActiveSection] = useState<"publicacion" | "foro" | "gestion">("publicacion");
 
   useEffect(() => {
+    // Solo ejecutar en el cliente
+    if (typeof window === 'undefined') return;
+    
     // Verificar si hay token
     const token = localStorage.getItem("token");
     if (!token) {
@@ -72,11 +79,15 @@ export default function Dashboard() {
   // Guardar la sección activa cuando cambie
   const handleSectionChange = (section: "publicacion" | "foro" | "gestion") => {
     setActiveSection(section);
-    localStorage.setItem("dashboardActiveSection", section);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("dashboardActiveSection", section);
+    }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("token");
+    }
     router.push("/");
   };
 
@@ -1747,7 +1758,9 @@ function GestionSection() {
               className="w-full py-3 rounded-full text-white font-semibold hover:shadow-xl transition-all"
               style={{ backgroundColor: '#8A4D76' }}
               onClick={() => {
-                localStorage.setItem("dashboardActiveSection", "gestion");
+                if (typeof window !== 'undefined') {
+                  localStorage.setItem("dashboardActiveSection", "gestion");
+                }
                 router.push(categoria.ruta);
               }}
             >
