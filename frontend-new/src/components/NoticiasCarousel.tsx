@@ -142,19 +142,6 @@ export default function NoticiasCarousel() {
                   {noticia.contenido}
                 </p>
                 
-                {/* Metadata */}
-                {noticia.creado_por_username && (
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-3">
-                    <span className="font-semibold">Por {noticia.creado_por_username}</span>
-                    {noticia.creado_en && (
-                      <>
-                        <span className="hidden sm:inline">•</span>
-                        <span className="w-full sm:w-auto">{new Date(noticia.creado_en).toLocaleDateString('es-ES')}</span>
-                      </>
-                    )}
-                  </div>
-                )}
-                
                 <div className="inline-flex items-center text-[#8A4D76] font-semibold text-sm group-hover:text-[#a98bb0] transition-colors">
                   Leer más
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -214,30 +201,9 @@ export default function NoticiasCarousel() {
 
             {/* Contenido del modal */}
             <div className="p-4 sm:p-6 md:p-10">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#8A4D76] mb-3 sm:mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#8A4D76] mb-4 sm:mb-6">
                 {selectedNoticia.titulo}
               </h2>
-
-              {/* Metadata */}
-              {selectedNoticia.creado_por_username && (
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-gray-200">
-                  <span className="font-semibold">
-                    📝 Por {selectedNoticia.creado_por_username}
-                  </span>
-                  {selectedNoticia.creado_en && (
-                    <>
-                      <span className="hidden sm:inline">•</span>
-                      <span>
-                        📅 {new Date(selectedNoticia.creado_en).toLocaleDateString('es-ES', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </span>
-                    </>
-                  )}
-                </div>
-              )}
 
               {/* Contenido completo */}
               <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none">
