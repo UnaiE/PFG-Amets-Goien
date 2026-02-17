@@ -2,6 +2,21 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -188,6 +203,100 @@ export default function DonacionesPage() {
     .reduce((sum, d) => sum + parseFloat(d.cantidad), 0);
   const donacionesRecurrentes = donacionesFiltradas.filter(d => d.periodicidad !== 'puntual').length;
 
+  // Preparar datos para gráficas
+  // 1. Donaciones por mes (últimos 6 meses)
+  const prepareMonthlyData = () => {
+    const monthlyData: Record<string, { mes: string, cantidad: number, total: number }> = {};
+    const now = new Date();
+    
+    // Inicializar últimos 6 meses
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const monthName = date.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+      monthlyData[key] = { mes: monthName, cantidad: 0, total: 0 };
+    }
+    
+    // Agrupar donaciones completadas por mes
+    donacionesFiltradas
+      .filter(d => d.estado === 'completada')
+      .forEach(donacion => {
+        const date = new Date(donacion.created_at);
+        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        if (monthlyData[key]) {
+          monthlyData[key].cantidad += 1;
+          monthlyData[key].total += parseFloat(donacion.cantidad);
+        }
+      });
+    
+    return Object.values(monthlyData);
+  };
+
+  // 2. Distribución por periodicidad
+  const preparePeriodicidadData = () => {
+    const periodicidadCount: Record<string, number> = {
+      'puntual': 0,
+      'mensual': 0,
+      'trimestral': 0,
+      'semestral': 0,
+      'anual': 0
+    };
+    
+    donacionesFiltradas.forEach(d => {
+      if (periodicidadCount[d.periodicidad] !== undefined) {
+        periodicidadCount[d.periodicidad]++;
+      }
+    });
+    
+    return Object.entries(periodicidadCount)
+      .filter(([_, value]) => value > 0)
+      .map(([name, value]) => ({ name, value }));
+  };
+
+  // 3. Distribución por estado
+  const prepareEstadoData = () => {
+    const estadoCount: Record<string, number> = {};
+    
+    donacionesFiltradas.forEach(d => {
+      estadoCount[d.estado] = (estadoCount[d.estado] || 0) + 1;
+    });
+    
+    return Object.entries(estadoCount).map(([estado, cantidad]) => ({
+      estado,
+      cantidad
+    }));
+  };
+
+  // 4. Distribución por método de pago
+  const prepareMetodoPagoData = () => {
+    const metodoCount: Record<string, { monto: number, cantidad: number }> = {};
+    
+    donacionesFiltradas
+      .filter(d => d.estado === 'completada')
+      .forEach(d => {
+        const metodo = d.metodo_pago || 'Tarjeta';
+        if (!metodoCount[metodo]) {
+          metodoCount[metodo] = { monto: 0, cantidad: 0 };
+        }
+        metodoCount[metodo].monto += parseFloat(d.cantidad);
+        metodoCount[metodo].cantidad += 1;
+      });
+    
+    return Object.entries(metodoCount).map(([name, data]) => ({
+      name,
+      value: data.monto,
+      cantidad: data.cantidad
+    }));
+  };
+
+  // Colores para las gráficas
+  const COLORS = ['#8A4D76', '#B85F9A', '#D88BB8', '#E8A5C9', '#F5C1DA', '#FFD4E5'];
+
+  const monthlyData = prepareMonthlyData();
+  const periodicidadData = preparePeriodicidadData();
+  const estadoData = prepareEstadoData();
+  const metodoPagoData = prepareMetodoPagoData();
+
   if (loading) {
     return (
       <>
@@ -256,6 +365,130 @@ export default function DonacionesPage() {
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h3 className="text-sm font-semibold text-gray-600 mb-2">Donaciones Recurrentes</h3>
               <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{donacionesRecurrentes}</p>
+            </div>
+          </div>
+
+          {/* Gráficas */}
+          <div className="mb-8 space-y-6">
+            <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>Análisis de Datos</h2>
+            
+            {/* Primera fila: Evolución temporal y Distribución por periodicidad */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Gráfica de evolución temporal */}
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-lg font-bold mb-4 text-gray-800">Evolución Temporal (Últimos 6 meses)</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={monthlyData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="mes" style={{ fontSize: '12px' }} />
+                    <YAxis yAxisId="left" style={{ fontSize: '12px' }} />
+                    <YAxis yAxisId="right" orientation="right" style={{ fontSize: '12px' }} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '8px' }}
+                      formatter={(value: any, name?: string) => {
+                        if (name === 'total') return [value.toFixed(2) + '€', 'Total Recaudado'];
+                        return [value, 'Cantidad de Donaciones'];
+                      }}
+                    />
+                    <Legend />
+                    <Line 
+                      yAxisId="left"
+                      type="monotone" 
+                      dataKey="cantidad" 
+                      stroke="#8A4D76" 
+                      strokeWidth={2}
+                      name="Cantidad"
+                      dot={{ fill: '#8A4D76', r: 4 }}
+                    />
+                    <Line 
+                      yAxisId="right"
+                      type="monotone" 
+                      dataKey="total" 
+                      stroke="#B85F9A" 
+                      strokeWidth={2}
+                      name="Total (€)"
+                      dot={{ fill: '#B85F9A', r: 4 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Gráfica de distribución por periodicidad */}
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-lg font-bold mb-4 text-gray-800">Distribución por Periodicidad</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={periodicidadData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={(entry: any) => entry.name && entry.percent ? `${entry.name}: ${(entry.percent * 100).toFixed(0)}%` : ''}
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {periodicidadData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '8px' }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Segunda fila: Estado y Método de pago */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Gráfica de distribución por estado */}
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-lg font-bold mb-4 text-gray-800">Distribución por Estado</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={estadoData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="estado" style={{ fontSize: '12px' }} />
+                    <YAxis style={{ fontSize: '12px' }} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '8px' }}
+                      formatter={(value: any) => [value, 'Cantidad']}
+                    />
+                    <Legend />
+                    <Bar dataKey="cantidad" fill="#8A4D76" name="Cantidad" radius={[8, 8, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Gráfica de método de pago */}
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-lg font-bold mb-4 text-gray-800">Recaudación por Método de Pago</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={metodoPagoData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={(entry: any) => entry.name && entry.value ? `${entry.name}: ${entry.value.toFixed(2)}€` : ''}
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {metodoPagoData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '8px' }}
+                      formatter={(value: any, name, props: any) => [
+                        `${value.toFixed(2)}€ (${props.payload.cantidad} donaciones)`,
+                        'Total'
+                      ]}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
 
@@ -361,15 +594,6 @@ export default function DonacionesPage() {
                 </tbody>
               </table>
             </div>
-          </div>
-
-          {/* Nota informativa */}
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
-            <h3 className="text-sm font-bold text-blue-900 mb-2">ℹ️ Información</h3>
-            <p className="text-sm text-blue-800">
-              Esta vista es de solo lectura. Para gestionar colaboradores o ver detalles completos, 
-              visita la sección de <strong>Colaboradores</strong> en el dashboard.
-            </p>
           </div>
         </div>
       </div>
