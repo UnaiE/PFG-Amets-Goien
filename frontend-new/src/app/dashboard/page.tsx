@@ -819,6 +819,7 @@ function ForoSection() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAsignado, setFilterAsignado] = useState('todos');
   const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [showAsignarModal, setShowAsignarModal] = useState<number | null>(null);
   const [tareaData, setTareaData] = useState({
     titulo: "",
     descripcion: "",
@@ -936,6 +937,9 @@ function ForoSection() {
       const token = localStorage.getItem("token");
       const username = getUserFromToken();
       
+      // Asignación automática de estado: si hay usuario asignado, cambiar a "asignado"
+      const estadoFinal = tareaData.asignado_a ? "asignado" : "sin asignar";
+      
       const response = await fetch(`${API_URL}/api/tareas`, {
         method: "POST",
         headers: {
@@ -944,6 +948,7 @@ function ForoSection() {
         },
         body: JSON.stringify({
           ...tareaData,
+          estado: estadoFinal,
           creado_por: username
         })
       });
@@ -967,6 +972,11 @@ function ForoSection() {
       const token = localStorage.getItem("token");
       const tarea = tareas.find(t => t.id === id);
       
+      if (!tarea) {
+        showNotification("Tarea no encontrada", "error");
+        return;
+      }
+      
       const response = await fetch(`${API_URL}/api/tareas/${id}`, {
         method: "PUT",
         headers: {
@@ -974,8 +984,10 @@ function ForoSection() {
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-          ...tarea,
-          estado: nuevoEstado
+          titulo: tarea.titulo,
+          descripcion: tarea.descripcion,
+          estado: nuevoEstado,
+          asignado_a: tarea.asignado_a
         })
       });
 
@@ -983,6 +995,8 @@ function ForoSection() {
         showNotification(`Estado actualizado a: ${nuevoEstado}`, "success");
         fetchTareas(); // Refrescar lista
       } else {
+        const errorData = await response.json();
+        console.error('Error al actualizar:', errorData);
         showNotification("Error al actualizar estado", "error");
       }
     } catch (error) {
@@ -1014,6 +1028,43 @@ function ForoSection() {
     }
   };
 
+  const handleAsignarTarea = async (tareaId: number, usuarioSeleccionado: string) => {
+    try {
+      const token = localStorage.getItem("token");
+      const tarea = tareas.find(t => t.id === tareaId);
+      
+      if (!tarea) {
+        showNotification("Tarea no encontrada", "error");
+        return;
+      }
+      
+      const response = await fetch(`${API_URL}/api/tareas/${tareaId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          titulo: tarea.titulo,
+          descripcion: tarea.descripcion,
+          estado: "asignado",
+          asignado_a: usuarioSeleccionado
+        })
+      });
+
+      if (response.ok) {
+        showNotification(`Tarea asignada a ${usuarioSeleccionado}`, "success");
+        setShowAsignarModal(null);
+        fetchTareas();
+      } else {
+        showNotification("Error al asignar tarea", "error");
+      }
+    } catch (error) {
+      console.error("Error asignando tarea:", error);
+      showNotification("Error de conexión", "error");
+    }
+  };
+
   const handleEditTarea = (tarea: any) => {
     setEditingTarea(tarea);
     setTareaData({
@@ -1033,13 +1084,20 @@ function ForoSection() {
 
     try {
       const token = localStorage.getItem("token");
+      
+      // Asignación automática de estado: si hay usuario asignado, cambiar a "asignado"
+      const estadoFinal = tareaData.asignado_a ? "asignado" : tareaData.estado;
+      
       const response = await fetch(`${API_URL}/api/tareas/${editingTarea.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(tareaData)
+        body: JSON.stringify({
+          ...tareaData,
+          estado: estadoFinal
+        })
       });
 
       if (response.ok) {
@@ -1094,27 +1152,27 @@ function ForoSection() {
   }
 
   const TareaCard = ({ tarea, columnColor }: { tarea: any, columnColor: string }) => (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all p-4 border-l-4" style={{ borderLeftColor: columnColor }}>
+    <div className="bg-white rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all p-3 sm:p-4 border-l-4" style={{ borderLeftColor: columnColor }}>
       <div className="flex justify-between items-start mb-2">
-        <h4 className="font-bold text-gray-900 text-lg">{tarea.titulo}</h4>
+        <h4 className="font-bold text-gray-900 text-sm sm:text-base lg:text-lg pr-2">{tarea.titulo}</h4>
         <button
           onClick={() => setShowDeleteConfirm(tarea.id)}
-          className="text-gray-400 hover:text-red-500 transition-colors"
+          className="text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
           title="Eliminar tarea"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
       </div>
       {tarea.descripcion && (
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">{tarea.descripcion}</p>
+        <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2">{tarea.descripcion}</p>
       )}
-      <div className="space-y-2 mb-3">
+      <div className="space-y-1 sm:space-y-2 mb-2 sm:mb-3">
         {tarea.asignado_a && (
-          <div className="flex items-center gap-2 text-sm">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-100">
-              <svg className="w-4 h-4" style={{ color: '#8A4D76' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+            <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-100">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: '#8A4D76' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
@@ -1122,18 +1180,18 @@ function ForoSection() {
           </div>
         )}
         {tarea.creado_por_username && (
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs text-gray-500">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>Creado por {tarea.creado_por_username}</span>
           </div>
         )}
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <button
           onClick={() => handleEditTarea(tarea)}
-          className="flex-1 py-2 px-3 rounded-lg text-white text-sm font-semibold hover:opacity-90 transition-all"
+          className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg text-white text-xs sm:text-sm font-semibold hover:opacity-90 transition-all"
           style={{ backgroundColor: '#8A4D76' }}
         >
           Editar
@@ -1141,10 +1199,13 @@ function ForoSection() {
         {tarea.estado !== 'realizado' && tarea.estado !== 'Realizado' && tarea.estado !== 'Finalizada' && (
           <button
             onClick={() => {
-              const siguienteEstado = tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar' ? 'asignado' : 'realizado';
-              handleUpdateEstado(tarea.id, siguienteEstado);
+              if (tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar') {
+                setShowAsignarModal(tarea.id);
+              } else {
+                handleUpdateEstado(tarea.id, 'realizado');
+              }
             }}
-            className="flex-1 py-2 px-3 rounded-lg bg-green-500 text-white text-sm font-semibold hover:bg-green-600 transition-all"
+            className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg bg-green-500 text-white text-xs sm:text-sm font-semibold hover:bg-green-600 transition-all"
           >
             {tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar' ? 'Asignar' : 'Completar'}
           </button>
@@ -1163,6 +1224,42 @@ function ForoSection() {
             notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
           }`}>
             <p className="text-white font-semibold">{notification.message}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de asignación de tarea */}
+      {showAsignarModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-4 w-full">
+            <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+              Asignar tarea
+            </h3>
+            <p className="text-gray-700 mb-4">
+              Selecciona el usuario al que deseas asignar esta tarea:
+            </p>
+            <select
+              className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none mb-6"
+              onChange={(e) => {
+                if (e.target.value) {
+                  handleAsignarTarea(showAsignarModal, e.target.value);
+                }
+              }}
+              defaultValue=""
+            >
+              <option value="" disabled>Seleccionar usuario...</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario.id || usuario.username} value={usuario.username}>
+                  {usuario.username}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => setShowAsignarModal(null)}
+              className="w-full py-3 rounded-full bg-gray-500 text-white font-semibold hover:bg-gray-600 transition-all"
+            >
+              Cancelar
+            </button>
           </div>
         </div>
       )}
@@ -1195,76 +1292,82 @@ function ForoSection() {
         </div>
       )}
 
-      <div className="flex justify-between items-start mb-6">
-        <div>
-          <h2 className="text-3xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-            Foro Interno de Tareas
-          </h2>
-          <p className="text-gray-600">Gestiona las tareas del equipo de manera eficiente</p>
-        </div>
-        
-        {/* Botones de exportación de tareas */}
-        <div className="flex gap-3">
-          <button
-            onClick={exportTareasToJSON}
-            className="px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-all flex items-center gap-2"
-            title="Exportar tareas a JSON"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            JSON
-          </button>
-          <button
-            onClick={exportTareasToCSV}
-            className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all flex items-center gap-2"
-            title="Exportar tareas a CSV"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            CSV
-          </button>
-        </div>
-      </div>
-
-      {/* Estadísticas rápidas */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-yellow-400">
-          <p className="text-sm text-gray-600 mb-1">Sin Asignar</p>
-          <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['sin asignar'].length}</p>
-        </div>
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-400">
-          <p className="text-sm text-gray-600 mb-1">Asignadas</p>
-          <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['asignado'].length}</p>
-        </div>
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4 border-green-400">
-          <p className="text-sm text-gray-600 mb-1">Realizadas</p>
-          <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['realizado'].length}</p>
-        </div>
-        <div className="bg-white rounded-xl shadow-md p-4 border-l-4" style={{ borderLeftColor: '#8A4D76' }}>
-          <p className="text-sm text-gray-600 mb-1">Total</p>
-          <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasFiltradas.length}</p>
+      {/* Header responsive */}
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+          <div className="flex-1">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2" style={{ color: '#8A4D76' }}>
+              Foro Interno de Tareas
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600">Gestiona las tareas del equipo de manera eficiente</p>
+          </div>
+          
+          {/* Botones de exportación de tareas */}
+          <div className="flex gap-2 sm:gap-3">
+            <button
+              onClick={exportTareasToJSON}
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg bg-green-600 text-white text-xs sm:text-sm font-semibold hover:bg-green-700 transition-all flex items-center justify-center gap-2"
+              title="Exportar tareas a JSON"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              JSON
+            </button>
+            <button
+              onClick={exportTareasToCSV}
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg bg-blue-600 text-white text-xs sm:text-sm font-semibold hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+              title="Exportar tareas a CSV"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              CSV
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Filtros y controles */}
-      <div className="bg-white rounded-xl shadow-md p-4 mb-6">
-        <div className="flex flex-wrap gap-4 items-center">
-          <div className="flex-1 min-w-[200px]">
+      {/* Estadísticas rápidas - Responsive */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div className="bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-yellow-400">
+          <p className="text-xs sm:text-sm text-gray-600 mb-1">Sin Asignar</p>
+          <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['sin asignar'].length}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-blue-400">
+          <p className="text-xs sm:text-sm text-gray-600 mb-1">Asignadas</p>
+          <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['asignado'].length}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-green-400">
+          <p className="text-xs sm:text-sm text-gray-600 mb-1">Realizadas</p>
+          <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasKanban['realizado'].length}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4" style={{ borderLeftColor: '#8A4D76' }}>
+          <p className="text-xs sm:text-sm text-gray-600 mb-1">Total</p>
+          <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#8A4D76' }}>{tareasFiltradas.length}</p>
+        </div>
+      </div>
+
+      {/* Filtros y controles - Responsive */}
+      <div className="bg-white rounded-xl shadow-md p-3 sm:p-4 mb-6">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          {/* Búsqueda */}
+          <div className="flex-1">
             <input
               type="text"
               placeholder="Buscar tareas..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
+              className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
             />
           </div>
-          <div>
+          
+          {/* Filtro por usuario */}
+          <div className="flex-1 sm:flex-none">
             <select
               value={filterAsignado}
               onChange={(e) => setFilterAsignado(e.target.value)}
-              className="px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
+              className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
             >
               <option value="todos">Todas las tareas</option>
               <option value="sin_asignar">Sin asignar</option>
@@ -1276,50 +1379,57 @@ function ForoSection() {
               ))}
             </select>
           </div>
+          
+          {/* Botones de vista y nueva tarea */}
           <div className="flex gap-2">
+            <div className="flex gap-1 sm:gap-2">
+              <button
+                onClick={() => setVistaActiva('kanban')}
+                className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-all ${
+                  vistaActiva === 'kanban' 
+                    ? 'text-white' 
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+                style={vistaActiva === 'kanban' ? { backgroundColor: '#8A4D76' } : {}}
+                title="Vista Kanban"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setVistaActiva('lista')}
+                className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-all ${
+                  vistaActiva === 'lista' 
+                    ? 'text-white' 
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+                style={vistaActiva === 'lista' ? { backgroundColor: '#8A4D76' } : {}}
+                title="Vista Lista"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
             <button
-              onClick={() => setVistaActiva('kanban')}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                vistaActiva === 'kanban' 
-                  ? 'text-white' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-              style={vistaActiva === 'kanban' ? { backgroundColor: '#8A4D76' } : {}}
+              onClick={() => {
+                if (!showTareaForm) {
+                  setEditingTarea(null);
+                  setTareaData({ titulo: "", descripcion: "", estado: "sin asignar", asignado_a: "", creado_por: "" });
+                }
+                setShowTareaForm(!showTareaForm);
+              }}
+              className="px-4 sm:px-6 py-2 text-xs sm:text-sm rounded-lg text-white font-semibold hover:shadow-lg transition-all flex items-center gap-1 sm:gap-2"
+              style={{ backgroundColor: '#8A4D76' }}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-            </button>
-            <button
-              onClick={() => setVistaActiva('lista')}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                vistaActiva === 'lista' 
-                  ? 'text-white' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-              style={vistaActiva === 'lista' ? { backgroundColor: '#8A4D76' } : {}}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <span className="hidden xs:inline">{showTareaForm ? "Cancelar" : "Nueva Tarea"}</span>
+              <span className="xs:hidden">{showTareaForm ? "✕" : "Nueva"}</span>
             </button>
           </div>
-          <button
-            onClick={() => {
-              if (!showTareaForm) {
-                setEditingTarea(null);
-                setTareaData({ titulo: "", descripcion: "", estado: "sin asignar", asignado_a: "", creado_por: "" });
-              }
-              setShowTareaForm(!showTareaForm);
-            }}
-            className="px-6 py-2 rounded-lg text-white font-semibold hover:shadow-lg transition-all flex items-center gap-2"
-            style={{ backgroundColor: '#8A4D76' }}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            {showTareaForm ? "Cancelar" : "Nueva Tarea"}
-          </button>
         </div>
       </div>
 
@@ -1355,7 +1465,15 @@ function ForoSection() {
                 <label className="block text-gray-700 font-semibold mb-2">Asignada a</label>
                 <select
                   value={tareaData.asignado_a}
-                  onChange={(e) => setTareaData({ ...tareaData, asignado_a: e.target.value })}
+                  onChange={(e) => {
+                    const nuevoAsignado = e.target.value;
+                    setTareaData({ 
+                      ...tareaData, 
+                      asignado_a: nuevoAsignado,
+                      // Asignación automática: si selecciona usuario, cambiar a "asignado"
+                      estado: nuevoAsignado ? "asignado" : "sin asignar"
+                    });
+                  }}
                   className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
                 >
                   <option value="">Sin asignar</option>
@@ -1366,19 +1484,30 @@ function ForoSection() {
                   ))}
                 </select>
               </div>
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">Estado</label>
-                <select
-                  value={tareaData.estado}
-                  onChange={(e) => setTareaData({ ...tareaData, estado: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
-                >
-                  <option value="sin asignar">Sin asignar</option>
-                  <option value="asignado">Asignado</option>
-                  <option value="realizado">Realizado</option>
-                </select>
-              </div>
+              {editingTarea && (
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">Estado</label>
+                  <select
+                    value={tareaData.estado}
+                    onChange={(e) => setTareaData({ ...tareaData, estado: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
+                    disabled={tareaData.asignado_a !== ""}
+                  >
+                    <option value="sin asignar">Sin asignar</option>
+                    <option value="asignado">Asignado</option>
+                    <option value="realizado">Realizado</option>
+                  </select>
+                  {tareaData.asignado_a && (
+                    <p className="text-xs text-gray-500 mt-1">El estado se actualiza automáticamente al asignar</p>
+                  )}
+                </div>
+              )}
             </div>
+            {!editingTarea && (
+              <p className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg border border-blue-200">
+                💡 <strong>Nota:</strong> Si asignas un usuario, la tarea se creará con estado "Asignado" automáticamente. Si no, quedará "Sin asignar".
+              </p>
+            )}
             <div className="flex gap-3">
               <button
                 type="submit"
@@ -1400,19 +1529,19 @@ function ForoSection() {
         </div>
       )}
 
-      {/* Vista Kanban */}
+      {/* Vista Kanban - Responsive */}
       {vistaActiva === 'kanban' ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Columna: Sin Asignar */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b-4 border-yellow-400">
-              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-              <h3 className="font-bold text-lg text-gray-800">Sin Asignar</h3>
-              <span className="ml-auto bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm font-semibold">
+          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-yellow-400">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-400"></div>
+              <h3 className="font-bold text-base sm:text-lg text-gray-800">Sin Asignar</h3>
+              <span className="ml-auto bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 {tareasKanban['sin asignar'].length}
               </span>
             </div>
-            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+            <div className="space-y-2 sm:space-y-3 max-h-[400px] sm:max-h-[600px] overflow-y-auto">
               {tareasKanban['sin asignar'].length === 0 ? (
                 <p className="text-center text-gray-400 py-4 text-sm">No hay tareas</p>
               ) : (
@@ -1424,15 +1553,15 @@ function ForoSection() {
           </div>
 
           {/* Columna: Asignadas */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b-4 border-blue-400">
-              <div className="w-3 h-3 rounded-full bg-blue-400"></div>
-              <h3 className="font-bold text-lg text-gray-800">Asignadas</h3>
-              <span className="ml-auto bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">
+          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-blue-400">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-blue-400"></div>
+              <h3 className="font-bold text-base sm:text-lg text-gray-800">Asignadas</h3>
+              <span className="ml-auto bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 {tareasKanban['asignado'].length}
               </span>
             </div>
-            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+            <div className="space-y-2 sm:space-y-3 max-h-[400px] sm:max-h-[600px] overflow-y-auto">
               {tareasKanban['asignado'].length === 0 ? (
                 <p className="text-center text-gray-400 py-4 text-sm">No hay tareas</p>
               ) : (
@@ -1444,15 +1573,15 @@ function ForoSection() {
           </div>
 
           {/* Columna: Realizadas */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b-4 border-green-400">
-              <div className="w-3 h-3 rounded-full bg-green-400"></div>
-              <h3 className="font-bold text-lg text-gray-800">Realizadas</h3>
-              <span className="ml-auto bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-semibold">
+          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-green-400">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-400"></div>
+              <h3 className="font-bold text-base sm:text-lg text-gray-800">Realizadas</h3>
+              <span className="ml-auto bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 {tareasKanban['realizado'].length}
               </span>
             </div>
-            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+            <div className="space-y-2 sm:space-y-3 max-h-[400px] sm:max-h-[600px] overflow-y-auto">
               {tareasKanban['realizado'].length === 0 ? (
                 <p className="text-center text-gray-400 py-4 text-sm">No hay tareas</p>
               ) : (
@@ -1464,14 +1593,14 @@ function ForoSection() {
           </div>
         </div>
       ) : (
-        /* Vista Lista */
-        <div className="space-y-3">
+        /* Vista Lista - Responsive */
+        <div className="space-y-2 sm:space-y-3">
           {tareasFiltradas.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-md p-8 text-center">
-              <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-xl shadow-md p-6 sm:p-8 text-center">
+              <svg className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <p className="text-gray-500 text-lg">No hay tareas que mostrar</p>
+              <p className="text-gray-500 text-base sm:text-lg">No hay tareas que mostrar</p>
             </div>
           ) : (
             tareasFiltradas.map(tarea => {
@@ -1479,13 +1608,13 @@ function ForoSection() {
                 tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar' ? '#FBBF24' :
                 tarea.estado === 'asignado' || tarea.estado === 'Asignado' || tarea.estado === 'Asignada' ? '#60A5FA' : '#34D399';
               return (
-                <div key={tarea.id} className="bg-white rounded-xl shadow-md p-5 border-l-4 hover:shadow-lg transition-all" style={{ borderLeftColor: estadoColor }}>
-                  <div className="flex justify-between items-start">
+                <div key={tarea.id} className="bg-white rounded-lg sm:rounded-xl shadow-md p-3 sm:p-5 border-l-4 hover:shadow-lg transition-all" style={{ borderLeftColor: estadoColor }}>
+                  <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row sm:justify-between sm:items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-gray-900">{tarea.titulo}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">{tarea.titulo}</h3>
                         <span 
-                          className="px-3 py-1 rounded-full font-semibold text-xs"
+                          className="px-2 sm:px-3 py-1 rounded-full font-semibold text-xs w-fit"
                           style={{
                             backgroundColor: estadoColor + '20',
                             color: estadoColor
@@ -1495,20 +1624,20 @@ function ForoSection() {
                         </span>
                       </div>
                       {tarea.descripcion && (
-                        <p className="text-gray-600 mb-3">{tarea.descripcion}</p>
+                        <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">{tarea.descripcion}</p>
                       )}
-                      <div className="flex flex-wrap gap-4 text-sm">
+                      <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm">
                         {tarea.asignado_a && (
-                          <div className="flex items-center gap-2">
-                            <svg className="w-4 h-4" style={{ color: '#8A4D76' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="flex items-center gap-1 sm:gap-2">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: '#8A4D76' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             <span className="font-semibold text-gray-700">{tarea.asignado_a}</span>
                           </div>
                         )}
                         {tarea.creado_por_username && (
-                          <div className="flex items-center gap-2 text-gray-500">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="flex items-center gap-1 sm:gap-2 text-gray-500">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                             <span>Creado por {tarea.creado_por_username}</span>
@@ -1516,10 +1645,10 @@ function ForoSection() {
                         )}
                       </div>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:ml-4">
                       <button
                         onClick={() => handleEditTarea(tarea)}
-                        className="px-4 py-2 rounded-lg text-white font-semibold hover:opacity-90 transition-all"
+                        className="px-3 sm:px-4 py-2 rounded-lg text-white text-xs sm:text-sm font-semibold hover:opacity-90 transition-all"
                         style={{ backgroundColor: '#8A4D76' }}
                       >
                         Editar
@@ -1527,17 +1656,20 @@ function ForoSection() {
                       {tarea.estado !== 'realizado' && tarea.estado !== 'Realizado' && tarea.estado !== 'Finalizada' && (
                         <button
                           onClick={() => {
-                            const siguienteEstado = tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar' ? 'asignado' : 'realizado';
-                            handleUpdateEstado(tarea.id, siguienteEstado);
+                            if (tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar') {
+                              setShowAsignarModal(tarea.id);
+                            } else {
+                              handleUpdateEstado(tarea.id, 'realizado');
+                            }
                           }}
-                          className="px-4 py-2 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
+                          className="px-3 sm:px-4 py-2 rounded-lg bg-green-500 text-white text-xs sm:text-sm font-semibold hover:bg-green-600 transition-all"
                         >
                           {tarea.estado === 'sin asignar' || tarea.estado === 'Sin asignar' ? '→ Asignar' : '✓ Completar'}
                         </button>
                       )}
                       <button
                         onClick={() => setShowDeleteConfirm(tarea.id)}
-                        className="px-4 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition-all"
+                        className="px-3 sm:px-4 py-2 rounded-lg bg-red-500 text-white text-xs sm:text-sm font-semibold hover:bg-red-600 transition-all"
                       >
                         Eliminar
                       </button>

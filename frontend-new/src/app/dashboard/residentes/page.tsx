@@ -287,41 +287,46 @@ export default function ResidentesPage() {
       <Navbar />
       <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="max-w-7xl mx-auto py-8">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="mb-4 px-6 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all"
-              >
-                ← Volver al Dashboard
-              </button>
-              <h1 className="text-4xl md:text-5xl font-bold" style={{ color: '#8A4D76' }}>
-                Gestión de Residentes
-              </h1>
-            </div>
+          <div className="mb-8">
+            {/* Botón Volver - Siempre visible arriba */}
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="mb-4 px-4 py-2 sm:px-6 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all inline-block"
+            >
+              ← Volver al Dashboard
+            </button>
             
-            {/* Botones de exportación */}
-            <div className="flex gap-3">
-              <button
-                onClick={exportToJSON}
-                className="px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg transition-all flex items-center gap-2"
-                title="Descargar copia de seguridad en formato JSON"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                JSON
-              </button>
-              <button
-                onClick={exportToCSV}
-                className="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-lg transition-all flex items-center gap-2"
-                title="Descargar copia de seguridad en formato CSV (Excel)"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                CSV
-              </button>
+            {/* Contenedor responsive del título y botones */}
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+              <div className="flex-1">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: '#8A4D76' }}>
+                  Gestión de Residentes
+                </h1>
+              </div>
+              
+              {/* Botones de exportación - Responsive */}
+              <div className="flex flex-row gap-2 sm:gap-3">
+                <button
+                  onClick={exportToJSON}
+                  className="flex-1 sm:flex-none px-3 sm:px-6 py-2 sm:py-3 rounded-xl bg-green-600 text-white text-sm sm:text-base font-semibold hover:bg-green-700 hover:shadow-lg transition-all flex items-center justify-center gap-1 sm:gap-2"
+                  title="Descargar copia de seguridad en formato JSON"
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  JSON
+                </button>
+                <button
+                  onClick={exportToCSV}
+                  className="flex-1 sm:flex-none px-3 sm:px-6 py-2 sm:py-3 rounded-xl bg-blue-600 text-white text-sm sm:text-base font-semibold hover:bg-blue-700 hover:shadow-lg transition-all flex items-center justify-center gap-1 sm:gap-2"
+                  title="Descargar copia de seguridad en formato CSV (Excel)"
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  CSV
+                </button>
+              </div>
             </div>
           </div>
 
