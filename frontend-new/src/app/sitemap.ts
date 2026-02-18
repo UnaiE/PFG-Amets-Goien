@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ametsgoien.org'
+  // Usar variable de entorno o dominio por defecto
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ametsgoien.org'
   
   return [
     {
