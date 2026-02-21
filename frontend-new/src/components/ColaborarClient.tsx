@@ -191,56 +191,203 @@ export default function ColaborarClient() {
           </div>
         </section>
 
+        {/* Sección: Cómo ayudamos con tus donaciones */}
+        <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                ¿Cómo usamos tus donaciones?
+              </h2>
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                Cada euro que aportas se destina íntegramente a mejorar la vida de las mujeres y familias que acogemos. Aquí te mostramos cómo invertimos tu ayuda:
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {[
+                { 
+                  icono: '🏠', 
+                  titulo: 'Alojamiento', 
+                  descripcion: 'Mantenimiento de la casa de acogida en Orduña',
+                  porcentaje: '40%',
+                  color: '#8A4D76'
+                },
+                { 
+                  icono: '🍽️', 
+                  titulo: 'Alimentación', 
+                  descripcion: 'Comida nutritiva para las familias residentes',
+                  porcentaje: '25%',
+                  color: '#A05A89'
+                },
+                { 
+                  icono: '👩‍⚕️', 
+                  titulo: 'Apoyo Psicológico', 
+                  descripcion: 'Acompañamiento emocional y terapias',
+                  porcentaje: '20%',
+                  color: '#B876A2'
+                },
+                { 
+                  icono: '📚', 
+                  titulo: 'Educación', 
+                  descripcion: 'Material escolar y formación para madres e hijos',
+                  porcentaje: '15%',
+                  color: '#D092BB'
+                }
+              ].map((item, index) => (
+                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-2 border-transparent hover:border-purple-300">
+                  <div className="text-5xl mb-4 text-center">{item.icono}</div>
+                  <div className="text-center mb-3">
+                    <span className="text-3xl font-bold" style={{ color: item.color }}>
+                      {item.porcentaje}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
+                    {item.titulo}
+                  </h3>
+                  <p className="text-sm text-gray-600 text-center">
+                    {item.descripcion}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4" style={{ borderColor: '#8A4D76' }}>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-shrink-0 text-6xl">💝</div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
+                    Tu aportación, por pequeña que sea, marca la diferencia
+                  </h3>
+                  <p className="text-gray-700">
+                    Operamos con total transparencia y eficiencia. El 100% de las donaciones va directamente a los programas de apoyo. 
+                    Los gastos administrativos se cubren mediante subvenciones y colaboraciones institucionales.
+                  </p>
+                </div>
+                <button
+                  onClick={() => document.getElementById('formulario-donacion')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="flex-shrink-0 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all text-lg whitespace-nowrap"
+                  style={{ backgroundColor: '#8A4D76' }}
+                >
+                  Donar ahora →
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Formulario de Donación y Sección de Impacto en paralelo */}
-        <section className="py-12 px-4 md:px-8 lg:px-16">
+        <section id="formulario-donacion" className="py-12 px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Columna Izquierda: Información de Impacto */}
+              {/* Columna Izquierda: Testimonio e Impacto */}
               <div className="space-y-6">
-                <div>
-                  <h2 className="text-3xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                    ¿Cómo ayuda tu donación?
-                  </h2>
-                  <p className="text-gray-600 mb-6">
-                    Cada aportación contribuye directamente a mantener nuestra casa de acogida en Orduña, donde ofrecemos dignidad, solidaridad y amor a mujeres refugiadas y sus familias.
-                  </p>
+                {/* Testimonio Real */}
+                <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4" style={{ borderColor: '#8A4D76' }}>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="text-5xl">💬</div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
+                        Testimonios reales
+                      </h3>
+                      <div className="w-16 h-1 rounded" style={{ backgroundColor: '#F89E3A' }}></div>
+                    </div>
+                  </div>
+                  
+                  <blockquote className="relative">
+                    <div className="text-6xl absolute -top-4 -left-2 opacity-20" style={{ color: '#8A4D76' }}>"</div>
+                    <p className="text-gray-700 italic text-lg leading-relaxed mb-4 pl-6">
+                      Encontrar un espacio seguro y humano marca la diferencia entre el miedo y la dignidad. Ametsgoien representa esa acogida real que muchas mujeres necesitamos.
+                    </p>
+                    <footer className="text-right">
+                      <cite className="text-sm text-gray-600 not-italic font-semibold">
+                        — Mariana, Beneficiaria
+                      </cite>
+                    </footer>
+                  </blockquote>
+                  
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <p className="text-sm text-gray-600 mb-3">
+                      Mariana llegó al País Vasco buscando encontrar solución médica y reunirse con su hijo. Como madre sola y mujer migrada, enfrentó discriminación en el acceso a la vivienda y dificultades en cada paso.
+                    </p>
+                    <p className="text-sm text-gray-700 font-semibold">
+                      "Para mí, acoger no es solo abrir una casa, sino abrir los brazos y acercar los corazones."
+                    </p>
+                  </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
-                    <div className="text-3xl">🏠</div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Casa de Acogida</h3>
-                      <p className="text-gray-700 text-sm">Nuestra casa de 12 habitaciones en Orduña, renovada por más de 40 voluntarios, proporciona un hogar seguro y digno.</p>
+                {/* Por qué donar - FAQ Compacto */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h3 className="text-xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                    ¿Por qué donar a Amets Goien?
+                  </h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#8A4D76' }}>
+                        ✓
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1">100% transparencia</h4>
+                        <p className="text-sm text-gray-600">Cada euro va directamente a los programas de apoyo</p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
-                    <div className="text-3xl">❤️</div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Acompañamiento Humano</h3>
-                      <p className="text-gray-700 text-sm">Priorizamos la dignidad y seguridad emocional, ofreciendo apoyo psicológico y acompañamiento en cada etapa.</p>
+                    
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#8A4D76' }}>
+                        ✓
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1">Impacto real y medible</h4>
+                        <p className="text-sm text-gray-600">Tu donación ayuda directamente a las familias acogidas en nuestra casa de Orduña</p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
-                    <div className="text-3xl">🌱</div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-1" style={{ color: '#8A4D76' }}>Construyendo Futuro</h3>
-                      <p className="text-gray-700 text-sm">"Gota a gota" ayudamos a cada mujer a reencontrar su fuerza y avanzar hacia una vida estable e independiente.</p>
+                    
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#8A4D76' }}>
+                        ✓
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1">Trato humano y cercano</h4>
+                        <p className="text-sm text-gray-600">No somos un número, somos una familia que acoge con amor</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-purple-50 rounded-xl p-5 border-l-4 border-[#8A4D76]">
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#8A4D76' }}>El impacto de tu aportación</h3>
-                  <div className="space-y-2 text-gray-700 text-sm">
-                    <p><strong>30€</strong> - Alimentación para una familia durante una semana</p>
-                    <p><strong>60€</strong> - Material escolar y educativo para los niños</p>
-                    <p><strong>100€</strong> - Mantenimiento mensual de una habitación</p>
-                    <p><strong>200€</strong> - Apoyo integral mensual para una familia</p>
-                    <p className="text-xs italic mt-3">Tu donación ayuda a mantener la asociación, dirigida con amor y solidaridad.</p>
+                {/* Mensaje de confianza */}
+                <div className="bg-purple-50 rounded-2xl p-8 border-2 border-purple-200">
+                  <div className="text-center">
+                    <div className="text-5xl mb-4">💝</div>
+                    <h3 className="text-xl font-bold mb-3" style={{ color: '#8A4D76' }}>
+                      Tu apoyo marca la diferencia
+                    </h3>
+                    <p className="text-gray-700">
+                      Con tu donación ayudas a mantener nuestra casa de acogida en Orduña, donde ofrecemos dignidad, solidaridad y amor a mujeres refugiadas y sus familias.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Otras historias */}
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h4 className="text-lg font-bold mb-4 text-center" style={{ color: '#8A4D76' }}>
+                    Más historias de esperanza
+                  </h4>
+                  
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-700 italic mb-2">
+                        "Como madre, lo más importante es sentirte protegida y acompañada. Un lugar seguro puede cambiarlo todo."
+                      </p>
+                      <p className="text-xs text-gray-600 font-semibold">— Emadolis</p>
+                    </div>
+                    
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-700 italic mb-2">
+                        "Sin apoyo y sin vivienda, la vida se vuelve insostenible. Las asociaciones que acompañan de verdad cambian destinos."
+                      </p>
+                      <p className="text-xs text-gray-600 font-semibold">— Berita</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -443,39 +590,21 @@ export default function ColaborarClient() {
                     </div>
                   </button>
 
-                  {/* Información de Bizum para donaciones manuales */}
-                  <div className="p-4 rounded-lg border-2 border-gray-300 bg-gradient-to-br from-purple-50 to-pink-50">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold flex-shrink-0" style={{ backgroundColor: '#8A4D76' }} aria-hidden="true">B</div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-gray-900 mb-1">También puedes donar por Bizum</h3>
-                        <div className="bg-white rounded-lg p-3 border border-gray-200 mb-2">
-                          <p className="text-xs text-gray-600 mb-1">Envía tu donación al número:</p>
-                          <div className="flex items-center justify-between">
-                            <p className="text-2xl font-bold" style={{ color: '#8A4D76' }}>12892</p>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                navigator.clipboard.writeText('12892');
-                                setBizumCopiado(true);
-                                setTimeout(() => setBizumCopiado(false), 2000);
-                              }}
-                              className={`px-3 py-1 text-xs rounded-full transition-all ${
-                                bizumCopiado 
-                                  ? 'bg-green-100 text-green-700' 
-                                  : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
-                              }`}
-                              aria-label="Copiar número de Bizum"
-                            >
-                              {bizumCopiado ? '✓ Copiado' : 'Copiar'}
-                            </button>
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-600 italic">
-                          💡 Recuerda incluir tu nombre en el concepto para que podamos agradecerte personalmente
-                        </p>
-                      </div>
-                    </div>
+                  {/* Enlace a otras formas de pago */}
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <p className="text-sm text-blue-800 mb-2">
+                      💡 <strong>¿Prefieres Bizum o transferencia bancaria?</strong>
+                    </p>
+                    <p className="text-xs text-blue-700 mb-3">
+                      Consulta la sección "Otras formas de donar" al final de la página para ver todas las opciones disponibles.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="text-sm font-semibold text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Ver opciones de pago alternativas 
+                    </button>
                   </div>
                 </div>
               </fieldset>
@@ -560,6 +689,93 @@ export default function ColaborarClient() {
               </p>
             </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sección: Otras formas de Donar */}
+        <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#8A4D76' }}>
+              Otras formas de Donar
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              Si tienes algún problema al realizar tu donación o quieres más información sobre otras formas de pago, no lo dudes y contáctanos
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              {/* Bizum */}
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 hover:shadow-xl transition-all">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white p-2 shadow-md">
+                    <img src="/Bizum.png" alt="Logo Bizum" className="w-full h-full object-contain" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Bizum</h3>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-purple-200 mb-4">
+                  <p className="text-sm text-gray-600 mb-2">Envía tu donación al número:</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-4xl font-bold" style={{ color: '#8A4D76' }}>12892</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText('12892');
+                        setBizumCopiado(true);
+                        setTimeout(() => setBizumCopiado(false), 2000);
+                      }}
+                      className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                        bizumCopiado 
+                          ? 'bg-green-500 text-white' 
+                          : 'bg-purple-600 text-white hover:bg-purple-700'
+                      }`}
+                      aria-label="Copiar número de Bizum"
+                    >
+                      {bizumCopiado ? '✓ Copiado' : 'Copiar'}
+                    </button>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">
+                  💡 <strong>Recuerda:</strong> Incluye tu nombre en el concepto para que podamos agradecerte personalmente
+                </p>
+              </div>
+
+              {/* Cuentas Bancarias */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200 hover:shadow-xl transition-all">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Transferencia Bancaria</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="bg-white rounded-lg p-3 border border-blue-200">
+                    <p className="text-xs text-gray-500 mb-1">BBVA</p>
+                    <p className="font-mono text-sm font-semibold text-gray-900">ES52 0182 1290 35 0010853001</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 border border-blue-200">
+                    <p className="text-xs text-gray-500 mb-1">Kutxabank</p>
+                    <p className="font-mono text-sm font-semibold text-gray-900">ES06 2095 0000 70 9101227989</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 mt-4">
+                  💡 <strong>Concepto:</strong> "Donación" + tu nombre
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <a
+                href="/contacto"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white hover:shadow-lg transition-all"
+                style={{ backgroundColor: '#F89E3A' }}
+              >
+                Contactar
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
             </div>
           </div>
         </section>
