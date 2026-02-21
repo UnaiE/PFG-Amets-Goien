@@ -136,8 +136,9 @@ export default function PrivacidadPage() {
                 </p>
                 <ul className="list-disc list-inside ml-4 space-y-2 text-gray-700">
                   <li><strong>Stripe</strong> (procesamiento de pagos): Los datos de pago se procesan de forma segura a través de Stripe, Inc., que cumple con el estándar PCI-DSS. AMETSGOIEN no almacena datos completos de tarjetas bancarias. Más información en <a href="https://stripe.com/es/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">stripe.com/privacy</a></li>
-                  <li><strong>Servicio de hosting web</strong>: Para el alojamiento del sitio web</li>
-                  <li><strong>Servicio de email</strong>: Para el envío de confirmaciones y comunicaciones</li>
+                  <li><strong>Vercel Inc.</strong> (hosting frontend): Para el alojamiento del sitio web en www.ametsgoien.org. Más información en <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">vercel.com/privacy</a></li>
+                  <li><strong>Railway Corp.</strong> (hosting backend y base de datos): Para el alojamiento del servidor API REST y base de datos PostgreSQL. Más información en <a href="https://railway.app/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">railway.app/privacy</a></li>
+                  <li><strong>SendGrid (Twilio Inc.)</strong> (servicio de email): Para el envío de confirmaciones de donaciones y respuestas a formularios de contacto. Más información en <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">twilio.com/privacy</a></li>
                 </ul>
                 <p className="mt-3">
                   Con todos los proveedores se han adoptado las garantías exigidas por la normativa vigente mediante acuerdos de confidencialidad y cláusulas contractuales.
