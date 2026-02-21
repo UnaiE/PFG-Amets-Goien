@@ -59,11 +59,13 @@ const Navbar = () => {
           {/* Logo a la izquierda */}
           <div className="flex items-center">
             <a href="/" className="flex items-center" aria-label="Ir a inicio">
-              <img 
-                src="/logo2.png" 
-                alt="Ametsgoien" 
-                className="h-10 md:h-12 w-auto"
-              />
+              <div className="bg-white rounded-full px-3 py-2 shadow-md" style={{ border: '2px solid #8A4D76' }}>
+                <img 
+                  src="/logo.png" 
+                  alt="Ametsgoien" 
+                  className="h-8 md:h-10 w-auto"
+                />
+              </div>
             </a>
           </div>
           

@@ -65,6 +65,92 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Sección de Colaboradores */}
+      <div className="border-t border-white/20 py-8 md:py-10">
+        <div className="max-w-7xl mx-auto">
+          <h4 className="text-white font-semibold text-base md:text-lg text-center mb-6">
+            Colaboran con nosotros
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-center justify-items-center">
+            {/* Logo Deusto */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/deusto.png" 
+                alt="Universidad de Deusto"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+            
+            {/* Placeholder colaborador 2 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 3 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 4 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 5 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 6 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 7 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+
+            {/* Placeholder colaborador 8 */}
+            <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <img 
+                src="/pending.jpeg" 
+                alt="Colaborador pendiente"
+                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          </div>
+          <p className="text-white/60 text-xs text-center mt-6">
+            Gracias a todas las entidades y organizaciones que hacen posible nuestro trabajo
+          </p>
+        </div>
+      </div>
+
       {/* Barra inferior */}
       <div className="border-t border-white/20 px-12">
         <div className="max-w-7xl mx-auto py-6">

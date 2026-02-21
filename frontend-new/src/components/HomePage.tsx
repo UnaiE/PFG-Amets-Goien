@@ -12,7 +12,7 @@ const HomePage = () => {
       </section>
 
       {/* SECCIÓN SOBRE AMETSGOIEN */}
-      <section id="ong" className="min-h-screen flex items-center justify-center py-20" style={{ backgroundColor: '#D8B8C4' }}>
+      <section id="ong" className="min-h-screen flex items-center justify-center py-20" style={{ backgroundColor: '#F3E8F7' }}>
         <div className="w-full px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16">
@@ -73,7 +73,7 @@ const HomePage = () => {
       </section>
 
       {/* SECCIÓN DE ÚLTIMAS NOTICIAS */}
-      <section id="noticias" className="py-16 bg-[#D8B8C4]">
+      <section id="noticias" className="py-16 bg-[#E8D5F2]">
         <div className="w-full px-4 md:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <NoticiasCarousel />
@@ -82,7 +82,7 @@ const HomePage = () => {
       </section>
 
       {/* SECCIÓN DE TESTIMONIOS */}
-      <section id="testimonios" className="min-h-screen flex items-center justify-center py-20" style={{ backgroundColor: '#D8B8C4' }}>
+      <section id="testimonios" className="min-h-screen flex items-center justify-center py-20" style={{ backgroundColor: '#F3E8F7' }}>
         <div className="w-full px-4 md:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-left mb-12 tracking-tight">
