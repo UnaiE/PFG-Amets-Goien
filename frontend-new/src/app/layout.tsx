@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Ametsgoien - Acogida y acompañamiento a mujeres migrantes",
     template: "%s | Ametsgoien"
   },
-  description: "Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias en situación de vulnerabilidad. Ofrecemos alojamiento, orientación legal, apoyo psicológico y programas de integración en Bilbao, País Vasco.",
+  description: "Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias en situación de vulnerabilidad.",
   keywords: [
     "ametsgoien",
     "amets goien",
