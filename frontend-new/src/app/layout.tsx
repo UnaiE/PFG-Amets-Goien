@@ -99,7 +99,7 @@ export const metadata: Metadata = {
     // Añadir cuando tengas las cuentas configuradas:
     // google: 'tu-codigo-de-verificacion-de-google',
     // yandex: 'tu-codigo-de-verificacion-de-yandex',
-    // bing: 'tu-codigo-de-verificacion-de-bing',
+    // bing: Verificación mediante archivo BingSiteAuth.xml en /public
   },
 };
 
