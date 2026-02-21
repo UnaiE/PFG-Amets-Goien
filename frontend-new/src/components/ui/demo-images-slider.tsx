@@ -5,9 +5,12 @@ import { ImagesSlider } from "@/components/ui/images-slider";
 
 export function ImagesSliderDemo() {
   const images = [
-    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=2070&auto=format&fit=crop",
+    "/header5.jpeg",
+    "/header1.jpg",
+    "/header2.jpeg",
+    "/header3.jpg",
+    "/header4.jpg",
+    
   ];
   return (
     <ImagesSlider className="h-screen" images={images}>

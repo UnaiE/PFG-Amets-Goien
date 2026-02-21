@@ -97,25 +97,27 @@ export default function Dashboard() {
       <div className="min-h-screen pt-20 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="max-w-7xl mx-auto py-8">
           {/* Header con botón de cerrar sesión */}
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold" style={{ color: '#8A4D76' }}>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold" style={{ color: '#8A4D76' }}>
               Panel de Administración
             </h1>
-            <div className="flex flex-col items-end gap-2">
-              <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-md">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full" style={{ backgroundColor: '#8A4D76' }}>
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              {/* Usuario conectado */}
+              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-full shadow-md flex-1 sm:flex-initial">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0" style={{ backgroundColor: '#8A4D76' }}>
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <div className="text-left">
-                  <p className="text-xs text-gray-500">Conectado como</p>
-                  <p className="font-semibold" style={{ color: '#8A4D76' }}>{getUserFromToken() || "Usuario"}</p>
+                <div className="text-left min-w-0">
+                  <p className="text-xs text-gray-500 hidden sm:block">Conectado como</p>
+                  <p className="font-semibold text-sm truncate" style={{ color: '#8A4D76' }}>{getUserFromToken() || "Usuario"}</p>
                 </div>
               </div>
+              {/* Botón cerrar sesión */}
               <button
                 onClick={handleLogout}
-                className="px-6 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition-colors shadow-md"
+                className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition-colors shadow-md text-sm font-medium whitespace-nowrap"
               >
                 Cerrar Sesión
               </button>

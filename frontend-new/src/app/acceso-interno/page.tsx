@@ -50,74 +50,58 @@ export default function AccesoInterno() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center px-4 pt-20" style={{ backgroundColor: '#E8D5F2' }}>
+      <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="w-full max-w-md">
           {/* Card principal */}
-          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="inline-block p-4 rounded-full mb-4" style={{ backgroundColor: '#E8D5F2' }}>
-                <svg 
-                  className="w-12 h-12" 
-                  style={{ color: '#8A4D76' }}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: '#8A4D76' }}>
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+            {/* Logo pequeño */}
+            <div className="flex justify-center mb-6">
+              <img 
+                src="/logo.png" 
+                alt="Ametsgoien" 
+                className="h-16 w-auto"
+              />
+            </div>
+
+            {/* Header simple */}
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-center mb-2" style={{ color: '#8A4D76' }}>
                 Acceso Interno
               </h1>
-              <p className="text-gray-600 text-lg">
-                Zona privada para personal autorizado
+              <p className="text-gray-500 text-sm text-center">
+                Panel de administración
               </p>
             </div>
           
-            {/* Mensaje de error con mejor diseño */}
+            {/* Mensaje de error */}
             {error && (
               <div 
                 role="alert"
-                aria-live="polite"
-                className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg"
+                className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm"
               >
-                <div className="flex items-start">
-                  <svg 
-                    className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                  <p className="text-red-800 font-medium">{error}</p>
-                </div>
+                {error}
               </div>
             )}
           
-            {/* Formulario mejorado */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Formulario */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Campo Usuario */}
               <div>
                 <label 
                   htmlFor="usuario-login" 
-                  className="block text-sm font-semibold mb-2" 
-                  style={{ color: '#8A4D76' }}
+                  className="block text-sm font-medium mb-1.5 text-gray-700"
                 >
                   Usuario
                 </label>
                 <input
                   id="usuario-login"
                   type="text"
-                  placeholder="Introduce tu nombre de usuario"
+                  placeholder="Nombre de usuario"
                   value={usuario}
                   onChange={(e) => setUsuario(e.target.value)}
-                  className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#8A4D76] focus:ring-2 focus:ring-[#8A4D76]/20 transition-all text-base text-gray-800 placeholder-gray-400"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#8A4D76] focus:ring-1 focus:ring-[#8A4D76] transition-colors text-gray-800"
                   required
                   disabled={loading}
-                  aria-required="true"
                   autoComplete="username"
                 />
               </div>
@@ -126,21 +110,19 @@ export default function AccesoInterno() {
               <div>
                 <label 
                   htmlFor="contrasena-login" 
-                  className="block text-sm font-semibold mb-2" 
-                  style={{ color: '#8A4D76' }}
+                  className="block text-sm font-medium mb-1.5 text-gray-700"
                 >
                   Contraseña
                 </label>
                 <input
                   id="contrasena-login"
                   type="password"
-                  placeholder="Introduce tu contraseña"
+                  placeholder="Contraseña"
                   value={contrasena}
                   onChange={(e) => setContrasena(e.target.value)}
-                  className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#8A4D76] focus:ring-2 focus:ring-[#8A4D76]/20 transition-all text-base text-gray-800 placeholder-gray-400"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#8A4D76] focus:ring-1 focus:ring-[#8A4D76] transition-colors text-gray-800"
                   required
                   disabled={loading}
-                  aria-required="true"
                   autoComplete="current-password"
                 />
               </div>
@@ -149,58 +131,28 @@ export default function AccesoInterno() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-full font-semibold text-white text-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-lg font-medium text-white transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
                 style={{ backgroundColor: '#8A4D76' }}
-                aria-label={loading ? "Procesando inicio de sesión" : "Iniciar sesión"}
               >
-                {loading ? (
-                  <>
-                    <svg 
-                      className="animate-spin h-5 w-5 text-white" 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      fill="none" 
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>Verificando...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Iniciar Sesión</span>
-                    <svg 
-                      className="w-5 h-5" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </>
-                )}
+                {loading ? "Verificando..." : "Iniciar sesión"}
               </button>
             </form>
           
-            {/* Mensaje informativo */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <p className="text-center text-gray-500 text-sm leading-relaxed">
-                🔒 Acceso restringido al personal de Ametsgoien.<br />
-                Si necesitas acceso, contacta con la administración.
+            {/* Pie del formulario */}
+            <div className="mt-6 pt-4 border-t border-gray-100">
+              <p className="text-center text-gray-500 text-xs">
+                Solo personal autorizado
               </p>
             </div>
           </div>
 
-          {/* Información adicional fuera del card */}
-          <div className="mt-6 text-center">
+          {/* Link volver */}
+          <div className="mt-4 text-center">
             <a 
               href="/" 
-              className="text-sm font-medium hover:underline transition-all"
-              style={{ color: '#8A4D76' }}
+              className="text-sm text-gray-600 hover:text-[#8A4D76] transition-colors"
             >
-              ← Volver a la página principal
+              ← Volver al inicio
             </a>
           </div>
         </div>
