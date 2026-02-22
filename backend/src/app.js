@@ -16,6 +16,13 @@ import donacionRoutes from './routes/donacionRoutes.js';
 const app = express();
 
 // ========================================
+// CONFIGURACIÓN: Trust proxy para Railway/producción
+// ========================================
+// Railway, Heroku, etc. usan proxies reversos que añaden X-Forwarded-For
+// Esto permite a rate-limit identificar correctamente las IPs de los clientes
+app.set('trust proxy', 1); // 1 = confiar en el primer proxy (Railway)
+
+// ========================================
 // SEGURIDAD: Helmet para headers HTTP seguros
 // ========================================
 app.use(helmet({

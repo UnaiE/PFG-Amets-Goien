@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.png?v=2026',
         width: 1200,
         height: 630,
         alt: 'Ametsgoien - Asociación de ayuda a mujeres migrantes',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Ametsgoien - Acogida y acompañamiento a mujeres migrantes',
     description: 'Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias.',
-    images: ['/og-image.png'],
+    images: ['/og-image.png?v=2026'],
   },
   icons: {
     icon: [
