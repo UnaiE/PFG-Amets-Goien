@@ -203,7 +203,7 @@ export default function ColaborarClient() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
               {[
                 { 
                   icono: '🏠', 
@@ -234,17 +234,17 @@ export default function ColaborarClient() {
                   color: '#D092BB'
                 }
               ].map((item, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-2 border-transparent hover:border-purple-300">
-                  <div className="text-5xl mb-4 text-center">{item.icono}</div>
-                  <div className="text-center mb-3">
-                    <span className="text-3xl font-bold" style={{ color: item.color }}>
+                <div key={index} className="bg-white rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all border-2 border-transparent hover:border-purple-300">
+                  <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">{item.icono}</div>
+                  <div className="text-center mb-2 md:mb-3">
+                    <span className="text-2xl md:text-3xl font-bold" style={{ color: item.color }}>
                       {item.porcentaje}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
+                  <h3 className="text-base md:text-xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
                     {item.titulo}
                   </h3>
-                  <p className="text-sm text-gray-600 text-center">
+                  <p className="text-xs md:text-sm text-gray-600 text-center">
                     {item.descripcion}
                   </p>
                 </div>
@@ -264,7 +264,14 @@ export default function ColaborarClient() {
                   </p>
                 </div>
                 <button
-                  onClick={() => document.getElementById('formulario-donacion')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => {
+                    const formulario = document.getElementById('form-donacion');
+                    if (formulario) {
+                      const yOffset = -100; // Offset para el navbar fijo
+                      const y = formulario.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
                   className="flex-shrink-0 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all text-lg whitespace-nowrap"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
@@ -278,7 +285,7 @@ export default function ColaborarClient() {
         {/* Formulario de Donación y Sección de Impacto en paralelo */}
         <section id="formulario-donacion" className="py-12 px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               
               {/* Columna Izquierda: Testimonio e Impacto */}
               <div className="space-y-6">
@@ -393,7 +400,7 @@ export default function ColaborarClient() {
               </div>
 
               {/* Columna Derecha: Formulario de Donación */}
-              <div>
+              <div id="form-donacion">
             <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-200 sticky top-24">
               <h2 className="text-3xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
                 Haz tu donación
@@ -600,7 +607,14 @@ export default function ColaborarClient() {
                     </p>
                     <button
                       type="button"
-                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      onClick={() => {
+                        const seccion = document.getElementById('otras-formas-donar');
+                        if (seccion) {
+                          const yOffset = -80;
+                          const y = seccion.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                      }}
                       className="text-sm font-semibold text-blue-600 hover:text-blue-800 underline"
                     >
                       Ver opciones de pago alternativas 
@@ -694,7 +708,7 @@ export default function ColaborarClient() {
         </section>
 
         {/* Sección: Otras formas de Donar */}
-        <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+        <section id="otras-formas-donar" className="py-16 px-4 md:px-8 lg:px-16 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#8A4D76' }}>
               Otras formas de Donar
