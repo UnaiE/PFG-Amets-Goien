@@ -102,13 +102,13 @@ export default function SobreNosotrosPage() {
         {/* Misión y Visión */}
         <section className="py-16 px-4 md:px-8 lg:px-16">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-4 md:gap-8">
               
               {/* Misión */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-[#8A4D76]">
-                <div className="text-5xl mb-4">🎯</div>
-                <h3 className="text-3xl font-bold mb-4" style={{ color: '#8A4D76' }}>Nuestra Misión</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">
+              <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
+                <div className="text-3xl md:text-5xl mb-2 md:mb-4">🎯</div>
+                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Misión</h3>
+                <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
                   Proporcionar acogida segura, apoyo integral y acompañamiento personalizado a mujeres migrantes 
                   y sus familias, ofreciendo herramientas para su desarrollo personal, formación laboral y 
                   autonomía económica, siempre desde el respeto a su dignidad y derechos humanos.
@@ -116,10 +116,10 @@ export default function SobreNosotrosPage() {
               </div>
 
               {/* Visión */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-[#8A4D76]">
-                <div className="text-5xl mb-4">🌟</div>
-                <h3 className="text-3xl font-bold mb-4" style={{ color: '#8A4D76' }}>Nuestra Visión</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">
+              <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
+                <div className="text-3xl md:text-5xl mb-2 md:mb-4">🌟</div>
+                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Visión</h3>
+                <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
                   Ser una organización de referencia en la acogida y acompañamiento de mujeres migrantes, 
                   reconocida por su impacto transformador en las vidas de las personas a las que servimos, 
                   y por contribuir a una sociedad más inclusiva, justa y solidaria.
@@ -135,39 +135,39 @@ export default function SobreNosotrosPage() {
             <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: '#8A4D76' }}>
               ¿Qué hacemos?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               
               {/* Alojamiento */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">🏠</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
+              <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">🏠</div>
+                <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Hogar Seguro
                 </h3>
-                <p className="text-gray-700 text-center">
+                <p className="text-gray-700 text-xs md:text-base text-center">
                   Una casa de 12 habitaciones en Orduña, renovada con el esfuerzo de decenas de voluntarios, 
                   donde las mujeres y sus hijos encuentran un espacio digno y acogedor.
                 </p>
               </div>
 
               {/* Acompañamiento */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">🤝</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
+              <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">🤝</div>
+                <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Acompañamiento Integral
                 </h3>
-                <p className="text-gray-700 text-center">
+                <p className="text-gray-700 text-xs md:text-base text-center">
                   Apoyo personalizado en gestiones administrativas, búsqueda de empleo, formación y todo 
                   lo necesario para lograr la autonomía.
                 </p>
               </div>
 
               {/* Comunidad */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-5xl mb-4 text-center">💜</div>
-                <h3 className="text-xl font-bold mb-3 text-center" style={{ color: '#8A4D76' }}>
+              <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">💜</div>
+                <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Solidaridad Comunitaria
                 </h3>
-                <p className="text-gray-700 text-center">
+                <p className="text-gray-700 text-xs md:text-base text-center">
                   Un proyecto construido "gota a gota" por una comunidad de voluntarios que creen 
                   en el poder transformador de la ayuda mutua.
                 </p>
@@ -182,7 +182,7 @@ export default function SobreNosotrosPage() {
             <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: '#8A4D76' }}>
               Nuestros Valores
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Dignidad</h3>
                 <p className="text-gray-700 text-sm">

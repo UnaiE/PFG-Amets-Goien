@@ -20,6 +20,24 @@ export default function NoticiasCarousel() {
   const [loading, setLoading] = useState(true);
   const [selectedNoticia, setSelectedNoticia] = useState<Noticia | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [numVisible, setNumVisible] = useState(1);
+
+  // Hook para detectar el tamaño de la pantalla
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setNumVisible(3); // Desktop: 3 noticias
+      } else if (window.innerWidth >= 640) {
+        setNumVisible(2); // Tablet: 2 noticias
+      } else {
+        setNumVisible(1); // Móvil: 1 noticia
+      }
+    };
+
+    handleResize(); // Ejecutar al montar
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     fetchNoticias();
@@ -51,7 +69,7 @@ export default function NoticiasCarousel() {
     if (noticias.length === 0) return [];
     
     const visible = [];
-    const totalVisible = Math.min(3, noticias.length);
+    const totalVisible = Math.min(numVisible, noticias.length);
     
     for (let i = 0; i < totalVisible; i++) {
       const index = (currentIndex + i) % noticias.length;
