@@ -203,34 +203,41 @@ export default function ColaborarClient() {
               </p>
             </div>
             
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-3 mb-12">
               {[
                 { 
                   icono: '🏠', 
                   titulo: 'Alojamiento', 
                   descripcion: 'Mantenimiento de la casa de acogida en Orduña',
-                  porcentaje: '40%',
+                  porcentaje: '',
                   color: '#8A4D76'
                 },
                 { 
                   icono: '🍽️', 
                   titulo: 'Alimentación', 
                   descripcion: 'Comida nutritiva para las familias residentes',
-                  porcentaje: '25%',
+                  porcentaje: '',
                   color: '#A05A89'
                 },
                 { 
                   icono: '👩‍⚕️', 
                   titulo: 'Apoyo Psicológico', 
                   descripcion: 'Acompañamiento emocional y terapias',
-                  porcentaje: '20%',
+                  porcentaje: '',
+                  color: '#B876A2'
+                },
+                { 
+                  icono: '🌐', 
+                  titulo: 'Actividades sociales', 
+                  descripcion: 'Actividades recreativas y de integración social',
+                  porcentaje: '',
                   color: '#B876A2'
                 },
                 { 
                   icono: '📚', 
                   titulo: 'Educación', 
                   descripcion: 'Material escolar y formación para madres e hijos',
-                  porcentaje: '15%',
+                  porcentaje: '',
                   color: '#D092BB'
                 }
               ].map((item, index) => (
@@ -326,7 +333,7 @@ export default function ColaborarClient() {
                 {/* Por qué donar - FAQ Compacto */}
                 <div className="bg-white rounded-2xl shadow-lg p-8">
                   <h3 className="text-xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                    ¿Por qué donar a Amets Goien?
+                    ¿Por qué donar a Ametsgoien?
                   </h3>
                   
                   <div className="space-y-4">
@@ -769,8 +776,12 @@ export default function ColaborarClient() {
                     <p className="font-mono text-sm font-semibold text-gray-900">ES66 2095 0010 4091 2611 9437</p>
                   </div>
                   <div className="bg-white rounded-lg p-3 border border-blue-200">
-                    <p className="text-xs text-gray-500 mb-1">Santander</p>
+                    <p className="text-xs text-gray-500 mb-1">La Caixa</p>
                     <p className="font-mono text-sm font-semibold text-gray-900">ES38 2100 3771 2722 0022 2525</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 border border-blue-200">
+                    <p className="text-xs text-gray-500 mb-1">Santander</p>
+                    <p className="font-mono text-sm font-semibold text-gray-900">ES91 0049 0260 1624 1160 5455</p>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-4">

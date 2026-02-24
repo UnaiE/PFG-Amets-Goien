@@ -85,7 +85,7 @@ const Footer = () => {
             {/* Placeholder colaborador 2 */}
             <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
               <img 
-                src="/pending.jpeg" 
+                src="/lavanindu.png" 
                 alt="Colaborador pendiente"
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
@@ -94,7 +94,7 @@ const Footer = () => {
             {/* Placeholder colaborador 3 */}
             <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
               <img 
-                src="/pending.jpeg" 
+                src="/nhdeusto.png" 
                 alt="Colaborador pendiente"
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
@@ -103,7 +103,7 @@ const Footer = () => {
             {/* Placeholder colaborador 4 */}
             <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
               <img 
-                src="/pending.jpeg" 
+                src="/apostolicas.jpg" 
                 alt="Colaborador pendiente"
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
@@ -112,7 +112,7 @@ const Footer = () => {
             {/* Placeholder colaborador 5 */}
             <div className="w-32 h-20 md:w-40 md:h-24 flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300">
               <img 
-                src="/pending.jpeg" 
+                src="/berziklatu.png" 
                 alt="Colaborador pendiente"
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
