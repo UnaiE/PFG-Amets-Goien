@@ -1757,6 +1757,12 @@ function GestionSection() {
       descripcion: "Crear y gestionar cuentas autorizadas para acceder al panel interno.",
       ruta: "/dashboard/usuarios",
       soloAdmin: true
+    },
+    {
+      titulo: "Newsletter",
+      descripcion: "Enviar correos a colaboradores (donantes y voluntarios) con noticias y actualizaciones.",
+      ruta: "/dashboard/newsletter",
+      soloAdmin: true
     }
   ];
   

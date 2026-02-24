@@ -20,9 +20,9 @@ const videosData: TimelineVideo[] = [
     fecha: "6-8 Nov 2025"
   },
   {
-    url: "https://www.instagram.com/reel/DSCZK24iQQO/",
-    platform: "instagram",
-    id: "DSCZK24iQQO",
+    url: "https://youtube.com/shorts/OkmARxUOL84?feature=share",
+    platform: "youtube",
+    id: "OkmARxUOL84",
     titulo: "Preparación del Espacio",
     descripcion: "Limpieza y acondicionamiento inicial",
     fecha: "15-16 Nov 2025"
@@ -36,9 +36,9 @@ const videosData: TimelineVideo[] = [
     fecha: "21-22 Nov 2025"
   },
   {
-    url: "https://www.instagram.com/reel/DSCZv4wCZBe/",
-    platform: "instagram",
-    id: "DSCZv4wCZBe",
+    url: "https://youtube.com/shorts/Y9gZ6pfB7RU?feature=share",
+    platform: "youtube",
+    id: "Y9gZ6pfB7RU",
     titulo: "Progreso de Obras",
     descripcion: "Continuamos con la remodelación",
     fecha: "29-30 Nov 2025"
@@ -211,15 +211,7 @@ export default function RemodelacionTimeline() {
           </div>
         </div>
 
-        {/* Mensaje final */}
-        <div className="mt-8 md:mt-20 mx-2 md:mx-0 text-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg md:rounded-2xl p-4 md:p-10 lg:p-14 border-l-2 md:border-l-4 border-[#8A4D76]">
-          <p className="text-sm md:text-xl lg:text-2xl font-semibold mb-2 md:mb-5" style={{ color: '#8A4D76' }}>
-            "Un proyecto en construcción, gota a gota, con el amor de una comunidad"
-          </p>
-          <p className="text-gray-600 text-xs md:text-lg">
-            Más de 40 voluntarios siguen trabajando para hacer realidad este hogar seguro
-          </p>
-        </div>
+        
       </div>
     </div>
   );

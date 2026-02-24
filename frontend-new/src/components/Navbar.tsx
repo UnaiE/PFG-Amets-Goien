@@ -144,6 +144,21 @@ const Navbar = () => {
             >
               Actividades
             </a>
+            <a 
+              href="/voluntarios"
+              className="text-white no-underline hover:scale-110 transition-all duration-200"
+              style={{ 
+                textDecoration: 'none', 
+                fontSize: '12px',
+                fontWeight: '500',
+                letterSpacing: '0.3px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+              }}
+              aria-label="Regístrate como voluntario"
+              role="menuitem"
+            >
+              Hazte Voluntario
+            </a>
             <a
               href="/colaborar"
               aria-label="Hacer una donación"
@@ -212,6 +227,13 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Actividades
+              </a>
+              <a 
+                href="/voluntarios"
+                className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Hazte Voluntario
               </a>
               <a
                 href="/colaborar"

@@ -27,19 +27,34 @@ const HomePage = () => {
                 <p className="text-base md:text-lg lg:text-xl mb-8" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
                   Creemos en la importancia de construir un refugio seguro, cálido y humano, donde cada mujer pueda reencontrar su fuerza, recuperar esperanza y avanzar hacia una vida estable.
                 </p>
-                {/* Botón de colaborar */}
-                <a href="/colaborar">
-                  <button 
-                    className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 px-8 py-3 text-lg"
-                    style={{ 
-                      backgroundColor: '#8A4D76', 
-                      color: 'white',
-                      letterSpacing: '0.3px',
-                    }}
-                  >
-                    Colaborar / Donar
-                  </button>
-                </a>
+                {/* Botones de colaborar y voluntariado */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a href="/colaborar">
+                    <button 
+                      className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 px-8 py-3 text-lg w-full sm:w-auto"
+                      style={{ 
+                        backgroundColor: '#8A4D76', 
+                        color: 'white',
+                        letterSpacing: '0.3px',
+                      }}
+                    >
+                      Colaborar / Donar
+                    </button>
+                  </a>
+                  <a href="/voluntarios">
+                    <button 
+                      className="rounded-full font-medium hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 px-8 py-3 text-lg border-2 w-full sm:w-auto"
+                      style={{ 
+                        color: '#8A4D76',
+                        borderColor: '#8A4D76',
+                        backgroundColor: 'white',
+                        letterSpacing: '0.3px',
+                      }}
+                    >
+                      🤝 Hazte Voluntario
+                    </button>
+                  </a>
+                </div>
               </div>
               {/* Columna derecha - Logo */}
               <div className="w-full h-[400px] lg:h-[500px] rounded-2xl shadow-xl bg-white flex items-center justify-center p-8 md:p-12 lg:p-16">
@@ -95,20 +110,35 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* SECCIÓN DE CONTACTO */}
-      <section id="contacto" className="min-h-screen flex items-center justify-center py-20 bg-[#E8D5F2]">
-        <div className="w-full px-4 md:px-0">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] mb-8 tracking-tight">
-              Contacto
-            </h2>
-            <p className="text-lg md:text-xl text-[#4A3A3C] mb-10 max-w-xl mx-auto">
-              Para más información o colaboración, visita nuestra página de contacto.
-            </p>
+      {/* SECCIÓN DE VOLUNTARIADO */}
+      <section className="py-20" style={{ backgroundColor: '#8A4D76' }}>
+        <div className="max-w-5xl mx-auto px-4 md:px-8 text-center text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            ¿Quieres formar parte del cambio?
+          </h2>
+          <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
+            Tu tiempo y dedicación pueden transformar vidas. Únete como voluntario/a y ayúdanos a construir un refugio seguro para mujeres migrantes.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/voluntarios">
+              <button
+                className="rounded-full font-bold px-10 py-4 text-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                style={{ color: '#8A4D76' }}
+              >
+                🤝 Hazte Voluntario
+              </button>
+            </a>
+            <a href="/colaborar">
+              <button
+                className="rounded-full font-bold px-10 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-[#8A4D76] hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              >
+                💜 Hacer una Donación
+              </button>
+            </a>
             <a href="/contacto">
               <button
-                className="rounded-full font-medium px-8 py-3 text-lg md:text-xl bg-[#8A4D76] text-white shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-300"
-                style={{ boxShadow: "0 8px 24px 0 rgba(138,77,118,0.18)" }}
+                className="rounded-full font-bold px-10 py-4 text-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                style={{ color: '#8A4D76' }}
               >
                 Ir a la página de contacto
               </button>
@@ -116,6 +146,8 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      
     </div>
   );
 };

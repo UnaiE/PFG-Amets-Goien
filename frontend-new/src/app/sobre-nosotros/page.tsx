@@ -191,50 +191,24 @@ export default function SobreNosotrosPage() {
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Acoger</h3>
-                <p className="text-gray-700 text-sm">
-                  "Para una madre con hijos, tener un baño propio es la diferencia entre la seguridad y el miedo."
-                </p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Proteger</h3>
-                <p className="text-gray-700 text-sm">
-                  Un proyecto construido por la comunidad: voluntarios que llegan "en goteo", pero que llegan.
-                </p>
+  
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Promover</h3>
-                <p className="text-gray-700 text-sm">
-                  "Decidimos endeudarnos de amor" - El motor que impulsa cada acción de Ametsgoien.
-                </p>
+                
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
                 <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Integrar</h3>
-                <p className="text-gray-700 text-sm">
-                  Esto lo construye la comunidad, unidos por el sentido y el propósito común.
-                </p>
+                
               </div>
             </div>
           </div>
         </section>
 
-        {/* Testimonio Esperanza */}
-        <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 shadow-xl border-l-4 border-[#8A4D76]">
-              <div className="text-6xl mb-4 text-center">💬</div>
-              <blockquote className="text-xl md:text-2xl text-gray-800 italic text-center mb-6 leading-relaxed">
-                "Yo sé exactamente lo que viven esas mujeres porque yo lo viví. Si puedo ayudar, ayudo. 
-                Todo lo que he recibido quiero devolverlo."
-              </blockquote>
-              <p className="text-center text-gray-600 font-semibold">
-                — Esperanza Acevedo
-              </p>
-              <p className="text-center text-gray-500 text-sm mt-2">
-                Voluntaria del proyecto y antigua solicitante de asilo, ahora con empleo estable y hogar propio
-              </p>
-            </div>
-          </div>
-        </section>
+        
 
         {/* Call to Action */}
         <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
@@ -251,7 +225,19 @@ export default function SobreNosotrosPage() {
                   className="px-8 py-4 rounded-full font-bold text-white hover:shadow-2xl hover:scale-105 transition-all text-lg"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
-                  Donar Ahora
+                  💜 Donar Ahora
+                </button>
+              </a>
+              <a href="/voluntarios">
+                <button 
+                  className="px-8 py-4 rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all text-lg border-2"
+                  style={{ 
+                    color: '#8A4D76',
+                    borderColor: '#8A4D76',
+                    backgroundColor: 'white'
+                  }}
+                >
+                  🤝 Hazte Voluntario
                 </button>
               </a>
               <a href="/contacto">
@@ -263,7 +249,7 @@ export default function SobreNosotrosPage() {
                     backgroundColor: 'white'
                   }}
                 >
-                  Contactar
+                  📧 Contactar
                 </button>
               </a>
             </div>
