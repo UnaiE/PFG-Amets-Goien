@@ -51,7 +51,7 @@ const HomePage = () => {
                         letterSpacing: '0.3px',
                       }}
                     >
-                      🤝 Hazte Voluntario
+                       Hazte Voluntario/a
                     </button>
                   </a>
                 </div>
@@ -125,14 +125,14 @@ const HomePage = () => {
                 className="rounded-full font-bold px-10 py-4 text-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 style={{ color: '#8A4D76' }}
               >
-                🤝 Hazte Voluntario
+                 Hazte Voluntario/a
               </button>
             </a>
             <a href="/colaborar">
               <button
                 className="rounded-full font-bold px-10 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-[#8A4D76] hover:shadow-2xl hover:scale-105 transition-all duration-300"
               >
-                💜 Hacer una Donación
+                 Hacer una Donación
               </button>
             </a>
             <a href="/contacto">
