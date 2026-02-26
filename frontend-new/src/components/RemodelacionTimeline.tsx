@@ -23,49 +23,49 @@ const videosData: TimelineVideo[] = [
     url: "https://youtube.com/shorts/OkmARxUOL84?feature=share",
     platform: "youtube",
     id: "OkmARxUOL84",
-    titulo: "Preparación del Espacio",
-    descripcion: "Limpieza y acondicionamiento inicial",
+    titulo: "Preparación del espacio",
+    descripcion: "Limpieza y lijado de suelos",
     fecha: "15-16 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/kPJj0L7etj0",
     platform: "youtube",
     id: "kPJj0L7etj0",
-    titulo: "Trabajando en Habitaciones",
-    descripcion: "Avances en las 12 habitaciones",
-    fecha: "21-22 Nov 2025"
+    titulo: "Trabajando en la remodelación",
+    descripcion: "Barnizar, lijar y pintar",
+    fecha: "22-23 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/Y9gZ6pfB7RU?feature=share",
     platform: "youtube",
     id: "Y9gZ6pfB7RU",
-    titulo: "Progreso de Obras",
-    descripcion: "Continuamos con la remodelación",
+    titulo: "Progreso de obras",
+    descripcion: "Continuamos con la pintura de las paredes",
     fecha: "29-30 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/L31CEi9Z8SY",
     platform: "youtube",
     id: "L31CEi9Z8SY",
-    titulo: "Trabajos de Renovación",
-    descripcion: "Avances en la transformación de espacios",
+    titulo: "Trabajos de renovación",
+    descripcion: "Pintura, puertas y rodapiés",
     fecha: "6-7 Dic 2025"
   },
   {
     url: "https://youtu.be/yV5uMMOneU0",
     platform: "youtube",
     id: "yV5uMMOneU0",
-    titulo: "Espacios Comunes",
-    descripcion: "Trabajando en áreas de convivencia",
+    titulo: "Espacios comunes",
+    descripcion: "Amueblar y decorar las zonas comunes",
     fecha: "13-14 Dic 2025"
   },
   {
     url: "https://youtu.be/e6aiIBKEJZ8",
     platform: "youtube",
     id: "e6aiIBKEJZ8",
-    titulo: "Avance Diciembre",
-    descripcion: "Progreso en la remodelación",
-    fecha: "19-21 Dic 2025"
+    titulo: "Habitaciones",
+    descripcion: "Continuar con la amueblación de las habitaciones",
+    fecha: "19-23 Dic 2025"
   },
   {
     url: "https://youtube.com/shorts/s0WDDnXrz-c",

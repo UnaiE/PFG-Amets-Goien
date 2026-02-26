@@ -107,7 +107,7 @@ export default function SobreNosotrosPage() {
               
               {/* Misión */}
               <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
-                <div className="text-3xl md:text-5xl mb-2 md:mb-4">🎯</div>
+                
                 <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Misión</h3>
                 <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
                   Proporcionar acogida segura, apoyo integral y acompañamiento personalizado a mujeres migrantes 
@@ -118,7 +118,7 @@ export default function SobreNosotrosPage() {
 
               {/* Visión */}
               <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
-                <div className="text-3xl md:text-5xl mb-2 md:mb-4">🌟</div>
+                
                 <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Visión</h3>
                 <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
                   Ser una organización de referencia en la acogida y acompañamiento de mujeres migrantes, 
@@ -140,7 +140,7 @@ export default function SobreNosotrosPage() {
               
               {/* Alojamiento */}
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">🏠</div>
+                
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Hogar Seguro
                 </h3>
@@ -152,7 +152,7 @@ export default function SobreNosotrosPage() {
 
               {/* Acompañamiento */}
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">🤝</div>
+                
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Acompañamiento Integral
                 </h3>
@@ -164,7 +164,7 @@ export default function SobreNosotrosPage() {
 
               {/* Comunidad */}
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">💜</div>
+
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
                   Solidaridad Comunitaria
                 </h3>
@@ -225,7 +225,7 @@ export default function SobreNosotrosPage() {
                   className="px-8 py-4 rounded-full font-bold text-white hover:shadow-2xl hover:scale-105 transition-all text-lg"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
-                  💜 Donar Ahora
+                   Donar Ahora
                 </button>
               </a>
               <a href="/voluntarios">
@@ -237,7 +237,7 @@ export default function SobreNosotrosPage() {
                     backgroundColor: 'white'
                   }}
                 >
-                  🤝 Hazte Voluntario
+                   Hazte Voluntario/a
                 </button>
               </a>
               <a href="/contacto">
@@ -249,7 +249,7 @@ export default function SobreNosotrosPage() {
                     backgroundColor: 'white'
                   }}
                 >
-                  📧 Contactar
+                   Contactar
                 </button>
               </a>
             </div>

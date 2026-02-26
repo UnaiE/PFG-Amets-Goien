@@ -260,7 +260,6 @@ export default function ColaborarClient() {
 
             <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4" style={{ borderColor: '#8A4D76' }}>
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0 text-6xl">💝</div>
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
                     Tu aportación, por pequeña que sea, marca la diferencia
@@ -299,7 +298,6 @@ export default function ColaborarClient() {
                 {/* Testimonio Real */}
                 <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4" style={{ borderColor: '#8A4D76' }}>
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="text-5xl">💬</div>
                     <div>
                       <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
                         Testimonios reales
@@ -372,7 +370,6 @@ export default function ColaborarClient() {
                 {/* Mensaje de confianza */}
                 <div className="bg-purple-50 rounded-2xl p-8 border-2 border-purple-200">
                   <div className="text-center">
-                    <div className="text-5xl mb-4">💝</div>
                     <h3 className="text-xl font-bold mb-3" style={{ color: '#8A4D76' }}>
                       Tu apoyo marca la diferencia
                     </h3>
@@ -607,7 +604,7 @@ export default function ColaborarClient() {
                   {/* Enlace a otras formas de pago */}
                   <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                     <p className="text-sm text-blue-800 mb-2">
-                      💡 <strong>¿Prefieres Bizum o transferencia bancaria?</strong>
+                       <strong>¿Prefieres Bizum o transferencia bancaria?</strong>
                     </p>
                     <p className="text-xs text-blue-700 mb-3">
                       Consulta la sección "Otras formas de donar" al final de la página para ver todas las opciones disponibles.
@@ -756,7 +753,7 @@ export default function ColaborarClient() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600">
-                  💡 <strong>Recuerda:</strong> Incluye tu nombre en el concepto para que podamos agradecerte personalmente
+                   <strong>Recuerda:</strong> Incluye tu nombre en el concepto para que podamos agradecerte personalmente
                 </p>
               </div>
 
@@ -785,7 +782,7 @@ export default function ColaborarClient() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-4">
-                  💡 <strong>Concepto:</strong> "Donación" + tu nombre
+                   <strong>Concepto:</strong> "Donación" + tu nombre
                 </p>
               </div>
             </div>
@@ -794,7 +791,7 @@ export default function ColaborarClient() {
               <a
                 href="/contacto"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white hover:shadow-lg transition-all"
-                style={{ backgroundColor: '#F89E3A' }}
+                style={{ backgroundColor: '#8A4D76' }}
               >
                 Contactar
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -88,28 +88,113 @@ export default function VoluntariosPage() {
     <>
       <Navbar />
       <div className="min-h-screen pt-20" style={{ backgroundColor: '#E8D5F2' }}>
-        <div className="max-w-2xl mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto px-4 py-12">
           
           {/* Botón Volver */}
           <button
             onClick={() => router.push("/")}
-            className="mb-4 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all text-sm"
+            className="mb-6 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all text-sm"
           >
             ← Volver
           </button>
 
-          
+          {/* Layout de dos columnas */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            {/* COLUMNA IZQUIERDA - Información */}
+            <div className="space-y-6">
+              
+              {/* Encabezado principal */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h1 className="text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                   Hazte Voluntario/a
+                </h1>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  Tu tiempo, energía y compromiso pueden cambiar vidas. En Ametsgoien, cada voluntario es una pieza fundamental para alcanzar nuestros objetivos y apoyar a quienes más lo necesitan.
+                </p>
+              </div>
 
-          {/* Card del formulario */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
+              {/* ¿Qué hacen nuestros voluntarios? */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                  ¿Qué hacen nuestros voluntarios?
+                </h2>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <span className="text-2xl flex-shrink-0">➣</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 mb-1">Apoyo en actividades</h3>
+                      <p className="text-gray-600 text-sm">Participación en eventos y programas comunitarios.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <span className="text-2xl flex-shrink-0">➣</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 mb-1">Acompañamiento</h3>
+                      <p className="text-gray-600 text-sm">Escucha activa y apoyo emocional a personas en situación de vulnerabilidad.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <span className="text-2xl flex-shrink-0">➣</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 mb-1">Difusión</h3>
+                      <p className="text-gray-600 text-sm">Ayuda en redes sociales, comunicación y sensibilización social.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <span className="text-2xl flex-shrink-0">➣</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 mb-1">Enseñanza de habilidades</h3>
+                      <p className="text-gray-600 text-sm">Alimentar con tus conocimientos y ayudar a personas a desarrollar nuevas habilidades.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* Comunicaciones */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                   Mantente informado
+                </h2>
+                <p className="text-gray-700 mb-3">
+                  Como voluntario/a, recibirás periódicamente:
+                </p>
+                <ul className="space-y-2 text-gray-600">
+                  <li className="flex items-start">
+                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
+                    <span>Información sobre próximas actividades y eventos</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
+                    <span>Noticias y actualizaciones de la asociación</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
+                    <span>Oportunidades para colaborar según tu disponibilidad</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
+                    <span>Convocatorias de reuniones y encuentros de voluntarios</span>
+                  </li>
+                </ul>
+                <p className="text-gray-500 text-sm mt-4 italic">
+                  Puedes darte de baja de nuestras comunicaciones en cualquier momento.
+                </p>
+              </div>
+
+            </div>
+
+            {/* COLUMNA DERECHA - Formulario */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200 lg:sticky lg:top-24 h-fit">
             
             {/* Título */}
             <div className="text-center mb-6">
-              <h1 className="text-3xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-                Hazte Voluntario
-              </h1>
+              <h2 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
+                Formulario de Registro
+              </h2>
               <p className="text-gray-600 text-sm">
-                Tu tiempo y dedicación pueden transformar vidas. Completa el formulario y nos pondremos en contacto contigo.
+                Completa tus datos y nos pondremos en contacto contigo pronto.
               </p>
             </div>
 
@@ -274,6 +359,11 @@ export default function VoluntariosPage() {
 
             </form>
           </div>
+          {/* Fin COLUMNA DERECHA - Formulario */}
+
+          </div>
+          {/* Fin layout de dos columnas */}
+
         </div>
       </div>
       <Footer />
