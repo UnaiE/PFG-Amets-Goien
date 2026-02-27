@@ -1,0 +1,543 @@
+{
+  "nav": {
+    "home": "Home",
+    "association": "The Association",
+    "news": "News",
+    "activities": "Activities",
+    "volunteer": "Become a Volunteer",
+    "collaborate": "Collaborate",
+    "internal": "Internal Access"
+  },
+  "footer": {
+    "tagline": "Building a safe refuge for migrant women.",
+    "rights": "All rights reserved",
+    "collaborate": "Collaborate",
+    "contact": "Contact",
+    "donations": "Make a Donation",
+    "becomeVolunteer": "Become a Volunteer",
+    "followUs": "Follow us on Instagram",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "collaborators": "Our Collaborators",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy"
+  },
+  "home": {
+    "hero": {
+      "title": "Ametsgoien",
+      "subtitle": "Welcome, dignity and accompaniment",
+      "description": "Building a safe refuge for migrant women.",
+      "button": "Discover Our Work"
+    },
+    "about": {
+      "title": "About AMETSGOIEN",
+      "description1": "AMETSGOIEN works to provide comprehensive support to migrant women and their children, prioritizing dignity, emotional security and compassionate care.",
+      "description2": "We believe in the importance of building a safe, warm and humane refuge, where every woman can rediscover her strength, regain hope and move towards a stable life.",
+      "collaborateBtn": "Collaborate / Donate",
+      "volunteerBtn": "Become a Volunteer",
+      "historyTitle": "Our Story"
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "readFullStory": "Read full story",
+      "notFound": "Testimonial not found",
+      "backToTestimonials": "Back to testimonials",
+      "helpMore": "Help more women like",
+      "mariana": {
+        "quote": "Finding a safe and humane space makes the difference between fear and dignity. Ametsgoien represents that real welcome that many women need.",
+        "name": "Mariana",
+        "designation": "Beneficiary",
+        "fullStory": "Mariana arrived in the Basque Country more than a decade ago hoping to find a medical solution and be reunited with her son. As a single mother and migrant woman, she faced numerous difficulties from the start: lack of registration, absence of documentation, limited access to employment and, especially, the impossibility of finding decent housing for herself and her son.\n\nFor years she experienced discrimination in access to housing, both for having a child and for her origin. She shared spaces where she did not feel safe or welcome, and where even everyday actions were grounds for judgment. Added to these difficulties were obstacles to accessing public education and school scholarships, which made it even more complex to ensure her son's stability.\n\nDespite everything, Mariana also found support networks in associations, collectives of migrant women and community spaces where she felt accompanied and understood. From her experience, she defends the importance of real welcome, based on willingness and empathy, free from discrimination.\n\nMariana highlights the value of initiatives like Ametsgoien, which offer close, warm and safe spaces, capable of accompanying women and families in situations of great vulnerability in a humane way. For her, welcoming is not just opening a house, but opening arms and bringing hearts closer."
+      },
+      "emadolis": {
+        "quote": "As a mother, the most important thing is to feel protected and accompanied. A safe place can change everything.",
+        "name": "Emadolis",
+        "designation": "Beneficiary",
+        "fullStory": "Emadolis emigrated from Nicaragua seeking a better future and new opportunities. She arrived pregnant and, after being abandoned by the father of her child, found herself in a situation of extreme vulnerability. Without documentation, without work and with a newborn baby, she came to live on the street and face a particularly difficult birth alone.\n\nThe search for housing was one of the greatest difficulties. In many places she was denied rental for having a child, and in others conditions were imposed that even limited her baby's right to play or make noise. She experienced moments of great anguish, uncertainty and fear, especially not knowing where to sleep or how to feed her child.\n\nIn the midst of that situation, Emadolis found human and emotional support in people who offered her listening, words of encouragement and accompaniment. That support was key to regaining strength and moving forward.\n\nFrom her experience as a mother, she defends the need for safe spaces where women and children can live together without fear, with empathy and respect. She considers it essential to have associations like Ametsgoien, which offer protection, closeness and the possibility of feeling, even for a time, like home."
+      },
+      "berita": {
+        "quote": "Without support and without housing, life becomes unbearable. Associations that truly accompany change destinies.",
+        "name": "Berita",
+        "designation": "Beneficiary",
+        "fullStory": "Berita decided to emigrate to offer a better future to her children and the possibility of accessing studies that were inaccessible in her country. She arrived in the Basque Country with expectations of work and stability, but soon encountered a very different reality. The person who promised her support upon arrival did not fulfill what was agreed, which led her to be left alone and without a place to live.\n\nDuring her first months she went through extreme situations, including a night sleeping in a park. Thanks to timely help from supportive people, she managed to find temporary accommodation and, after a constant search, accessed her first job as a live-in worker. That job was a very hard experience, marked by exhaustive hours, unequal treatment and a strong physical and emotional impact.\n\nThe lack of documentation and payroll prevented her for years from accessing her own housing, forcing her to accept precarious conditions in order to support herself and send money to her children. This situation even led her to delay family reunification for fear of not being able to offer them a safe environment.\n\nBerita emphasizes the importance of having associations that accompany, guide and protect migrant women, especially those with young children. For her, initiatives like Ametsgoien are fundamental to prevent more women from going through situations of exclusion and to build a more just and humane welcome."
+      }
+    },
+    "news": {
+      "title": "Latest News",
+      "loading": "Loading news...",
+      "noNews": "No news published yet.",
+      "newsTitle": "News",
+      "readMore": "Read more",
+      "close": "Close"
+    },
+    "volunteerSection": {
+      "title": "Do you want to be part of the change?",
+      "description": "Your time and dedication can transform lives. Join us as a volunteer and help us build a safe refuge for migrant women.",
+      "volunteerBtn": "Become a Volunteer",
+      "donateBtn": "Make a Donation",
+      "contactBtn": "Go to contact page"
+    }
+  },
+  "volunteer": {
+    "title": "Become a Volunteer",
+    "subtitle": "Your time, energy and commitment can change lives. At Ametsgoien, every volunteer is a fundamental piece to achieve our goals and support those who need it most.",
+    "formTitle": "Registration Form",
+    "formSubtitle": "Fill in your details and we will contact you soon.",
+    "whatDo": "What do our volunteers do?",
+    "activities": {
+      "support": "➣ Activity support",
+      "supportDesc": "Participation in events, workshops and community programs.",
+      "accompaniment": "➣ Accompaniment",
+      "accompanimentDesc": "Active listening and emotional support to people in vulnerable situations.",
+      "dissemination": "➣ Dissemination",
+      "disseminationDesc": "Help with social media, communication and social awareness.",
+      "admin": "➣ Skills Training",
+      "adminDesc": "Share your knowledge and help people develop new skills."
+    },
+    
+    "communications": "Stay informed",
+    "communicationsDesc": "As a volunteer, you will periodically receive:",
+    "communicationsList": {
+      "activities": "✓ Information about upcoming activities and events",
+      "news": "✓ News and updates from the association",
+      "opportunities": "✓ Opportunities to collaborate according to your availability",
+      "meetings": "✓ Calls for volunteer meetings and gatherings"
+    },
+    "unsubscribe": "You can unsubscribe from our communications at any time.",
+    "form": {
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "message": "Tell us about yourself",
+      "messagePlaceholder": "Availability, skills you can contribute, previous experience...",
+      "privacy": "I have read and accept the",
+      "privacyLink": "privacy policy",
+      "privacyText": "and I authorize Ametsgoien to contact me and send me communications related to the association's activities.",
+      "submit": "Register as Volunteer",
+      "sending": "Sending...",
+      "success": "Thank you for registering as a volunteer!",
+      "error": "There was an error processing your registration",
+      "connectionError": "Connection error. Please try again.",
+      "required": "Required field"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "hero": {
+      "title": "About Ametsgoien",
+      "subtitle": "Welcome, dignity and support for migrant women"
+    },
+    "whoWeAre": {
+      "title": "Who are we?",
+      "p1": "is an association founded by",
+      "p1b": "a married couple from Alonsotegi with three teenage children who decided to transform an intimate concern into a collective project.",
+      "p2": "It all began with a story that deeply marked them:",
+      "p2quote": "I couldn't understand how a woman with a newborn baby could be on the streets in Bilbao in 2023",
+      "p2b": "That case, which came through the CVX solidarity network and the Ignacio Ellacuría Center, made them ask: what can we do?",
+      "p3": "The answer was clear:",
+      "p3quote": "If institutions can't provide a solution, we decided to go into debt with love",
+      "p3b": "That's how Ametsgoien was born, a 12-room house in Orduña converted into a safe home for migrant women with children in their care.",
+      "historyTitle": "Our Story",
+      "historyP1": "During the Ukrainian crisis, the family welcomed four women and a translator into their own home.",
+      "historyP1quote": "We went from five to nine in the house. We had to reorganize everything, but our children experienced it naturally",
+      "historyP2": "That experience confirmed they were ready for something bigger. With a family and bank loan, they acquired a large house for 185,000 euros. And what came next exceeded all expectations:",
+      "historyP2b": "more than 40 volunteers",
+      "historyP2c": "from Barcelona, Burgos, San Sebastian, Balmaseda, Bilbao and Orduña came together to sand, paint, varnish and bring this collective dream to life."
+    },
+    "video": {
+      "title": "Meet Ametsgoien",
+      "subtitle": "Discover the story behind our project in this interview",
+      "quote": "Sometimes solidarity comes drop by drop... but it comes"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "text": "To provide safe welcome, comprehensive support and personalized accompaniment to migrant women and their families, offering tools for personal development, job training and economic autonomy, always with respect for their dignity and human rights."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "To be a reference organization in the reception and accompaniment of migrant women, recognized for its transformative impact on the lives of the people we serve, and for contributing to a more inclusive, just and supportive society."
+    },
+    "whatWeDo": {
+      "title": "What do we do?",
+      "housing": {
+        "title": "Safe Home",
+        "text": "A 12-room house in Orduña, renovated through the effort of dozens of volunteers, where women and their children find a dignified and welcoming space."
+      },
+      "support": {
+        "title": "Comprehensive Support",
+        "text": "Personalized assistance with administrative procedures, job search, training and everything necessary to achieve autonomy."
+      },
+      "community": {
+        "title": "Community Solidarity",
+        "text": "A project built \"drop by drop\" by a community of volunteers who believe in the transformative power of mutual aid."
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "welcome": "Welcome",
+      "protect": "Protect",
+      "promote": "Promote",
+      "integrate": "Integrate"
+    },
+    "cta": {
+      "title": "Join our cause",
+      "subtitle": "Your support can transform lives. Together we can build a better future for migrant women and their families.",
+      "donate": "Donate Now",
+      "volunteer": "Become a Volunteer",
+      "contact": "Contact"
+    }
+  },
+  "activities": {
+    "title": "Activities and Workshops",
+    "subtitle": "Spaces for training, personal growth and community gathering designed to support women on their journey toward autonomy and well-being.",
+    "loading": "Loading activities...",
+    "noActivities": "There are currently no scheduled activities.",
+    "comeSoon": "Come back soon to see upcoming activities.",
+    "activity": "Activity",
+    "dateConfirm": "Date to be confirmed",
+    "needInfo": {
+      "title": "Need more information?",
+      "subtitle": "For inquiries about activities or any questions, you can contact us.",
+      "button": "Go to Contact"
+    }
+  },
+  "contact": {
+    "backButton": "Back to home",
+    "title": "Contact",
+    "subtitle": "Have any questions or want to collaborate? Fill out the form and we'll get in touch with you.",
+    "successMessage": "Your message has been sent successfully. We'll contact you soon.",
+    "errorConsent": "You must accept the consent to submit the form",
+    "errorConnection": "Connection error. Please try again.",
+    "errorSend": "Error sending message",
+    "form": {
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "message": "Message",
+      "consent": "I accept that my personal data will be used to respond to my inquiry, in accordance with the",
+      "privacyPolicy": "privacy policy",
+      "consentEnd": "of Ametsgoien.",
+      "send": "Send message",
+      "sending": "Sending..."
+    }
+  },
+  "collaborate": {
+    "hero": {
+      "title": "Your help transforms lives",
+      "subtitle": "Each donation helps provide a safe refuge, comprehensive support and future opportunities for refugee women and their children in our shelter in Orduña."
+    },
+    "howWeUse": {
+      "title": "How do we use your donations?",
+      "subtitle": "Your contribution goes directly to:",
+      "subtitle2": "Every euro you contribute goes entirely to improving the lives of the women and families we host. Here's how we invest your help:",
+      "items": {
+        "housing": {
+          "title": "Housing",
+          "description": "Upkeep of our shelter home in Orduña"
+        },
+        "food": {
+          "title": "Food",
+          "description": "Nutritious meals for resident families"
+        },
+        "psychological": {
+          "title": "Psychological Support",
+          "description": "Emotional support and therapies"
+        },
+        "social": {
+          "title": "Social Activities",
+          "description": "Recreational and social integration activities"
+        },
+        "education": {
+          "title": "Education",
+          "description": "School supplies and training for mothers and children"
+        }
+      },
+      "housing": {
+        "title": "Housing and Maintenance",
+        "text": "House maintenance, food, hygiene products and basic needs."
+      },
+      "education": {
+        "title": "Education and Training",
+        "text": "Language courses, vocational training, school materials for children."
+      },
+      "legal": {
+        "title": "Legal and Administrative Management",
+        "text": "Support with documentation procedures, residence and work permits."
+      },
+      "health": {
+        "title": "Health and Wellness",
+        "text": "Medical care, psychological support and emotional wellness activities."
+      },
+      "impact": {
+        "title": "Your contribution, however small, makes a difference",
+        "text": "We operate with complete transparency and efficiency. 100% of donations go directly to support programs. Administrative costs are covered through grants and institutional collaborations.",
+        "button": "Donate now"
+      }
+    },
+    "testimonials": {
+      "title": "Real testimonials",
+      "main": {
+        "quote": "Finding a safe and humane space makes the difference between fear and dignity. Ametsgoien represents that real welcome that many women need.",
+        "author": "Mariana, Beneficiary",
+        "context": "Mariana came to the Basque Country seeking medical solutions and reuniting with her son. As a single mother and migrant woman, she faced discrimination in housing access and difficulties at every step.",
+        "quote2": "For me, welcoming is not just opening a house, but opening arms and bringing hearts closer."
+      },
+      "moreStories": {
+        "title": "More stories of hope",
+        "story1": {
+          "quote": "As a mother, the most important thing is to feel protected and accompanied. A safe place can change everything.",
+          "author": "Emadolis"
+        },
+        "story2": {
+          "quote": "Without support and without housing, life becomes unsustainable. Associations that truly accompany change destinies.",
+          "author": "Berita"
+        }
+      }
+    },
+    "whyDonate": {
+      "title": "Why donate to Ametsgoien?",
+      "reasons": {
+        "transparency": {
+          "title": "100% transparency",
+          "text": "Every euro goes directly to support programs"
+        },
+        "impact": {
+          "title": "Real and measurable impact",
+          "text": "Your donation directly helps families hosted in our house in Orduña"
+        },
+        "humanTreatment": {
+          "title": "Human and close treatment",
+          "text": "We're not a number, we're a family that welcomes with love"
+        }
+      },
+      "supportMessage": {
+        "title": "Your support makes a difference",
+        "text": "With your donation you help maintain our shelter in Orduña, where we offer dignity, solidarity and love to refugee women and their families."
+      }
+    },
+    "otherWays": {
+      "title": "Other Ways to Donate",
+      "subtitle": "If you have any problems making your donation or want more information about other payment methods, don't hesitate to contact us"
+    },
+    "donation": {
+      "title": "Make a donation",
+      "subtitle": "Complete the form to make your donation. All transactions are secure.",      "temporarilyDisabled": "Online Donations Currently Unavailable",
+      "disabledMessage": "The online donation system is currently being configured. Please use the Bizum or bank transfer options found below.",
+      "otherOptionsLink": "See alternative payment options",      "amount": "Amount (€)",
+      "amountPlaceholder": "Ex: 20",
+      "frequency": "Frequency",
+      "oneTime": "One-time",
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "semiannual": "Semiannual",
+      "annual": "Annual",
+      "paymentMethod": "Payment method",
+      "card": "Credit/Debit card",
+      "bizum": "Bizum",
+      "phonePrefix": "Prefix",
+      "phone": "Phone",
+      "phonePlaceholder": "600-000-000",
+      "address": "Address",
+      "addressPlaceholder": "Street, number, city (optional)",
+      "note": "Message (optional)",
+      "notePlaceholder": "Leave us a message if you wish...",
+      "privacyConsent": "I have read and accept the",
+      "privacyLink": "privacy policy",
+      "submit": "Continue to payment",
+      "submitting": "Processing...",
+      "donateAmount": "Donate",
+      "alternativePaymentInfo": "Prefer Bizum or bank transfer?",
+      "alternativePaymentText": "Check the \"Other Ways to Donate\" section at the bottom of the page to see all available options.",
+      "alternativePaymentButton": "View alternative payment options",
+      "errors": {
+        "privacyRequired": "You must accept the privacy policy",
+        "paymentRequired": "Select a payment method",
+        "amountRequired": "Enter a valid amount",
+        "initError": "Error initializing payment",
+        "processError": "Error processing donation",
+        "connectionError": "Connection error. Try again."
+      },
+      "successMessage": "Donation confirmed! Thank you for your contribution of",
+      "successRecurring": "We'll send you a confirmation email with your subscription details",
+      "successOneTime": "We'll send you a confirmation email."
+    },
+    "bizumInfo": {
+      "title": "Bizum Information",
+      "sendTo": "Send your donation to the number:",
+      "copied": "Number copied!",
+      "copy": "Copy number",
+      "remember": "Remember:",
+      "note": "Please include your name in the concept so we can thank you personally."
+    },
+    "bankTransfer": {
+      "title": "Bank Transfer",
+      "concept": "Concept:",
+      "conceptText": "\"Donation\" + your name"
+    },
+    "contact": "Contact"
+  },
+  "privacy": {
+    "backButton": "Back",
+    "title": "Privacy Policy",
+    "section1": {
+      "title": "1. Data Controller",
+      "intro": "The data controller for personal data collected through this website is the AMETSGOIEN association, a non-profit organization dedicated to social and community support.",
+      "name": "Name:",
+      "nameValue": "AMETSGOIEN ASSOCIATION FOR WELCOMING AND SOCIOCULTURAL INTEGRATION",
+      "cif": "Tax ID:",
+      "cifValue": "G23919251",
+      "address": "Address:",
+      "addressValue": "BURGOS ST, 4-1 48460, ORDUÑA, BIZKAIA, Spain",
+      "email": "Email:",
+      "emailValue": "ametsgoien@gmail.com",
+      "phone": "Phone:",
+      "phoneValue": "+34 697 858 343",
+      "contact": "For any questions related to personal data protection, you can contact us through the means provided above."
+    },
+    "section2": {
+      "title": "2. Applicable Legal Framework",
+      "text": "The processing of personal data is carried out in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation – GDPR), as well as Organic Law 3/2018 on the Protection of Personal Data and guarantee of digital rights (LOPDGDD)."
+    },
+    "section3": {
+      "title": "3. Personal Data Processed",
+      "intro": "Through this website, the following personal data may be collected:",
+      "contactForm": "Contact form:",
+      "contactItems": [
+        "Name and surnames",
+        "Email address",
+        "Message or inquiry content"
+      ],
+      "donations": "Donations and collaborations:",
+      "donationItems": [
+        "Name and surnames",
+        "Email",
+        "Phone (optional)",
+        "Address (optional)",
+        "Payment data processed by Stripe (bank card)"
+      ]
+    },
+    "section4": {
+      "title": "4. Purpose of Processing",
+      "intro": "The personal data provided will be processed exclusively for the following purposes:",
+      "purposes": [
+        "To respond to inquiries or requests for information.",
+        "To manage requests for collaboration or contact with the entity.",
+        "To maintain communications related to AMETSGOIEN's activity, when the user has expressly authorized it."
+      ]
+    },
+    "section5": {
+      "title": "5. Legal Basis for Processing",
+      "text": "The legal basis for data processing is the express consent of the user, given when submitting the contact form and accepting this privacy policy."
+    },
+    "section6": {
+      "title": "6. Data Retention",
+      "text": "Personal data will be retained only for the time necessary to address the inquiry made and, subsequently, during the legally required periods for compliance with possible legal obligations."
+    },
+    "section7": {
+      "title": "7. Recipients and Data Processors",
+      "intro": "Data will not be transferred to third parties, except for legal obligation. However, for the proper provision of the service, AMETSGOIEN uses the following external providers who act as data processors:",
+      "stripe": "(payment processing): Payment data is processed securely through Stripe, Inc., which complies with the PCI-DSS standard. AMETSGOIEN does not store complete bank card data. More information at",
+      "vercel": "(frontend hosting): For hosting the website at www.ametsgoien.org. More information at",
+      "railway": "(backend and database hosting): For hosting the REST API server and PostgreSQL database. More information at",
+      "sendgrid": "(email service): For sending donation confirmations and responses to contact forms. More information at",
+      "guarantees": "With all providers, the guarantees required by current regulations have been adopted through confidentiality agreements and contractual clauses."
+    },
+    "section8": {
+      "title": "8. Rights of Data Subjects",
+      "intro": "The user may exercise the following rights at any time:",
+      "rights": [
+        "Access to their personal data",
+        "Rectification of inaccurate data",
+        "Deletion of their data",
+        "Opposition to processing",
+        "Limitation of processing",
+        "Data portability"
+      ],
+      "complaint": "Likewise, you have the right to file a complaint with the Spanish Data Protection Agency (AEPD) through its website:",
+      "aepd": "www.aepd.es"
+    },
+    "section9": {
+      "title": "9. Security Measures",
+      "text": "AMETSGOIEN adopts the necessary technical and organizational measures to ensure an adequate level of security appropriate to the risk, preventing loss, alteration, unauthorized access or improper disclosure of personal data."
+    },
+    "section10": {
+      "title": "10. Refund and Cancellation Policy",
+      "intro": "Donations made to AMETSGOIEN are voluntary contributions intended to finance reception and social support projects.",
+      "oneTime": "One-time donations:",
+      "oneTimeText": "Once the donation is processed, it is final. If you detect an error in your donation, contact us at ametsgoien@gmail.com within 48 hours and we will evaluate your case individually.",
+      "recurring": "Recurring donations (subscriptions):",
+      "recurringIntro": "You can cancel your subscription at any time at no additional cost. To do so:",
+      "recurringSteps": [
+        "Access the management link sent in the confirmation email",
+        "Or contact us at ametsgoien@gmail.com"
+      ],
+      "recurringNote": "The cancellation will be effective from the next billing period. Amounts already paid are non-refundable."
+    },
+    "section11": {
+      "title": "11. Policy Modifications",
+      "text": "AMETSGOIEN reserves the right to modify this privacy policy to adapt it to legislative changes or new data processing. Any modification will be published on this same page."
+    },
+    "footer": {
+      "lastUpdate": "Last update:",
+      "lastUpdateDate": "January 2026",
+      "contactInfo": "For inquiries about privacy policy, refunds or subscription management, contact:",
+      "contactEmail": "ametsgoien@gmail.com"
+    }
+  },
+  "timeline": {
+    "title": "House Evolution",
+    "description": "Follow the transformation process of our house in Orduña, an ongoing project thanks to the effort of dozens of volunteers",
+    "loadingYoutube": "Loading YouTube...",
+    "loadingInstagram": "Loading Instagram...",
+    "videos": [
+      {
+        "title": "Project Start",
+        "description": "First steps in the house transformation"
+      },
+      {
+        "title": "Space Preparation",
+        "description": "Cleaning and sanding floors"
+      },
+      {
+        "title": "Working on the Remodeling",
+        "description": "Varnishing, sanding and painting"
+      },
+      {
+        "title": "Construction Progress",
+        "description": "Continuing with wall painting"
+      },
+      {
+        "title": "Renovation Works",
+        "description": "Painting, doors and baseboards"
+      },
+      {
+        "title": "Common Areas",
+        "description": "Furnishing and decorating shared spaces"
+      },
+      {
+        "title": "Bedrooms",
+        "description": "Continuing with bedroom furnishing"
+      },
+      {
+        "title": "Painting and Finishes",
+        "description": "Adding color to the spaces"
+      },
+      {
+        "title": "End-of-Year Progress",
+        "description": "Progress in the house transformation"
+      },
+      {
+        "title": "First Days of 2026",
+        "description": "Continuing with the remodeling"
+      }
+    ]
+  },
+  "common": {
+    "back": "Back",
+    "learnMore": "Learn more",
+    "close": "Close"
+  }
+}

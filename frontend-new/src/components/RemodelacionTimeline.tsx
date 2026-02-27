@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface TimelineVideo {
   url: string;
   platform: 'youtube' | 'instagram';
   id: string;
-  titulo: string;
-  descripcion: string;
   fecha: string;
 }
 
@@ -15,90 +14,73 @@ const videosData: TimelineVideo[] = [
     url: "https://youtube.com/shorts/R3-by_dBEYA",
     platform: "youtube",
     id: "R3-by_dBEYA",
-    titulo: "Inicio del Proyecto",
-    descripcion: "Primeros pasos en la transformación de la casa",
     fecha: "6-8 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/OkmARxUOL84?feature=share",
     platform: "youtube",
     id: "OkmARxUOL84",
-    titulo: "Preparación del espacio",
-    descripcion: "Limpieza y lijado de suelos",
     fecha: "15-16 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/kPJj0L7etj0",
     platform: "youtube",
     id: "kPJj0L7etj0",
-    titulo: "Trabajando en la remodelación",
-    descripcion: "Barnizar, lijar y pintar",
     fecha: "22-23 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/Y9gZ6pfB7RU?feature=share",
     platform: "youtube",
     id: "Y9gZ6pfB7RU",
-    titulo: "Progreso de obras",
-    descripcion: "Continuamos con la pintura de las paredes",
     fecha: "29-30 Nov 2025"
   },
   {
     url: "https://youtube.com/shorts/L31CEi9Z8SY",
     platform: "youtube",
     id: "L31CEi9Z8SY",
-    titulo: "Trabajos de renovación",
-    descripcion: "Pintura, puertas y rodapiés",
     fecha: "6-7 Dic 2025"
   },
   {
     url: "https://youtu.be/yV5uMMOneU0",
     platform: "youtube",
     id: "yV5uMMOneU0",
-    titulo: "Espacios comunes",
-    descripcion: "Amueblar y decorar las zonas comunes",
     fecha: "13-14 Dic 2025"
   },
   {
     url: "https://youtu.be/e6aiIBKEJZ8",
     platform: "youtube",
     id: "e6aiIBKEJZ8",
-    titulo: "Habitaciones",
-    descripcion: "Continuar con la amueblación de las habitaciones",
     fecha: "19-23 Dic 2025"
   },
   {
     url: "https://youtube.com/shorts/s0WDDnXrz-c",
     platform: "youtube",
     id: "s0WDDnXrz-c",
-    titulo: "Pintura y Acabados",
-    descripcion: "Dando color a los espacios",
     fecha: "11-27 Dic 2025"
   },
   {
     url: "https://youtu.be/-U0TibC6JwU",
     platform: "youtube",
     id: "-U0TibC6JwU",
-    titulo: "Avances de Fin de Año",
-    descripcion: "Progreso en la transformación de la casa",
     fecha: "26-30 Dic 2025"
   },
   {
     url: "https://youtu.be/Pe4k2G99lTM",
     platform: "youtube",
     id: "Pe4k2G99lTM",
-    titulo: "Primeros Días de 2026",
-    descripcion: "Continuamos con la remodelación",
     fecha: "2-5 Ene 2026"
   }
 ];
 
 export default function RemodelacionTimeline() {
+  const { t } = useLanguage();
   const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
 
   const handleVideoLoad = (index: number) => {
     setLoadedVideos(prev => new Set(prev).add(index));
   };
+
+  const videoTranslations = t('timeline.videos') as Array<{ title: string; description: string }>;
 
   return (
     <div className="w-full py-12 md:py-20 px-2 md:px-8 lg:px-16">
@@ -106,11 +88,10 @@ export default function RemodelacionTimeline() {
         {/* Título de la sección */}
         <div className="text-center mb-8 md:mb-20 px-2">
           <h2 className="text-xl md:text-4xl font-bold mb-2 md:mb-6" style={{ color: '#8A4D76' }}>
-            Evolución de la Casa
+            {t('timeline.title')}
           </h2>
           <p className="text-sm md:text-lg text-gray-700 max-w-3xl mx-auto">
-            Sigue el proceso de transformación de nuestra casa en Orduña, 
-            un proyecto en marcha gracias al esfuerzo de decenas de voluntarios
+            {t('timeline.description')}
           </p>
         </div>
 
@@ -150,10 +131,10 @@ export default function RemodelacionTimeline() {
                     
                     {/* Título y descripción */}
                     <h3 className="text-xs md:text-2xl lg:text-3xl font-bold mb-0.5 md:mb-3 leading-tight" style={{ color: '#8A4D76' }}>
-                      {video.titulo}
+                      {videoTranslations[index]?.title || ''}
                     </h3>
                     <p className="text-gray-600 text-[10px] md:text-lg leading-relaxed hidden sm:block">
-                      {video.descripcion}
+                      {videoTranslations[index]?.description || ''}
                     </p>
                   </div>
 
@@ -173,7 +154,7 @@ export default function RemodelacionTimeline() {
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                             <span className="text-gray-600 text-[9px] md:text-sm hidden sm:block">
-                              {video.platform === 'instagram' ? 'Cargando Instagram...' : 'Cargando YouTube...'}
+                              {video.platform === 'instagram' ? t('timeline.loadingInstagram') : t('timeline.loadingYoutube')}
                             </span>
                           </div>
                         </div>
@@ -184,7 +165,7 @@ export default function RemodelacionTimeline() {
                         <iframe
                           className="absolute top-0 left-0 w-full h-full"
                           src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                          title={video.titulo}
+                          title={videoTranslations[index]?.title || ''}
                           frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
@@ -195,7 +176,7 @@ export default function RemodelacionTimeline() {
                         <iframe
                           className="absolute top-0 left-0 w-full h-full"
                           src={`https://www.instagram.com/reel/${video.id}/embed/`}
-                          title={video.titulo}
+                          title={videoTranslations[index]?.title || ''}
                           frameBorder="0"
                           scrolling="no"
                           allowTransparency={true}

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Testimonial = {
   quote: string;
@@ -26,6 +27,7 @@ export const AnimatedTestimonials = ({
 }) => {
   const [active, setActive] = useState(0);
   const router = useRouter();
+  const { t } = useLanguage();
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -153,7 +155,7 @@ export const AnimatedTestimonials = ({
                   color: 'white',
                 }}
               >
-                Leer historia completa →
+                {t('home.testimonials.readFullStory')} →
               </button>
             )}
           </motion.div>

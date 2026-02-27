@@ -2,8 +2,10 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { ImagesSlider } from "@/components/ui/images-slider";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function ImagesSliderDemo() {
+  const { t } = useLanguage();
   const images = [
     "/header5.jpeg",
     "/header1.jpg",
@@ -29,13 +31,13 @@ export function ImagesSliderDemo() {
         className="z-50 flex flex-col justify-center items-center"
       >
         <div className="text-6xl md:text-7xl font-bold mb-8 text-white drop-shadow-2xl" style={{ lineHeight: '1.1' }}>
-          Ametsgoien
+          {t('home.hero.title')}
         </div>
         <h2 className="text-3xl md:text-4xl font-semibold text-white text-center mb-8 tracking-tight drop-shadow-lg">
-          Acogida, dignidad y acompañamiento
+          {t('home.hero.subtitle')}
         </h2>
         <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-white drop-shadow-lg text-center" style={{ lineHeight: '1.5' }}>
-          Construyendo un refugio seguro junto a mujeres migrantes.
+          {t('home.hero.description')}
         </p>
         <a href="/sobre-nosotros">
           <button 
@@ -48,7 +50,7 @@ export function ImagesSliderDemo() {
               fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
             }}
           >
-            Descubre Nuestro Trabajo
+            {t('home.hero.button')}
           </button>
         </a>
       </motion.div>

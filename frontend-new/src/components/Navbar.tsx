@@ -2,12 +2,15 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -69,16 +72,19 @@ const Navbar = () => {
             </a>
           </div>
           
-          {/* Menú hamburguesa (móvil) */}
-          <button 
-            className="md:hidden text-white p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-          </button>
+          {/* Menú hamburguesa (móvil) y selector de idiomas */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageSwitcher />
+            <button 
+              className="text-white p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+            </button>
+          </div>
 
           {/* Navegación desktop */}
           <div className="hidden md:flex items-center gap-3 lg:gap-4 xl:gap-5" role="menubar">
@@ -96,7 +102,7 @@ const Navbar = () => {
               aria-label="Ir a la sección de inicio"
               role="menuitem"
             >
-              Inicio
+              {t('nav.home')}
             </a>
             <a 
               href="/sobre-nosotros"
@@ -111,7 +117,7 @@ const Navbar = () => {
               aria-label="Conocer más sobre la organización"
               role="menuitem"
             >
-              La Asociación
+              {t('nav.association')}
             </a>
             <a 
               href="#noticias"
@@ -127,7 +133,7 @@ const Navbar = () => {
               aria-label="Ir a la sección de noticias"
               role="menuitem"
             >
-              Noticias
+              {t('nav.news')}
             </a>
             <a 
               href="/actividades"
@@ -142,7 +148,7 @@ const Navbar = () => {
               aria-label="Ver actividades y talleres"
               role="menuitem"
             >
-              Actividades
+              {t('nav.activities')}
             </a>
             <a 
               href="/voluntarios"
@@ -157,7 +163,7 @@ const Navbar = () => {
               aria-label="Regístrate como voluntario"
               role="menuitem"
             >
-              Hazte Voluntario
+              {t('nav.volunteer')}
             </a>
             <a
               href="/colaborar"
@@ -175,7 +181,7 @@ const Navbar = () => {
                 }}
                 tabIndex={-1}
               >
-              Colabora
+              {t('nav.collaborate')}
             </button>
             </a>
             <a 
@@ -191,8 +197,11 @@ const Navbar = () => {
               aria-label="Acceso para personal interno"
               role="menuitem"
             >
-              Acceso interno
+              {t('nav.internal')}
             </a>
+            
+            {/* Selector de idiomas */}
+            <LanguageSwitcher />
           </div>
         </div>
 
@@ -205,35 +214,35 @@ const Navbar = () => {
                 onClick={(e) => handleNavClick(e, 'inicio')}
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
               >
-                Inicio
+                {t('nav.home')}
               </a>
               <a 
                 href="/sobre-nosotros"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
               >
-                La Asociación
+                {t('nav.association')}
               </a>
               <a 
                 href="#noticias"
                 onClick={(e) => handleNavClick(e, 'noticias')}
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
               >
-                Noticias
+                {t('nav.news')}
               </a>
               <a 
                 href="/actividades"
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Actividades
+                {t('nav.activities')}
               </a>
               <a 
                 href="/voluntarios"
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Hazte Voluntario
+                {t('nav.volunteer')}
               </a>
               <a
                 href="/colaborar"
@@ -242,7 +251,7 @@ const Navbar = () => {
                 <button 
                   className="rounded-full font-medium px-6 py-2 bg-white text-[#8A4D76] border-2 border-[#8A4D76] w-full"
                 >
-                  Colabora
+                  {t('nav.collaborate')}
                 </button>
               </a>
               <a 
@@ -250,7 +259,7 @@ const Navbar = () => {
                 className="text-white text-sm font-medium py-2 hover:bg-white/10 rounded-lg px-3 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Acceso interno
+                {t('nav.internal')}
               </a>
             </div>
           </div>

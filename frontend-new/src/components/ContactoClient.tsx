@@ -3,10 +3,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export default function ContactoClient() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [formData, setFormData] = useState({
     nombre: "",
@@ -25,7 +27,7 @@ export default function ContactoClient() {
     setSuccess(false);
 
     if (!formData.consentimiento) {
-      setError("Debes aceptar el consentimiento para enviar el formulario");
+      setError(t('contact.errorConsent'));
       return;
     }
 
@@ -55,12 +57,12 @@ export default function ContactoClient() {
         if (data.errors && Array.isArray(data.errors)) {
           setError(data.errors.map((e: any) => `${e.field}: ${e.message}`).join(', '));
         } else {
-          setError(data.message || "Error al enviar el mensaje");
+          setError(data.message || t('contact.errorSend'));
         }
       }
     } catch (error) {
       console.error("Error:", error);
-      setError("Error de conexión. Por favor, inténtalo de nuevo.");
+      setError(t('contact.errorConnection'));
     } finally {
       setLoading(false);
     }
@@ -75,20 +77,20 @@ export default function ContactoClient() {
             onClick={() => router.push("/")}
             className="mb-4 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all text-sm"
           >
-            ← Volver al inicio
+            ← {t('contact.backButton')}
           </button>
 
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
             <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: '#8A4D76' }}>
-              Contacto
+              {t('contact.title')}
             </h1>
             <p className="text-base text-gray-700 mb-6">
-              ¿Tienes alguna pregunta o deseas colaborar? Completa el formulario y nos pondremos en contacto contigo.
+              {t('contact.subtitle')}
             </p>
 
             {success && (
               <div className="mb-4 p-3 rounded-lg bg-green-100 border border-green-400 text-green-700 text-sm">
-                ✓ Tu mensaje ha sido enviado correctamente. Te contactaremos pronto.
+                ✓ {t('contact.successMessage')}
               </div>
             )}
 
@@ -102,7 +104,7 @@ export default function ContactoClient() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="nombre" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Nombre *
+                    {t('contact.form.name')} *
                   </label>
                   <input
                     type="text"
@@ -116,7 +118,7 @@ export default function ContactoClient() {
 
                 <div>
                   <label htmlFor="apellidos" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Apellidos *
+                    {t('contact.form.surname')} *
                   </label>
                   <input
                     type="text"
@@ -131,7 +133,7 @@ export default function ContactoClient() {
 
               <div>
                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-1 text-sm">
-                  Email *
+                  {t('contact.form.email')} *
                 </label>
                 <input
                   type="email"
@@ -145,7 +147,7 @@ export default function ContactoClient() {
 
               <div>
                 <label htmlFor="mensaje" className="block text-gray-700 font-semibold mb-1 text-sm">
-                  Mensaje *
+                  {t('contact.form.message')} *
                 </label>
                 <textarea
                   id="mensaje"
@@ -166,15 +168,15 @@ export default function ContactoClient() {
                   required
                 />
                 <label htmlFor="consentimiento" className="text-gray-700 text-xs">
-                  Acepto que mis datos personales sean utilizados para responder a mi consulta, de acuerdo con la{" "}
+                  {t('contact.form.consent')}{" "}
                   <a 
                     href="/privacidad" 
                     className="font-semibold hover:underline"
                     style={{ color: '#8A4D76' }}
                   >
-                    política de privacidad
+                    {t('contact.form.privacyPolicy')}
                   </a>
-                  {" "}de Ametsgoien. *
+                  {" "}{t('contact.form.consentEnd')} *
                 </label>
               </div>
 
@@ -184,7 +186,7 @@ export default function ContactoClient() {
                 className="w-full py-3 rounded-full text-white font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: '#8A4D76' }}
               >
-                {loading ? "Enviando..." : "Enviar mensaje"}
+                {loading ? t('contact.form.sending') : t('contact.form.send')}
               </button>
             </form>
           </div>
