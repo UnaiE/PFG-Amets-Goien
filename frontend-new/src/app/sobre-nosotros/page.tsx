@@ -3,22 +3,15 @@
  * @route /sobre-nosotros
  * @description Página informativa sobre Amets Goien, su misión, visión y equipo
  */
-import { Metadata } from 'next';
+"use client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RemodelacionTimeline from "@/components/RemodelacionTimeline";
-
-export const metadata: Metadata = {
-  title: 'Sobre Nosotros - Nuestra Misión y Valores',
-  description: 'Conoce la historia, misión y valores de Ametsgoien. Asociación dedicada desde 2020 a la acogida y apoyo integral de mujeres migrantes y sus familias en Bilbao, País Vasco.',
-  keywords: ['sobre ametsgoien', 'misión', 'valores', 'equipo', 'historia asociación', 'ONG Bilbao'],
-  openGraph: {
-    title: 'Sobre Nosotros - Ametsgoien',
-    description: 'Conoce nuestra historia, misión y el equipo que hace posible la acogida y apoyo a mujeres migrantes.',
-  },
-};
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SobreNosotrosPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Navbar />
@@ -28,10 +21,10 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#8A4D76' }}>
           <div className="max-w-6xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Sobre Ametsgoien
+              {t('about.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-              Acogida, dignidad y acompañamiento para mujeres migrantes
+              {t('about.hero.subtitle')}
             </p>
           </div>
         </section>
@@ -40,35 +33,31 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold mb-8 text-center" style={{ color: '#8A4D76' }}>
-              ¿Quiénes somos?
+              {t('about.whoWeAre.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  <strong>Ametsgoien</strong> es una asociación fundada por <strong>Aitor Arbaiza</strong> y <strong>Josu Beaskoetxea</strong>, 
-                  un matrimonio de Alonsotegi con tres hijos adolescentes que decidieron transformar una inquietud íntima en un proyecto colectivo.
+                  <strong>Ametsgoien</strong> {t('about.whoWeAre.p1')} <strong>Aitor Arbaiza</strong> y <strong>Josu Beaskoetxea</strong>, 
+                  {t('about.whoWeAre.p1b')}
                 </p>
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  Todo comenzó con una historia que les marcó profundamente: <em>"No podía entender cómo una mujer con un bebé recién nacido 
-                  podía estar en la calle en el Bilbao de 2023"</em>. Aquel caso, llegado a través de la red solidaria CVX y el Centro Ignacio Ellacuría, 
-                  les hizo preguntarse: ¿qué podemos hacer nosotros?
+                  {t('about.whoWeAre.p2')} <em>"{t('about.whoWeAre.p2quote')}"</em>. {t('about.whoWeAre.p2b')}
                 </p>
                 <p className="text-gray-700 text-lg leading-relaxed">
-                  La respuesta fue clara: <strong>"Si las instituciones no pueden dar una solución, decidimos endeudarnos de amor"</strong>. 
-                  Así nació Ametsgoien, una casa de 12 habitaciones en Orduña convertida en hogar seguro para mujeres migradas con menores a su cargo.
+                  {t('about.whoWeAre.p3')} <strong>"{t('about.whoWeAre.p3quote')}"</strong>. 
+                  {t('about.whoWeAre.p3b')}
                 </p>
               </div>
               <div className="bg-gray-100 rounded-2xl p-8 border-l-4 border-[#8A4D76]">
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>Nuestra Historia</h3>
+                <h3 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>{t('about.whoWeAre.historyTitle')}</h3>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Durante la crisis de Ucrania, la familia acogió en su propia casa a cuatro mujeres y un traductor. 
-                  <em>"Pasamos de cinco a nueve en casa. Tuvimos que reorganizarlo todo, pero nuestros hijos lo vivieron con naturalidad"</em>.
+                  {t('about.whoWeAre.historyP1')}
+                  <em>"{t('about.whoWeAre.historyP1quote')}"</em>.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Esa experiencia confirmó que estaban preparados para algo más grande. Con un préstamo familiar y bancario, 
-                  adquirieron una casona de 185.000 euros. Y lo que vino después superó todas las expectativas: 
-                  <strong>más de 40 voluntarios</strong> de Barcelona, Burgos, San Sebastián, Balmaseda, Bilbao y Orduña 
-                  se unieron para lijar, pintar, barnizar y dar vida a este sueño colectivo.
+                  {t('about.whoWeAre.historyP2')}
+                  <strong>{t('about.whoWeAre.historyP2b')}</strong> {t('about.whoWeAre.historyP2c')}
                 </p>
               </div>
             </div>
@@ -79,10 +68,10 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#F3E8F7' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold mb-8 text-center" style={{ color: '#8A4D76' }}>
-              Conoce Ametsgoien
+              {t('about.video.title')}
             </h2>
             <p className="text-center text-gray-700 text-lg mb-8">
-              Descubre la historia detrás de nuestro proyecto en esta entrevista
+              {t('about.video.subtitle')}
             </p>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe 
@@ -95,7 +84,7 @@ export default function SobreNosotrosPage() {
               ></iframe>
             </div>
             <p className="text-center text-gray-600 text-sm mt-4 italic">
-              "A veces la solidaridad llega en goteo... pero llega" - Azul Tejerina
+              "{t('about.video.quote')}"
             </p>
           </div>
         </section>
@@ -108,22 +97,18 @@ export default function SobreNosotrosPage() {
               {/* Misión */}
               <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
                 
-                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Misión</h3>
+                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>{t('about.mission.title')}</h3>
                 <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
-                  Proporcionar acogida segura, apoyo integral y acompañamiento personalizado a mujeres migrantes 
-                  y sus familias, ofreciendo herramientas para su desarrollo personal, formación laboral y 
-                  autonomía económica, siempre desde el respeto a su dignidad y derechos humanos.
+                  {t('about.mission.text')}
                 </p>
               </div>
 
               {/* Visión */}
               <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-t-4 border-[#8A4D76]">
                 
-                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>Nuestra Visión</h3>
+                <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-4" style={{ color: '#8A4D76' }}>{t('about.vision.title')}</h3>
                 <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
-                  Ser una organización de referencia en la acogida y acompañamiento de mujeres migrantes, 
-                  reconocida por su impacto transformador en las vidas de las personas a las que servimos, 
-                  y por contribuir a una sociedad más inclusiva, justa y solidaria.
+                  {t('about.vision.text')}
                 </p>
               </div>
             </div>
@@ -134,7 +119,7 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: '#8A4D76' }}>
-              ¿Qué hacemos?
+              {t('about.whatWeDo.title')}
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               
@@ -142,11 +127,10 @@ export default function SobreNosotrosPage() {
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
                 
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Hogar Seguro
+                  {t('about.whatWeDo.housing.title')}
                 </h3>
                 <p className="text-gray-700 text-xs md:text-base text-center">
-                  Una casa de 12 habitaciones en Orduña, renovada con el esfuerzo de decenas de voluntarios, 
-                  donde las mujeres y sus hijos encuentran un espacio digno y acogedor.
+                  {t('about.whatWeDo.housing.text')}
                 </p>
               </div>
 
@@ -154,11 +138,10 @@ export default function SobreNosotrosPage() {
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
                 
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Acompañamiento Integral
+                  {t('about.whatWeDo.support.title')}
                 </h3>
                 <p className="text-gray-700 text-xs md:text-base text-center">
-                  Apoyo personalizado en gestiones administrativas, búsqueda de empleo, formación y todo 
-                  lo necesario para lograr la autonomía.
+                  {t('about.whatWeDo.support.text')}
                 </p>
               </div>
 
@@ -166,11 +149,10 @@ export default function SobreNosotrosPage() {
               <div className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
 
                 <h3 className="text-base md:text-xl font-bold mb-2 md:mb-3 text-center" style={{ color: '#8A4D76' }}>
-                  Solidaridad Comunitaria
+                  {t('about.whatWeDo.community.title')}
                 </h3>
                 <p className="text-gray-700 text-xs md:text-base text-center">
-                  Un proyecto construido "gota a gota" por una comunidad de voluntarios que creen 
-                  en el poder transformador de la ayuda mutua.
+                  {t('about.whatWeDo.community.text')}
                 </p>
               </div>
             </div>
@@ -186,22 +168,22 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: '#8A4D76' }}>
-              Nuestros Valores
+              {t('about.values.title')}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Acoger</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>{t('about.values.welcome')}</h3>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Proteger</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>{t('about.values.protect')}</h3>
   
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Promover</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>{t('about.values.promote')}</h3>
                 
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md text-center border-b-4 border-[#8A4D76]">
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>Integrar</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#8A4D76' }}>{t('about.values.integrate')}</h3>
                 
               </div>
             </div>
@@ -214,10 +196,10 @@ export default function SobreNosotrosPage() {
         <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#8A4D76' }}>
-              Únete a nuestra causa
+              {t('about.cta.title')}
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Tu apoyo puede transformar vidas. Juntos podemos construir un futuro mejor para las mujeres migrantes y sus familias.
+              {t('about.cta.subtitle')}
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <a href="/colaborar">
@@ -225,7 +207,7 @@ export default function SobreNosotrosPage() {
                   className="px-8 py-4 rounded-full font-bold text-white hover:shadow-2xl hover:scale-105 transition-all text-lg"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
-                   Donar Ahora
+                   {t('about.cta.donate')}
                 </button>
               </a>
               <a href="/voluntarios">
@@ -237,7 +219,7 @@ export default function SobreNosotrosPage() {
                     backgroundColor: 'white'
                   }}
                 >
-                   Hazte Voluntario/a
+                   {t('about.cta.volunteer')}
                 </button>
               </a>
               <a href="/contacto">
@@ -249,7 +231,7 @@ export default function SobreNosotrosPage() {
                     backgroundColor: 'white'
                   }}
                 >
-                   Contactar
+                   {t('about.cta.contact')}
                 </button>
               </a>
             </div>

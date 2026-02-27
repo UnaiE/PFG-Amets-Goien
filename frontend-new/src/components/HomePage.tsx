@@ -2,8 +2,11 @@
 import { AnimatedTestimonialsDemo } from "./ui/demo-testimonials";
 import NoticiasCarousel from "@/components/NoticiasCarousel";
 import { ImagesSliderDemo } from "./ui/demo-images-slider";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const HomePage = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="bg-[#D8B8C4]">
       {/* HERO - Slider de imágenes con Amets Goien */}
@@ -19,13 +22,13 @@ const HomePage = () => {
               {/* Columna izquierda - Texto */}
               <div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-left mb-8 tracking-tight">
-                  Sobre AMETSGOIEN
+                  {t('home.about.title')}
                 </h1>
                 <p className="text-base md:text-lg lg:text-xl mb-6" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
-                  AMETSGOIEN trabaja por ofrecer apoyo integral a mujeres migrantes y sus hijos, priorizando la dignidad, la seguridad emocional y el acompañamiento humano.
+                  {t('home.about.description1')}
                 </p>
                 <p className="text-base md:text-lg lg:text-xl mb-8" style={{ color: '#4A3A3C', lineHeight: '1.7' }}>
-                  Creemos en la importancia de construir un refugio seguro, cálido y humano, donde cada mujer pueda reencontrar su fuerza, recuperar esperanza y avanzar hacia una vida estable.
+                  {t('home.about.description2')}
                 </p>
                 {/* Botones de colaborar y voluntariado */}
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -38,7 +41,7 @@ const HomePage = () => {
                         letterSpacing: '0.3px',
                       }}
                     >
-                      Colaborar / Donar
+                      {t('home.about.collaborateBtn')}
                     </button>
                   </a>
                   <a href="/voluntarios">
@@ -51,7 +54,7 @@ const HomePage = () => {
                         letterSpacing: '0.3px',
                       }}
                     >
-                       Hazte Voluntario/a
+                       {t('home.about.volunteerBtn')}
                     </button>
                   </a>
                 </div>
@@ -69,7 +72,7 @@ const HomePage = () => {
             {/* Video dentro de la sección Sobre AMETSGOIEN */}
             <div className="mt-12">
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-[#8A4D76] text-center mb-8 tracking-tight">
-                Nuestra Historia
+                {t('home.about.historyTitle')}
               </h3>
               <div className="w-full max-w-2xl mx-auto">
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -101,7 +104,7 @@ const HomePage = () => {
         <div className="w-full px-4 md:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-left mb-12 tracking-tight">
-              Testimonios
+              {t('home.testimonials.title')}
             </h2>
             <div className="flex justify-center">
               <AnimatedTestimonialsDemo />
@@ -114,10 +117,10 @@ const HomePage = () => {
       <section className="py-20" style={{ backgroundColor: '#8A4D76' }}>
         <div className="max-w-5xl mx-auto px-4 md:px-8 text-center text-white">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            ¿Quieres formar parte del cambio?
+            {t('home.volunteerSection.title')}
           </h2>
           <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
-            Tu tiempo y dedicación pueden transformar vidas. Únete como voluntario/a y ayúdanos a construir un refugio seguro para mujeres migrantes.
+            {t('home.volunteerSection.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/voluntarios">
@@ -125,14 +128,14 @@ const HomePage = () => {
                 className="rounded-full font-bold px-10 py-4 text-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 style={{ color: '#8A4D76' }}
               >
-                 Hazte Voluntario/a
+                 {t('home.volunteerSection.volunteerBtn')}
               </button>
             </a>
             <a href="/colaborar">
               <button
                 className="rounded-full font-bold px-10 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-[#8A4D76] hover:shadow-2xl hover:scale-105 transition-all duration-300"
               >
-                 Hacer una Donación
+                 {t('home.volunteerSection.donateBtn')}
               </button>
             </a>
             <a href="/contacto">
@@ -140,7 +143,7 @@ const HomePage = () => {
                 className="rounded-full font-bold px-10 py-4 text-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 style={{ color: '#8A4D76' }}
               >
-                Ir a la página de contacto
+                {t('home.volunteerSection.contactBtn')}
               </button>
             </a>
           </div>

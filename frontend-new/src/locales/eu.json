@@ -1,0 +1,545 @@
+{
+  "nav": {
+    "home": "Hasiera",
+    "association": "Elkartea",
+    "news": "Albisteak",
+    "activities": "Jarduerak",
+    "volunteer": "Bazkide Izan",
+    "collaborate": "Lagundu",
+    "internal": "Barneko Sarbidea"
+  },
+  "footer": {
+    "tagline": "Etorkin emakumeentzako harrera segurua eraikitzen.",
+    "rights": "Eskubide guztiak erreserbatuta",
+    "collaborate": "Lagundu",
+    "contact": "Kontaktua",
+    "donations": "Dohaintza Egin",
+    "becomeVolunteer": "Bazkide Izan",
+    "followUs": "Jarraitu gaitzazu Instagramen",
+    "phone": "Telefonoa",
+    "email": "Emaila",
+    "address": "Helbidea",
+    "collaborators": "Gurekin lankidetzan",
+    "privacy": "Pribatutasun Politika",
+    "cookies": "Cookie Politika"
+  },
+  "home": {
+    "hero": {
+      "title": "Ametsgoien",
+      "subtitle": "Harrera, duintasuna eta laguntza",
+      "description": "Etorkin emakumeentzako harrera segurua eraikitzen.",
+      "button": "Ezagutu Gure Lana"
+    },
+    "about": {
+      "title": "AMETSGOIEN-i buruz",
+      "description1": "AMETSGOIEN etorkin emakumeei eta beren seme-alabei laguntza osoa eskaintzeko lan egiten du, duintasuna, segurtasun emozionala eta giza laguntza lehenetsi.",
+      "description2": "Harrera seguru, beroa eta gizatiarra eraikitzearen garrantziaz sinesten dugu, non emakume bakoitzak bere indarra berraurkitu, esperantza berreskuratu eta bizitza egonkor batera aurrera egin dezakeen.",
+      "collaborateBtn": "Lagundu / Dohaintza egin",
+      "volunteerBtn": "Bazkide Izan",
+      "historyTitle": "Gure Historia"
+    },
+    "testimonials": {
+      "title": "Testigantzak",
+      "readFullStory": "Irakurri historia osoa",
+      "notFound": "Ez da testigantza aurkitu",
+      "backToTestimonials": "Itzuli testigantzak",
+      "helpMore": "Lagundu emakume gehiago",
+      "mariana": {
+        "quote": "Gune seguru eta gizatiar bat aurkitzeak beldurraren eta duintasunaren arteko aldea markatzen du. Ametsgoiek emakume askok behar dugun harrera erreala irudikatzen du.",
+        "name": "Mariana",
+        "designation": "Onuraduna",
+        "fullStory": "Mariana duela hamarkada bat baino gehiago iritsi zen Euskal Herrira irtenbide mediko bat aurkitu eta bere semea berriz batzeko esperantzarekin. Ama bakarti eta emakume migratu gisa, hasieratik zailtasun ugariri aurre egin behar izan zien: erroldatze falta, dokumentazio eza, enplegu mugatua eta, bereziki, bera eta bere semearen bizitegi duina aurkitzeko ezintasuna.\n\nUrteetan, etxebizitzarako sarbidean bereizkeriak jasan zituen, bai seme bat izateagatik bai jatorria dela eta. Ez zen seguru edo ongi etorria sentitzen zituen guneetan bizi izan zen, eta egunero egiten ziren egintzak ere epaitzeko arrazoia ziren. Zailtasun horiei hezkuntza publikora eta eskola-beka eskuragarritasuneko oztopoak gehitu zitzaizkien, semearena egonkortasuna bermatzea are zailagoa egiten zuena.\n\nHala ere, Marianak laguntza-sareak ere aurkitu zituen elkarteetan, emakume migratuen kolektiboetan eta komunitateko guneetan, non lagundua eta ulertua sentitu zen. Bere esperientziatik, borondatean eta enpatian oinarritutako harrera errealen garrantzia defendatzen du, diskriminaziorik gabe.\n\nMarianek Ametsgoien bezalako ekimenen balioa nabarmentzen du, gune hurkoagoak, beroagoak eta seguruak eskaintzen dituztenak, emakume eta familiak ahultasun handiko egoeretan era gizatiarrean laguntzeko gai direnak. Berarentzat, hartzea ez da etxe bat zabaltzea bakarrik, besoak zabaltzea eta bihotzak hurbiltzea da."
+      },
+      "emadolis": {
+        "quote": "Ama gisa, garrantzitsuena babestuta eta lagundua sentitzea da. Toki seguru batek dena alda dezake.",
+        "name": "Emadolis",
+        "designation": "Onuraduna",
+        "fullStory": "Emadolisek Nicaraguatik emigratu zuen etorkizun hobea eta aukera berriak bilatuz. Haurdun iritsi zen eta, bere semearen aitak abandonatu ondoren, ahultasun handiko egoera batean aurkitu zen. Dokumentaziorik gabe, lanik gabe eta jaioberri batekin, kalean bizi izan zen eta erdaldi gogorra bakarrik aurre egin behar izan zion.\n\nEtxebizitza bilaketa zailtasunik handiene izan zen. Toki askotan seme bat edukitzeagatik alokairua ukatu zioten, eta besteetan, bere umearen jolasteko edo zarata egiteko eskubidea ere mugatzen zuten baldintzak ezarri zizkioten. Antsietate, ziurgabetasun eta beldur uneak bizi izan zituen, batez ere non lo egin edo bere semea nola elikatu ez zekielako.\n\nEgoera horretan, Emadolisek laguntza gizatiarra eta emozionala aurkitu zuen entzutea, animoko hitzak eta laguntza eskaini zioten pertsonetan. Laguntza hori gakoa izan zen indarrak berreskuratzeko eta aurrera jarraitzeko.\n\nAmaren esperientziatik, emakume eta haurrek beldurrik gabe, enpatia eta errespetuarekin bizi daitekeen gune seguruen beharra defendatzen du. Ametsgoien bezalako elkarteak funtsezkoak direla uste du, babesa, hurbiltasuna eta, denbora batez behintzat, etxean bezala sentitzeko aukera eskaintzen baitute."
+      },
+      "berita": {
+        "quote": "Laguntza eta etxebizitzarik gabe, bizitza jasanezinak bihurtzen da. Benetan lagunduko duten elkarteak patua aldatzen dute.",
+        "name": "Berita",
+        "designation": "Onuraduna",
+        "fullStory": "Beritak emigratzea erabaki zuen bere seme-alabei etorkizun hobea eta bere herrialdean eskuraezin ziren ikasketak eskaintzeko. Euskal Herrira iritsi zen lan eta egonkortasun itxaropenekin, baina laster errealitate oso desberdina aurkitu zuen. Iritsi zenean laguntza agindu zion pertsonak ez zuen adostutakoa bete, eta horrek bakarrik eta bizi ahal izateko lekurik gabe geratzera eraman zuen.\n\nLehenengo hilabeteetan egoera muturreko batzuei aurre egin zien, baita gau bat parkean lo eginaz. Solidaritatezko pertsonen laguntza puntualarei esker, behin-behineko ostatua aurkitu zuen eta, bilaketa etengabe baten ondoren, bere lehen lana lortu zuen, barneko langile gisa. Lan hura esperientzia oso gogorra izan zen, lan estuagatik, tratu desberdinagatik eta inpaktu fisiko eta emozional handia izateagatik.\n\nDokumentazio eta nomina falta dela eta, urteetan ezin izan zuen etxebizitza propioa lortu, eta baldintza prekarioak onartu behar izan zituen mantendu eta seme-alabei dirua bidaltzeko. Egoera horrek familia berriz batzea atzeratzera eraman zuen, ingurune segurua eskaintzeko ezintasunagatik.\n\nBeritak emakume migratuen lagundu, orientatu eta babesten duten elkarteen edukitzearen garrantzia azpimarratzen du, batez ere umeak dituzten emakumeentzat. Berarentzat, Ametsgoien bezalako ekimenak garrantzitsuak dira emakume gehiagok baztertze-egoerak pasa ez ditzaten eta harrera zuzenagoa eta gizatiarragoa eraikitzeko."
+      }
+    },
+    "news": {
+      "title": "Azken Berriak",
+      "loading": "Berriak kargatzen...",
+      "noNews": "Ez dago berririk argitaratuta oraindik.",
+      "newsTitle": "Berriak",
+      "readMore": "Irakurri gehiago",
+      "close": "Itxi"
+    },
+    "volunteerSection": {
+      "title": "Aldaketaren parte izan nahi duzu?",
+      "description": "Zure denbora eta dedikazioak bizitzak aldatu ditzake. Bazkide gisa batu eta lagundu gaitzazu etorkin emakumeentzako harrera segurua eraikitzen.",
+      "volunteerBtn": "Bazkide Izan",
+      "donateBtn": "Dohaintza Egin",
+      "contactBtn": "Joan kontaktu orrira"
+    }
+  },
+  "volunteer": {
+    "title": "Bazkide Izan",
+    "subtitle": "Zure denbora, energia eta konpromisoak bizitzak aldatu ditzake. Ametsgoienen, bazkide bakoitza gure helburuak lortzeko eta gehien behar dutenentzat laguntzeko funtsezko pieza bat da.",
+    "formTitle": "Erregistro Formularioa",
+    "formSubtitle": "Bete zure datuak eta laster harremanetan jarriko gara zurekin.",
+    "whatDo": "Zer egiten dute gure bazkideek?",
+    "activities": {
+      "support": "➣ Jardueretan laguntza",
+      "supportDesc": "Ekitaldiak, tailerrak eta komunitate programetan parte-hartzea.",
+      "accompaniment": "➣ Lagunketa",
+      "accompanimentDesc": "Entzute aktiboa eta babesa emozionala ahultasun-egoeran dauden pertsonentzat.",
+      "dissemination": "➣ Zabalkundea",
+      "disseminationDesc": "Sare sozialen laguntza, komunikazioa eta sentsibilizazio soziala.",
+      "admin": "➣ Trebetasunak irakastea",
+      "adminDesc": "Zure ezagutzak partekatu eta lagundu pertsonak trebetasun berriak garatzen."
+    },
+    
+    "communications": "Informatuta egon",
+    "communicationsDesc": "Bazkide gisa, aldizka jasoko duzu:",
+    "communicationsList": {
+      "activities": "✓ Hurrengo jarduera eta ekitaldiei buruzko informazioa",
+      "news": "✓ Elkartearen berriak eta eguneraketak",
+      "opportunities": "✓ Zure eskuragarritasunaren arabera laguntzeko aukerak",
+      "meetings": "✓ Bazkideen bilkuren eta topaketen deiak"
+    },
+      "unsubscribe": "Edozein unetan gure komunikazioetan baja eman dezakezu.",
+    "form": {
+      "name": "Izena",
+      "surname": "Abizenak",
+      "email": "Emaila",
+      "phone": "Telefonoa",
+      "location": "Herria",
+      "message": "Kontaiguzu zure buruz",
+      "messagePlaceholder": "Eskuragarritasuna, ekar ditzakezun trebetasunak, aurreko esperientzia...",
+      "privacy": "Irakurri eta onartu dut",
+      "privacyLink": "pribatutasun politika",
+      "privacyText": "eta Ametsgoieneri baimena ematen diot nirekin harremanetan jartzeko eta elkartearen jarduerarekin lotutako komunikazioak bidaltzeko.",
+      "submit": "Bazkide gisa Erregistratu",
+      "sending": "Bidaltzen...",
+      "success": "Eskerrik asko bazkide gisa izena emateagatik!",
+      "error": "Errorea gertatu da zure erregistroa prozesatzean",
+      "connectionError": "Konexio errorea. Mesedez, saiatu berriro.",
+      "required": "Beharrezko eremua"
+    }
+  },
+  "about": {
+    "title": "Guri buruz",
+    "hero": {
+      "title": "Ametsgoieni buruz",
+      "subtitle": "Harrera, duintasuna eta laguntza emakume migratzaileentzat"
+    },
+    "whoWeAre": {
+      "title": "Nor gara?",
+      "p1": "Alonsotegiko senar-emazteek sorturiko elkarte bat da, hiru seme-alaba adoleszente dituztenak, beren kezka intimoa proiektu kolektibo bihurtzea erabaki zutenak.",
+      "p1b": "",
+      "p2": "Guztia sakon markatu zituen istorio batekin hasi zen:",
+      "p2quote": "Ezin nuen ulertu nola emakume bat jaioberria duen haurra kalean egon zitekeen 2023ko Bilbon",
+      "p2b": "Kasu hark, CVX sare solidarioa eta Ignacio Ellacuria Zentroa bidez iritsi zena, galdera hau egin zien: zer egin dezakegu gu?",
+      "p3": "Erantzuna argia izan zen:",
+      "p3quote": "Erakundeek konponbiderik eman ezin badute, maitasunez zordundu erabaki genuen",
+      "p3b": "Horrela jaio zen Ametsgoien, Orduñako 12 logelako etxe bat, emakume migratuak beren kargura umeak dituztenak jasotzeko etxe seguru bihurtua.",
+      "historyTitle": "Gure Historia",
+      "historyP1": "Ukrainako krisian, familiak beren etxean lau emakume eta itzultzaile bat hartu zituen.",
+      "historyP1quote": "Bostetik bederatzira pasa ginen etxean. Dena antolatu behar izan genuen, baina gure seme-alabek naturalki bizi izan zuten",
+      "historyP2": "Esperientzia hark zerbait handiagoa egiteko prest zeudela berretsi zuen. Familia mailegu eta banku mailegu batekin, 185.000 euroko etxe handi bat eskuratu zuten. Eta gero etorri zena itxaropen guztiak gainditu zituen:",
+      "historyP2b": "40 bazkide baino gehiago",
+      "historyP2c": "Bartzelona, Burgos, Donostia, Balmaseda, Bilbo eta Orduñakoak batu ziren liatzeko, margotu, bernizatu eta ametsa bizitza emateko."
+    },
+    "video": {
+      "title": "Ezagutu Ametsgoien",
+      "subtitle": "Aurkitu gure proiektuaren atzean dagoen istorioa elkarrizketa honetan",
+      "quote": "Batzuetan elkartasuna tanta-tantan iristen da... baina iristen da"
+    },
+    "mission": {
+      "title": "Gure Misioa",
+      "text": "Harrera segurua, laguntza osoa eta laguntza pertsonalizatua eman emakume migratzaile eta beren familiei, garapen pertsonalerako, lan prestakuntzarako eta autonomia ekonomikorako tresnak eskainiz, beti beren duintasuna eta giza eskubideak errespetatuz."
+    },
+    "vision": {
+      "title": "Gure Ikuspegia",
+      "text": "Emakume migratzaileen harreran eta laguntzaren erreferentziazko erakunde bat izan, laguntzen ditugun pertsonen bizitzetan duen eraldaketa eraginagatik eta gizarte inklusiboago, justoago eta solidarioago baterako ekarpenagatik ezagutua."
+    },
+    "whatWeDo": {
+      "title": "Zer egiten dugu?",
+      "housing": {
+        "title": "Etxe Segurua",
+        "text": "Orduñako 12 logelako etxe bat, hamaika bazkideren ahaleginarekin berriturikoa, non emakumeek eta beren seme-alabek gune duina eta hartzailea aurkitzen duten."
+      },
+      "support": {
+        "title": "Laguntza Osoa",
+        "text": "Laguntza pertsonalizatua administrazio kudeaketan, lan bilaketean, prestakuntzan eta autonomia lortzeko behar den guztian."
+      },
+      "community": {
+        "title": "Elkartasun Komunitarioa",
+        "text": "Elkar laguntzaren indar eraldatzailean sinesten duen bazkide komunitate batek \"txirripa\" bat eraiki duen proiektu bat."
+      }
+    },
+    "values": {
+      "title": "Gure Balioak",
+      "welcome": "Hartu",
+      "protect": "Babestu",
+      "promote": "Bultzatu",
+      "integrate": "Integratu"
+    },
+    "cta": {
+      "title": "Bat egin gure kausarekin",
+      "subtitle": "Zure laguntzak bizitzak aldatu ditzake. Elkarrekin etorkizun hobe bat eraiki dezakegu emakume migratzaile eta beren familientzat.",
+      "donate": "Eman orain",
+      "volunteer": "Bazkide Izan",
+      "contact": "Harremanetan jarri"
+    }
+  },
+  "activities": {
+    "title": "Jarduera eta Tailerrak",
+    "subtitle": "Prestakuntza, hazkunde pertsonal eta topaketa komunitarioko guneak emakumeei autonomia eta ongizatera bidean laguntzeko diseinatuak.",
+    "loading": "Jarduerak kargatzen...",
+    "noActivities": "Ez dago jarduerarik programaturik orain.",
+    "comeSoon": "Itzuli laster hurrengo jarduerak ikusteko.",
+    "activity": "Jarduera",
+    "dateConfirm": "Data baieztatzeko",
+    "needInfo": {
+      "title": "Informazio gehiago behar?",
+      "subtitle": "Jarduerari buruzko edo beste informaziorik nahi baduzu, jar zaitez gurekin harremanetan.",
+      "button": "Joan Kontaktura"
+    }
+  },
+  "contact": {
+    "backButton": "Hasierara itzuli",
+    "title": "Kontaktua",
+    "subtitle": "Galderarik duzu edo lagundu nahi duzu? Bete formularioa eta laster harremanetan jarriko gara.",
+    "successMessage": "Zure mezua behar bezala bidali da. Laster harremanetan jarriko gara zurekin.",
+    "errorConsent": "Baimena onartu behar duzu formularioa bidaltzeko",
+    "errorConnection": "Konexio errorea. Mesedez, saiatu berriro.",
+    "errorSend": "Errorea mezua bidaltzean",
+    "form": {
+      "name": "Izena",
+      "surname": "Abizenak",
+      "email": "Email",
+      "message": "Mezua",
+      "consent": "Onartzen dut nire datu pertsonalak nire kontsultari erantzuteko erabili daitezkeela,",
+      "privacyPolicy": "pribatutasun politikaren",
+      "consentEnd": "arabera.",
+      "send": "Bidali mezua",
+      "sending": "Bidaltzen..."
+    }
+  },
+  "collaborate": {
+    "hero": {
+      "title": "Zure laguntzak bizitzak aldatzen ditu",
+      "subtitle": "Dohaintza bakoitzak babesleku segurua, laguntza osoa eta etorkizunerako aukerak eskaintzen laguntzen du Orduñako gure harrera etxean dauden iheslari emakumeei eta beren seme-alabei."
+    },
+    "howWeUse": {
+      "title": "Nola erabiltzen ditugu zure dohaintzak?",
+      "subtitle": "Zure ekarpena zuzenean honako hauetara bideratzen da:",
+      "subtitle2": "Ematen duzun euro bakoitza emakume eta familien bizitza hobetzera bideratzen da. Hona hemen nola inbertitzen dugun zure laguntza:",
+      "items": {
+        "housing": {
+          "title": "Etxebizitza",
+          "description": "Orduñako harrera etxearen mantenua"
+        },
+        "food": {
+          "title": "Elikadura",
+          "description": "Familia egoiliarrentzako janari elikagaia"
+        },
+        "psychological": {
+          "title": "Laguntza psikologikoa",
+          "description": "Laguntza emozionala eta terapiak"
+        },
+        "social": {
+          "title": "Gizarte jarduerak",
+          "description": "Jarduera entretenigarriak eta gizarteratzekoak"
+        },
+        "education": {
+          "title": "Hezkuntza",
+          "description": "Eskola materiala eta amak eta semeak prestatzea"
+        }
+      },
+      "housing": {
+        "title": "Ostatua eta Mantenua",
+        "text": "Etxearen mantenua, elikadura, higiene produktuak eta oinarrizko beharrak."
+      },
+      "education": {
+        "title": "Hezkuntza eta Prestakuntza",
+        "text": "Hizkuntza ikastaroak, lanbide prestakuntza, umeentzako eskola materiala."
+      },
+      "legal": {
+        "title": "Kudeaketa Legala eta Administratiboa",
+        "text": "Dokumentazio tramitetan, egoitza eta lan baimenen laguntza."
+      },
+      "health": {
+        "title": "Osasuna eta Ongizatea",
+        "text": "Arreta medikoa, laguntza psikologikoa eta ongizate emozionaleko jarduerak."
+      },
+      "impact": {
+        "title": "Zure ekarpena, txikia izan arren, aldea egiten du",
+        "text": "Gardentasun eta eraginkortasun osoarekin lan egiten dugu. Dohaintzen %100a zuzenean laguntzako programetara doa. Administrazio gastuak dirulaguntzak eta erakunde lankidetzak estaltzen dituzte.",
+        "button": "Eman orain"
+      }
+    },
+    "testimonials": {
+      "title": "Benetako testigantzak",
+      "main": {
+        "quote": "Gune seguru eta gizatiar bat aurkitzeak beldurraren eta duintasunaren artean aldea egiten du. Ametsgoien emakume askok behar dugun harrera erreala adierazten du.",
+        "author": "Mariana, Onuraduna",
+        "context": "Mariana Euskal Herrira iritsi zen soluzioa medikoa bilatuz eta bere semea bateratuz. Ama bakarra eta emakume migratua bezala, etxebizitza sarreran diskriminazioa eta zailtasunak bizi izan zituen urrats bakoitzean.",
+        "quote2": "Niretzat, hartzea ez da etxe bat irekitzea bakarrik, besoak irekitzea eta bihotzak hurbiltzea baizik."
+      },
+      "moreStories": {
+        "title": "Itxaropenaren istorio gehiago",
+        "story1": {
+          "quote": "Ama gisa, garrantzitsuena babestuta eta lagunduta sentitzea da. Leku seguru batek guztia aldatu dezake.",
+          "author": "Emadolis"
+        },
+        "story2": {
+          "quote": "Laguntzarik eta etxebizitzarik gabe, bizitza jasanezina bihurtzen da. Benetan laguntzen duten elkarteek patuak aldatzen dituzte.",
+          "author": "Berita"
+        }
+      }
+    },
+    "whyDonate": {
+      "title": "Zergatik eman Ametsgoieni?",
+      "reasons": {
+        "transparency": {
+          "title": "%100 gardentasuna",
+          "text": "Euro bakoitza zuzenean laguntzako programetara doa"
+        },
+        "impact": {
+          "title": "Eragin erreala eta neurgarria",
+          "text": "Zure dohaintzak zuzenean laguntzen du Orduñako gure etxean hartutako familiei"
+        },
+        "humanTreatment": {
+          "title": "Tratu gizatiarreko eta hurbila",
+          "text": "Ez gara zenbakia, maitasunez hartzen duen familia gara"
+        }
+      },
+      "supportMessage": {
+        "title": "Zure laguntzak aldea egiten du",
+        "text": "Zure dohaintzarekin Orduñan gure harrera etxea mantentzen laguntzen duzu, non duintasuna, elkartasuna eta maitasuna eskaintzen dizkiogun emakume errefuxiatu eta beren familiei."
+      }
+    },
+    "otherWays": {
+      "title": "Emateko beste modu batzuk",
+      "subtitle": "Zure dohaintza egitean arazoren bat baduzu edo ordainketaren beste bide batzuei buruzko informazioa nahi baduzu, ez izan zalantzarik eta jar zaitez gurekin harremanetan"
+    },
+    "donation": {
+      "title": "Dohaintza bat egin",
+      "subtitle": "Bete formularioa zure dohaintza egiteko. Transakzio guztiak seguruak dira.",
+      "temporarilyDisabled": "Dohaintzak aldi baterako ez daude erabilgarri",
+      "disabledMessage": "Online dohaintzen sistema orain konfiguratzen ari da. Mesedez, erabili behean aurkituko dituzun Bizum edo banku-transferentzia aukerak.",
+      "otherOptionsLink": "Ikusi ordainketa-aukera alternatiboak",
+      "amount": "Kopurua (€)",
+      "amountPlaceholder": "Ad: 20",
+      "frequency": "Maiztasuna",
+      "oneTime": "Behin batekoa",
+      "monthly": "Hilabetero",
+      "quarterly": "Hiruhilero",
+      "semiannual": "Seihilero",
+      "annual": "Urtero",
+      "paymentMethod": "Ordainketa metodoa",
+      "card": "Kreditu/Debetu txartela",
+      "bizum": "Bizum",
+      "phonePrefix": "Aurrizkia",
+      "phone": "Telefonoa",
+      "phonePlaceholder": "600 000 000",
+      "address": "Helbidea",
+      "addressPlaceholder": "Kalea, zenbakia, hiria (aukerakoa)",
+      "note": "Mezua (aukerakoa)",
+      "notePlaceholder": "Utzi mezu bat nahi baduzu...",
+      "privacyConsent": "Irakurri eta onartu dut",
+      "privacyLink": "pribatutasun politika",
+      "submit": "Jarraitu ordainketara",
+      "submitting": "Prozesatzen...",
+      "donateAmount": "Eman",
+      "alternativePaymentInfo": "Bizum edo banku transferentzia nahiago?",
+      "alternativePaymentText": "Kontsultatu \"Emateko beste modu batzuk\" atala orriaren amaieran ordainketa aukera guztiak ikusteko.",
+      "alternativePaymentButton": "Ikusi ordainketa aukera alternatiboak",
+      "errors": {
+        "privacyRequired": "Pribatutasun politika onartu behar duzu",
+        "paymentRequired": "Hautatu ordainketa metodo bat",
+        "amountRequired": "Sartu baliozko kopuru bat",
+        "initError": "Errorea ordainketa hastean",
+        "processError": "Errorea dohaintza prozesatzean",
+        "connectionError": "Konexio errorea. Saiatu berriro."
+      },
+      "successMessage": "Dohaintza baieztatuta! Eskerrik asko zure ekarpen honengatik",
+      "successRecurring": "Baieztapen mezu bat bidaliko dizugu zure harpidetza xehetasunekin",
+      "successOneTime": "Baieztapen mezu bat bidaliko dizugu."
+    },
+    "bizumInfo": {
+      "title": "Bizum Informazioa",
+      "sendTo": "Bidali zure dohaintza zenbaki honetara:",
+      "copied": "Zenbakia kopiatu da!",
+      "copy": "Kopiatu zenbakia",
+      "remember": "Gogoratu:",
+      "note": "Mesedez, sartu zure izena kontzeptuan eskerrak emateko."
+    },
+    "bankTransfer": {
+      "title": "Banku Transferentzia",
+      "concept": "Kontzeptua:",
+      "conceptText": "\"Dohaintza\" + zure izena"
+    },
+    "contact": "Harremanetan jarri"
+  },
+  "privacy": {
+    "backButton": "Itzuli",
+    "title": "Pribatutasun Politika",
+    "section1": {
+      "title": "1. Tratamenduaren arduraduna",
+      "intro": "Webgune honen bidez bildutako datu pertsonalen tratamenduaren arduraduna AMETSGOIEN elkartea da, irabazi-asmorik gabeko entitatea gizarte laguntzara eta komunitateari zuzendua.",
+      "name": "Izendapena:",
+      "nameValue": "AMETSGOIEN HARRERA ETA INTEGRAZIO SOZIOKULTURALEKO ELKARTEA",
+      "cif": "IFK:",
+      "cifValue": "[G23919251]",
+      "address": "Helbidea:",
+      "addressValue": "BURGOS KALEA, 4-1 48460, ORDUÑA, BIZKAIA, Espainia",
+      "email": "Emaila:",
+      "emailValue": "ametsgoien@gmail.com",
+      "phone": "Telefonoa:",
+      "phoneValue": "+34 697 858 343",
+      "contact": "Datu pertsonalen babesari buruzko edozein galetarako, goiko bideetatik jar zaitezke harremanetan."
+    },
+    "section2": {
+      "title": "2. Aplikatu beharreko lege esparrua",
+      "text": "Datu pertsonalen tratamendua Europako Parlamentuaren eta Kontseiluaren (UE) 2016/679 Erregelamenduan (Datuen Babesari Buruzko Erregelamendu Orokorra – DBEO) xedatutakoaren arabera egiten da, baita Datu Pertsonalen Babesari eta Eskubide Digitalen Bermatzeko 3/2018 Lege Organikoan (DPDBL) ere."
+    },
+    "section3": {
+      "title": "3. Tratatutako datu pertsonalak",
+      "intro": "Webgune honen bidez honako datu pertsonal hauek bil daitezke:",
+      "contactForm": "Kontaktu formularioa:",
+      "contactItems": [
+        "Izena eta abizenak",
+        "Posta elektroniko helbidea",
+        "Mezuaren edo kontsultaren edukia"
+      ],
+      "donations": "Dohaintzak eta lankidetzak:",
+      "donationItems": [
+        "Izena eta abizenak",
+        "Emaila",
+        "Telefonoa (aukerakoa)",
+        "Helbidea (aukerakoa)",
+        "Stripe-k prozesatutako ordainketa datuak (banku txartela)"
+      ]
+    },
+    "section4": {
+      "title": "4. Tratamenduaren helburua",
+      "intro": "Emandako datu pertsonalak hurrengo helburu hauetarako bakarrik tratatuko dira:",
+      "purposes": [
+        "Kontsultak edo informazio eskaerak erantzutea.",
+        "Elkartearekiko lankidetza edo kontaktu eskaerak kudeatzea.",
+        "AMETSGOIEN-en jarduerari lotutako komunikazioak mantentzea, erabiltzaileak berariaz baimendu duenean."
+      ]
+    },
+    "section5": {
+      "title": "5. Tratamenduaren oinarri juridikoa",
+      "text": "Datuen tratamendurako oinarri legala erabiltzailearen baimena da, kontaktu formularioa bidaltzean eta pribatutasun politika hau onartzerakoan emanda."
+    },
+    "section6": {
+      "title": "6. Datuen gordetzea",
+      "text": "Datu pertsonalak egindako kontsulta erantzuteko behar den denboran bakarrik gordeko dira eta, ondoren, betebehar legal posibleak betetzeko legez eskatutako epeetan."
+    },
+    "section7": {
+      "title": "7. Hartzaileak eta tratamenduaren arduradun",
+      "intro": "Datuak ez dira hirugarrenei emango, lege betebeharrik ez bada. Hala ere, zerbitzua zuzen eskaini ahal izateko, AMETSGOIEN-ek honako kanpo hornitzaile hauek erabiltzen ditu tratamenduaren arduradun gisa:",
+      "stripe": "(ordainketen prozesatzea): Ordainketa datuak Stripe, Inc.-en bidez modu seguran prozesatzen dira, PCI-DSS estandarra betetzen duena. AMETSGOIEN-ek ez ditu banku txartelen datu osoak gordetzen. Informazio gehiago hemen",
+      "vercel": "(frontend hosting): www.ametsgoien.org webgunea ostatzeko. Informazio gehiago hemen",
+      "railway": "(backend eta datu base hosting): API REST zerbitzaria eta PostgreSQL datu basea ostatzeko. Informazio gehiago hemen",
+      "sendgrid": "(email zerbitzua): Dohaintzen baieztapenak eta kontaktu formularioen erantzunak bidaltzeko. Informazio gehiago hemen",
+      "guarantees": "Hornitzaile guztiekin konfidentzialtasun akordio eta klausula kontraktualak bidez indarrean dagoen araudiak eskatutako bermeak hartu dira."
+    },
+    "section8": {
+      "title": "8. Interesdunen eskubideak",
+      "intro": "Erabiltzaileak edozein unetan honako eskubide hauek baliatu ditzake:",
+      "rights": [
+        "Bere datu pertsonaletarako sarbidea",
+        "Datu okerrak zuzentzea",
+        "Bere datuak ezabatzea",
+        "Tratamenduari aurka egitea",
+        "Tratamenduaren mugaketa",
+        "Datuen eramangarritasuna"
+      ],
+      "complaint": "Halaber, eskubidea du Espainiako Datuen Babeseko Agentziaren (AEPD) aurrean erreklamazioa aurkezteko bere webgunearen bidez:",
+      "aepd": "www.aepd.es"
+    },
+    "section9": {
+      "title": "9. Segurtasun neurriak",
+      "text": "AMETSGOIEN-ek arriskuari egokitutako segurtasun maila bermatzeko beharrezko neurri teknikoak eta antolakuntzakoak hartzen ditu, datu pertsonalen galera, aldaketa, baimenik gabeko sarbidea edo zabalkunde desegokia saihestuz."
+    },
+    "section10": {
+      "title": "10. Itzulketa eta ezeztapen politika",
+      "intro": "AMETSGOIEN-era egindako dohaintzak harrera eta gizarte laguntzako proiektuak finantzatzeko borondatezko ekarpenak dira.",
+      "oneTime": "Behin-behineko dohaintzak:",
+      "oneTimeText": "Behin dohaintza prozesatu ondoren, hau behin betikoa da. Zure dohaintzan errorerik detektatzen baduzu, jarri gurekin harremanetan ametsgoien@gmail.com helbidean 48 orduko epean eta zure kasua modu indibidualean ebaluatuko dugu.",
+      "recurring": "Dohaintza errepikakorra (harpidetza):",
+      "recurringIntro": "Zure harpidetza edozein unetan ezeztatu dezakezu kostu gehigarririk gabe. Horretarako:",
+      "recurringSteps": [
+        "Sartu baieztapen emailean bidalitako kudeaketa estekara",
+        "Edo jarri gurekin harremanetan ametsgoien@gmail.com helbidean"
+      ],
+      "recurringNote": "Ezeztapena hurrengo fakturazio alditik aurrera izango da eraginkorra. Jadanik ordaindutako kopuruak ez dira itzulgarriak."
+    },
+    "section11": {
+      "title": "11. Politikaren aldaketak",
+      "text": "AMETSGOIEN-ek eskubidea gordetzen du pribatutasun politika hau aldatzeko lege aldaketara edo datu tratamendu berrietara egokitzeko. Edozein aldaketa orrialde honetantxe argitaratuko da."
+    },
+    "footer": {
+      "lastUpdate": "Azken eguneratzea:",
+      "lastUpdateDate": "2026ko urtarrila",
+      "contactInfo": "Pribatutasun politika, itzulketak edo harpidetzaren kudeaketari buruzko galderetarako, jarri harremanetan:",
+      "contactEmail": "ametsgoien@gmail.com"
+    }
+  },
+  "timeline": {
+    "title": "Etxearen Bilakaera",
+    "description": "Jarrai ezazu Orduñako gure etxearen eraldaketa prozesua, hamaika bazkideren ahaleginari esker gauzatzen ari den proiektua",
+    "loadingYoutube": "YouTube kargatzen...",
+    "loadingInstagram": "Instagram kargatzen...",
+    "videos": [
+      {
+        "title": "Proiektuaren Hasiera",
+        "description": "Etxearen eraldaketan lehen urratsak"
+      },
+      {
+        "title": "Gunearen Prestaketa",
+        "description": "Zoruen garbiketa eta lixatzea"
+      },
+      {
+        "title": "Berritze lanetan",
+        "description": "Barnizatu, lixatu eta margotu"
+      },
+      {
+        "title": "Obren Aurrerapena",
+        "description": "Hormen margotzearekin jarraitzen dugu"
+      },
+      {
+        "title": "Berritze Lanak",
+        "description": "Margogintza, ateak eta rodapeak"
+      },
+      {
+        "title": "Eremu Komunak",
+        "description": "Gune erkideak altzaritu eta apaindu"
+      },
+      {
+        "title": "Logelak",
+        "description": "Logelak altzaritzearekin jarraitu"
+      },
+      {
+        "title": "Margogintza eta Akaberak",
+        "description": "Guneei kolore ematen"
+      },
+      {
+        "title": "Urte Amaierako Aurrerapena",
+        "description": "Etxearen eraldaketaren aurrerapena"
+      },
+      {
+        "title": "2026ko Lehen Egunak",
+        "description": "Berritze lanarekin jarraitzen dugu"
+      }
+    ]
+  },
+  "common": {
+    "back": "Itzuli",
+    "learnMore": "Gehiago jakin",
+    "close": "Itxi"
+  }
+}

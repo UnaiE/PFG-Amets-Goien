@@ -6,9 +6,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CheckoutForm from "@/components/CheckoutForm";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
+// Control temporal para deshabilitar donaciones mientras se configura Stripe
+const DONATIONS_DISABLED = true;
 
 interface DonacionForm {
   nombre: string;
@@ -25,6 +29,7 @@ interface DonacionForm {
 }
 
 export default function ColaborarClient() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [formData, setFormData] = useState<DonacionForm>({
     nombre: "",
@@ -60,17 +65,17 @@ export default function ColaborarClient() {
     e.preventDefault();
     
     if (!formData.aceptaPolitica) {
-      setMensaje({ texto: "Debes aceptar la política de privacidad", tipo: "error" });
+      setMensaje({ texto: t('collaborate.donation.errors.privacyRequired'), tipo: "error" });
       return;
     }
 
     if (!formData.metodoPago) {
-      setMensaje({ texto: "Selecciona un método de pago", tipo: "error" });
+      setMensaje({ texto: t('collaborate.donation.errors.paymentRequired'), tipo: "error" });
       return;
     }
 
     if (!formData.cantidad || parseFloat(formData.cantidad) <= 0) {
-      setMensaje({ texto: "Ingresa una cantidad válida", tipo: "error" });
+      setMensaje({ texto: t('collaborate.donation.errors.amountRequired'), tipo: "error" });
       return;
     }
 
@@ -112,15 +117,15 @@ export default function ColaborarClient() {
           setPaymentIntentId(data.paymentIntentId);
           setShowPaymentForm(true);
         } else {
-          setMensaje({ texto: "Error al inicializar el pago", tipo: "error" });
+          setMensaje({ texto: t('collaborate.donation.errors.initError'), tipo: "error" });
         }
       } else {
         const error = await response.json();
-        setMensaje({ texto: error.message || "Error al procesar la donación", tipo: "error" });
+        setMensaje({ texto: error.message || t('collaborate.donation.errors.processError'), tipo: "error" });
       }
     } catch (error) {
       console.error("Error:", error);
-      setMensaje({ texto: "Error de conexión. Intenta nuevamente.", tipo: "error" });
+      setMensaje({ texto: t('collaborate.donation.errors.connectionError'), tipo: "error" });
     } finally {
       setLoading(false);
     }
@@ -129,11 +134,11 @@ export default function ColaborarClient() {
   const handlePaymentSuccess = () => {
     const esRecurrente = formData.periodicidad !== 'puntual';
     const textoRecurrente = esRecurrente 
-      ? ` Te enviaremos un correo de confirmación con los detalles de tu suscripción ${formData.periodicidad}.` 
-      : ' Te enviaremos un correo de confirmación.';
+      ? ` ${t('collaborate.donation.successRecurring')}` 
+      : ` ${t('collaborate.donation.successOneTime')}`;
     
     setMensaje({ 
-      texto: `🎉 ¡Donación confirmada! Gracias por tu contribución de ${formData.cantidad}€.${textoRecurrente}`, 
+      texto: `${t('collaborate.donation.successMessage')} ${formData.cantidad}€.${textoRecurrente}`, 
       tipo: "success" 
     });
     
@@ -183,10 +188,10 @@ export default function ColaborarClient() {
         <section className="py-12 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#8A4D76' }}>
           <div className="max-w-6xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Tu ayuda transforma vidas
+              {t('collaborate.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-              Cada donación contribuye a ofrecer un refugio seguro, apoyo integral y oportunidades de futuro para mujeres refugiadas y sus hijos en nuestra casa de acogida en Orduña.
+              {t('collaborate.hero.subtitle')}
             </p>
           </div>
         </section>
@@ -196,10 +201,10 @@ export default function ColaborarClient() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                ¿Cómo usamos tus donaciones?
+                {t('collaborate.howWeUse.title')}
               </h2>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Cada euro que aportas se destina íntegramente a mejorar la vida de las mujeres y familias que acogemos. Aquí te mostramos cómo invertimos tu ayuda:
+                {t('collaborate.howWeUse.subtitle2')}
               </p>
             </div>
             
@@ -207,36 +212,36 @@ export default function ColaborarClient() {
               {[
                 { 
                   icono: '🏠', 
-                  titulo: 'Alojamiento', 
-                  descripcion: 'Mantenimiento de la casa de acogida en Orduña',
+                  titulo: t('collaborate.howWeUse.items.housing.title'), 
+                  descripcion: t('collaborate.howWeUse.items.housing.description'),
                   porcentaje: '',
                   color: '#8A4D76'
                 },
                 { 
                   icono: '🍽️', 
-                  titulo: 'Alimentación', 
-                  descripcion: 'Comida nutritiva para las familias residentes',
+                  titulo: t('collaborate.howWeUse.items.food.title'), 
+                  descripcion: t('collaborate.howWeUse.items.food.description'),
                   porcentaje: '',
                   color: '#A05A89'
                 },
                 { 
                   icono: '👩‍⚕️', 
-                  titulo: 'Apoyo Psicológico', 
-                  descripcion: 'Acompañamiento emocional y terapias',
+                  titulo: t('collaborate.howWeUse.items.psychological.title'), 
+                  descripcion: t('collaborate.howWeUse.items.psychological.description'),
                   porcentaje: '',
                   color: '#B876A2'
                 },
                 { 
                   icono: '🌐', 
-                  titulo: 'Actividades sociales', 
-                  descripcion: 'Actividades recreativas y de integración social',
+                  titulo: t('collaborate.howWeUse.items.social.title'), 
+                  descripcion: t('collaborate.howWeUse.items.social.description'),
                   porcentaje: '',
                   color: '#B876A2'
                 },
                 { 
                   icono: '📚', 
-                  titulo: 'Educación', 
-                  descripcion: 'Material escolar y formación para madres e hijos',
+                  titulo: t('collaborate.howWeUse.items.education.title'), 
+                  descripcion: t('collaborate.howWeUse.items.education.description'),
                   porcentaje: '',
                   color: '#D092BB'
                 }
@@ -262,11 +267,10 @@ export default function ColaborarClient() {
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-                    Tu aportación, por pequeña que sea, marca la diferencia
+                    {t('collaborate.howWeUse.impact.title')}
                   </h3>
                   <p className="text-gray-700">
-                    Operamos con total transparencia y eficiencia. El 100% de las donaciones va directamente a los programas de apoyo. 
-                    Los gastos administrativos se cubren mediante subvenciones y colaboraciones institucionales.
+                    {t('collaborate.howWeUse.impact.text')}
                   </p>
                 </div>
                 <button
@@ -281,7 +285,7 @@ export default function ColaborarClient() {
                   className="flex-shrink-0 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all text-lg whitespace-nowrap"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
-                  Donar ahora →
+                  {t('collaborate.howWeUse.impact.button')} →
                 </button>
               </div>
             </div>
@@ -300,7 +304,7 @@ export default function ColaborarClient() {
                   <div className="flex items-start gap-4 mb-4">
                     <div>
                       <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-                        Testimonios reales
+                        {t('collaborate.testimonials.title')}
                       </h3>
                       <div className="w-16 h-1 rounded" style={{ backgroundColor: '#F89E3A' }}></div>
                     </div>
@@ -309,21 +313,21 @@ export default function ColaborarClient() {
                   <blockquote className="relative">
                     <div className="text-6xl absolute -top-4 -left-2 opacity-20" style={{ color: '#8A4D76' }}>"</div>
                     <p className="text-gray-700 italic text-lg leading-relaxed mb-4 pl-6">
-                      Encontrar un espacio seguro y humano marca la diferencia entre el miedo y la dignidad. Ametsgoien representa esa acogida real que muchas mujeres necesitamos.
+                      {t('collaborate.testimonials.main.quote')}
                     </p>
                     <footer className="text-right">
                       <cite className="text-sm text-gray-600 not-italic font-semibold">
-                        — Mariana, Beneficiaria
+                        — {t('collaborate.testimonials.main.author')}
                       </cite>
                     </footer>
                   </blockquote>
                   
                   <div className="mt-6 pt-6 border-t border-gray-200">
                     <p className="text-sm text-gray-600 mb-3">
-                      Mariana llegó al País Vasco buscando encontrar solución médica y reunirse con su hijo. Como madre sola y mujer migrada, enfrentó discriminación en el acceso a la vivienda y dificultades en cada paso.
+                      {t('collaborate.testimonials.main.context')}
                     </p>
                     <p className="text-sm text-gray-700 font-semibold">
-                      "Para mí, acoger no es solo abrir una casa, sino abrir los brazos y acercar los corazones."
+                      "{t('collaborate.testimonials.main.quote2')}"
                     </p>
                   </div>
                 </div>
@@ -331,7 +335,7 @@ export default function ColaborarClient() {
                 {/* Por qué donar - FAQ Compacto */}
                 <div className="bg-white rounded-2xl shadow-lg p-8">
                   <h3 className="text-xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                    ¿Por qué donar a Ametsgoien?
+                    {t('collaborate.whyDonate.title')}
                   </h3>
                   
                   <div className="space-y-4">
@@ -340,8 +344,8 @@ export default function ColaborarClient() {
                         ✓
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-1">100% transparencia</h4>
-                        <p className="text-sm text-gray-600">Cada euro va directamente a los programas de apoyo</p>
+                        <h4 className="font-bold text-gray-900 mb-1">{t('collaborate.whyDonate.reasons.transparency.title')}</h4>
+                        <p className="text-sm text-gray-600">{t('collaborate.whyDonate.reasons.transparency.text')}</p>
                       </div>
                     </div>
                     
@@ -350,8 +354,8 @@ export default function ColaborarClient() {
                         ✓
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-1">Impacto real y medible</h4>
-                        <p className="text-sm text-gray-600">Tu donación ayuda directamente a las familias acogidas en nuestra casa de Orduña</p>
+                        <h4 className="font-bold text-gray-900 mb-1">{t('collaborate.whyDonate.reasons.impact.title')}</h4>
+                        <p className="text-sm text-gray-600">{t('collaborate.whyDonate.reasons.impact.text')}</p>
                       </div>
                     </div>
                     
@@ -360,8 +364,8 @@ export default function ColaborarClient() {
                         ✓
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-1">Trato humano y cercano</h4>
-                        <p className="text-sm text-gray-600">No somos un número, somos una familia que acoge con amor</p>
+                        <h4 className="font-bold text-gray-900 mb-1">{t('collaborate.whyDonate.reasons.humanTreatment.title')}</h4>
+                        <p className="text-sm text-gray-600">{t('collaborate.whyDonate.reasons.humanTreatment.text')}</p>
                       </div>
                     </div>
                   </div>
@@ -371,10 +375,10 @@ export default function ColaborarClient() {
                 <div className="bg-purple-50 rounded-2xl p-8 border-2 border-purple-200">
                   <div className="text-center">
                     <h3 className="text-xl font-bold mb-3" style={{ color: '#8A4D76' }}>
-                      Tu apoyo marca la diferencia
+                      {t('collaborate.whyDonate.supportMessage.title')}
                     </h3>
                     <p className="text-gray-700">
-                      Con tu donación ayudas a mantener nuestra casa de acogida en Orduña, donde ofrecemos dignidad, solidaridad y amor a mujeres refugiadas y sus familias.
+                      {t('collaborate.whyDonate.supportMessage.text')}
                     </p>
                   </div>
                 </div>
@@ -382,22 +386,22 @@ export default function ColaborarClient() {
                 {/* Otras historias */}
                 <div className="bg-white rounded-2xl shadow-lg p-6">
                   <h4 className="text-lg font-bold mb-4 text-center" style={{ color: '#8A4D76' }}>
-                    Más historias de esperanza
+                    {t('collaborate.testimonials.moreStories.title')}
                   </h4>
                   
                   <div className="space-y-4">
                     <div className="p-4 bg-gray-50 rounded-lg">
                       <p className="text-sm text-gray-700 italic mb-2">
-                        "Como madre, lo más importante es sentirte protegida y acompañada. Un lugar seguro puede cambiarlo todo."
+                        "{t('collaborate.testimonials.moreStories.story1.quote')}"
                       </p>
-                      <p className="text-xs text-gray-600 font-semibold">— Emadolis</p>
+                      <p className="text-xs text-gray-600 font-semibold">— {t('collaborate.testimonials.moreStories.story1.author')}</p>
                     </div>
                     
                     <div className="p-4 bg-gray-50 rounded-lg">
                       <p className="text-sm text-gray-700 italic mb-2">
-                        "Sin apoyo y sin vivienda, la vida se vuelve insostenible. Las asociaciones que acompañan de verdad cambian destinos."
+                        "{t('collaborate.testimonials.moreStories.story2.quote')}"
                       </p>
-                      <p className="text-xs text-gray-600 font-semibold">— Berita</p>
+                      <p className="text-xs text-gray-600 font-semibold">— {t('collaborate.testimonials.moreStories.story2.author')}</p>
                     </div>
                   </div>
                 </div>
@@ -407,15 +411,49 @@ export default function ColaborarClient() {
               <div id="form-donacion">
             <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-200 sticky top-24">
               <h2 className="text-3xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
-                Haz tu donación
+                {t('collaborate.donation.title')}
               </h2>
-              <p className="text-center text-gray-600 mb-6">Completa el formulario para realizar tu aportación</p>
+              <p className="text-center text-gray-600 mb-6">{t('collaborate.donation.subtitle')}</p>
+              
+              {/* Mensaje de donaciones deshabilitadas */}
+              {DONATIONS_DISABLED && (
+                <div className="mb-6 p-5 rounded-lg border-2 border-yellow-400 bg-yellow-50">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <h3 className="font-bold text-yellow-800 mb-2">
+                        {t('collaborate.donation.temporarilyDisabled')}
+                      </h3>
+                      <p className="text-sm text-yellow-700 mb-3">
+                        {t('collaborate.donation.disabledMessage')}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const seccion = document.getElementById('otras-formas-donar');
+                          if (seccion) {
+                            const yOffset = -80;
+                            const y = seccion.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                          }
+                        }}
+                        className="text-sm font-semibold text-yellow-800 hover:text-yellow-900 underline flex items-center gap-1"
+                      >
+                        {t('collaborate.donation.otherOptionsLink')} ↓
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-5">
+              <fieldset disabled={DONATIONS_DISABLED} className="space-y-5">
               {/* Datos Personales en Grid Compacto */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="donacion-nombre" className="block text-gray-800 font-semibold mb-1 text-sm">Nombre *</label>
+                  <label htmlFor="donacion-nombre" className="block text-gray-800 font-semibold mb-1 text-sm">{t('volunteer.form.name')} *</label>
                   <input
                     type="text"
                     id="donacion-nombre"
@@ -428,7 +466,7 @@ export default function ColaborarClient() {
                 </div>
 
                 <div>
-                  <label htmlFor="donacion-apellidos" className="block text-gray-800 font-semibold mb-1 text-sm">Apellidos *</label>
+                  <label htmlFor="donacion-apellidos" className="block text-gray-800 font-semibold mb-1 text-sm">{t('volunteer.form.surname')} *</label>
                   <input
                     type="text"
                     id="donacion-apellidos"
@@ -441,7 +479,7 @@ export default function ColaborarClient() {
                 </div>
 
                 <div>
-                  <label htmlFor="donacion-email" className="block text-gray-800 font-semibold mb-1 text-sm">Email *</label>
+                  <label htmlFor="donacion-email" className="block text-gray-800 font-semibold mb-1 text-sm">{t('volunteer.form.email')} *</label>
                   <input
                     type="email"
                     id="donacion-email"
@@ -454,14 +492,14 @@ export default function ColaborarClient() {
                 </div>
 
                 <div>
-                  <label htmlFor="donacion-telefono" className="block text-gray-800 font-semibold mb-1 text-sm">Teléfono</label>
+                  <label htmlFor="donacion-telefono" className="block text-gray-800 font-semibold mb-1 text-sm">{t('collaborate.donation.phone')}</label>
                   <div className="flex gap-2">
                     <select
                       id="donacion-prefijo"
                       value={formData.prefijoTelefono}
                       onChange={(e) => setFormData({ ...formData, prefijoTelefono: e.target.value })}
                       className="px-2 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
-                      aria-label="Prefijo telefónico"
+                      aria-label={t('collaborate.donation.phonePrefix')}
                     >
                       <option value="+34">+34</option>
                       <option value="+33">+33</option>
@@ -473,29 +511,29 @@ export default function ColaborarClient() {
                       value={formData.telefono}
                       onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                       className="flex-1 px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
-                      placeholder="600000000"
-                      aria-label="Número de teléfono"
+                      placeholder={t('collaborate.donation.phonePlaceholder')}
+                      aria-label={t('collaborate.donation.phone')}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="donacion-direccion" className="block text-gray-800 font-semibold mb-1 text-sm">Dirección</label>
+                  <label htmlFor="donacion-direccion" className="block text-gray-800 font-semibold mb-1 text-sm">{t('collaborate.donation.address')}</label>
                   <input
                     type="text"
                     id="donacion-direccion"
                     value={formData.direccion}
                     onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
-                    placeholder="Calle, número, ciudad..."
-                    aria-label="Dirección postal"
+                    placeholder={t('collaborate.donation.addressPlaceholder')}
+                    aria-label={t('collaborate.donation.address')}
                   />
                 </div>
               </div>
 
               {/* Cantidad a Donar */}
               <fieldset>
-                <legend className="block text-gray-800 font-semibold mb-2 text-sm">Cantidad a Donar *</legend>
+                <legend className="block text-gray-800 font-semibold mb-2 text-sm">{t('collaborate.donation.amount')} *</legend>
                 <div className="grid grid-cols-4 gap-2 mb-3" role="group" aria-label="Cantidades predefinidas">
                   {[10, 20, 50, 100].map((cantidad) => (
                     <button
@@ -523,7 +561,7 @@ export default function ColaborarClient() {
                   value={formData.cantidad}
                   onChange={(e) => setFormData({ ...formData, cantidad: e.target.value })}
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
-                  placeholder="Otra cantidad"
+                  placeholder={t('collaborate.donation.amountPlaceholder')}
                   required
                   aria-required="true"
                   aria-label="Cantidad personalizada a donar"
@@ -532,14 +570,14 @@ export default function ColaborarClient() {
 
               {/* Periodicidad */}
               <fieldset>
-                <legend className="block text-gray-800 font-semibold mb-2 text-sm">Periodicidad *</legend>
+                <legend className="block text-gray-800 font-semibold mb-2 text-sm">{t('collaborate.donation.frequency')} *</legend>
                 <div className="grid grid-cols-3 gap-2" role="group" aria-label="Seleccionar periodicidad de la donación">
                   {[
-                    { value: 'puntual', label: 'Puntual' },
-                    { value: 'mensual', label: 'Mensual' },
-                    { value: 'trimestral', label: 'Trimestral' },
-                    { value: 'semestral', label: 'Semestral' },
-                    { value: 'anual', label: 'Anual' }
+                    { value: 'puntual', label: t('collaborate.donation.oneTime') },
+                    { value: 'mensual', label: t('collaborate.donation.monthly') },
+                    { value: 'trimestral', label: t('collaborate.donation.quarterly') },
+                    { value: 'semestral', label: t('collaborate.donation.semiannual') },
+                    { value: 'anual', label: t('collaborate.donation.annual') }
                   ].map((opcion) => (
                     <button
                       key={opcion.value}
@@ -575,7 +613,7 @@ export default function ColaborarClient() {
 
               {/* Método de Pago Compacto */}
               <fieldset>
-                <legend className="block text-gray-800 font-semibold mb-2 text-sm">Método de Pago *</legend>
+                <legend className="block text-gray-800 font-semibold mb-2 text-sm">{t('collaborate.donation.paymentMethod')} *</legend>
                 <div className="space-y-3">
                   <button
                     type="button"
@@ -595,7 +633,7 @@ export default function ColaborarClient() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900">Tarjeta Bancaria</h3>
+                        <h3 className="font-bold text-gray-900">{t('collaborate.donation.card')}</h3>
                         <p className="text-xs text-gray-600">Pago seguro con Stripe • Soporta suscripciones automáticas</p>
                       </div>
                     </div>
@@ -640,9 +678,9 @@ export default function ColaborarClient() {
                     aria-required="true"
                   />
                   <span className="text-gray-700 text-xs">
-                    Acepto la{" "}
+                    {t('collaborate.donation.privacyConsent')}{" "}
                     <a href="/privacidad" className="font-semibold hover:underline" style={{ color: '#8A4D76' }}>
-                      política de privacidad
+                      {t('collaborate.donation.privacyLink')}
                     </a>
                     {" "}y autorizo el tratamiento de mis datos *
                   </span>
@@ -667,13 +705,14 @@ export default function ColaborarClient() {
               {!showPaymentForm && (
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full py-3 rounded-full text-white font-bold hover:shadow-lg transition-all disabled:opacity-50"
+                  disabled={loading || DONATIONS_DISABLED}
+                  className="w-full py-3 rounded-full text-white font-bold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ backgroundColor: '#8A4D76' }}
                 >
-                  {loading ? "Procesando..." : `Donar ${formData.cantidad ? formData.cantidad + '€' : ''}`}
+                  {loading ? t('collaborate.donation.submitting') : `${t('collaborate.donation.donateAmount')} ${formData.cantidad ? formData.cantidad + '€' : ''}`}
                 </button>
               )}
+              </fieldset>
               </form>
 
               {/* Formulario de pago con tarjeta (Stripe) */}
@@ -715,10 +754,10 @@ export default function ColaborarClient() {
         <section id="otras-formas-donar" className="py-16 px-4 md:px-8 lg:px-16 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#8A4D76' }}>
-              Otras formas de Donar
+              {t('collaborate.otherWays.title')}
             </h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-              Si tienes algún problema al realizar tu donación o quieres más información sobre otras formas de pago, no lo dudes y contáctanos
+              {t('collaborate.otherWays.subtitle')}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -728,10 +767,10 @@ export default function ColaborarClient() {
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white p-2 shadow-md">
                     <img src="/Bizum.png" alt="Logo Bizum" className="w-full h-full object-contain" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Bizum</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">{t('collaborate.donation.bizum')}</h3>
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-purple-200 mb-4">
-                  <p className="text-sm text-gray-600 mb-2">Envía tu donación al número:</p>
+                  <p className="text-sm text-gray-600 mb-2">{t('collaborate.bizumInfo.sendTo')}</p>
                   <div className="flex items-center justify-between">
                     <p className="text-4xl font-bold" style={{ color: '#8A4D76' }}>12892</p>
                     <button
@@ -746,14 +785,14 @@ export default function ColaborarClient() {
                           ? 'bg-green-500 text-white' 
                           : 'bg-purple-600 text-white hover:bg-purple-700'
                       }`}
-                      aria-label="Copiar número de Bizum"
+                      aria-label={t('collaborate.bizumInfo.copy')}
                     >
-                      {bizumCopiado ? '✓ Copiado' : 'Copiar'}
+                      {bizumCopiado ? `✓ ${t('collaborate.bizumInfo.copied')}` : t('collaborate.bizumInfo.copy')}
                     </button>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600">
-                   <strong>Recuerda:</strong> Incluye tu nombre en el concepto para que podamos agradecerte personalmente
+                   <strong>{t('collaborate.bizumInfo.remember')}</strong> {t('collaborate.bizumInfo.note')}
                 </p>
               </div>
 
@@ -765,7 +804,7 @@ export default function ColaborarClient() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Transferencia Bancaria</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">{t('collaborate.bankTransfer.title')}</h3>
                 </div>
                 <div className="space-y-3">
                   <div className="bg-white rounded-lg p-3 border border-blue-200">
@@ -782,7 +821,7 @@ export default function ColaborarClient() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-4">
-                   <strong>Concepto:</strong> "Donación" + tu nombre
+                   <strong>{t('collaborate.bankTransfer.concept')}</strong> {t('collaborate.bankTransfer.conceptText')}
                 </p>
               </div>
             </div>
@@ -793,7 +832,7 @@ export default function ColaborarClient() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white hover:shadow-lg transition-all"
                 style={{ backgroundColor: '#8A4D76' }}
               >
-                Contactar
+                {t('collaborate.contact')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>

@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export default function VoluntariosPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     nombre: "",
     apellidos: "",
@@ -55,7 +57,7 @@ export default function VoluntariosPage() {
       if (response.ok) {
         setSubmitStatus({
           type: 'success',
-          message: data.message || '¡Gracias por registrarte como voluntario!'
+          message: data.message || t('volunteer.form.success')
         });
         // Limpiar formulario
         setFormData({
@@ -70,14 +72,14 @@ export default function VoluntariosPage() {
       } else {
         setSubmitStatus({
           type: 'error',
-          message: data.message || 'Hubo un error al procesar tu registro'
+          message: data.message || t('volunteer.form.error')
         });
       }
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus({
         type: 'error',
-        message: 'Error de conexión. Por favor, inténtalo de nuevo.'
+        message: t('volunteer.form.connectionError')
       });
     } finally {
       setLoading(false);
@@ -95,7 +97,7 @@ export default function VoluntariosPage() {
             onClick={() => router.push("/")}
             className="mb-6 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all text-sm"
           >
-            ← Volver
+            ← {t('common.back')}
           </button>
 
           {/* Layout de dos columnas */}
@@ -107,79 +109,57 @@ export default function VoluntariosPage() {
               {/* Encabezado principal */}
               <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <h1 className="text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                   Hazte Voluntario/a
+                  {t('volunteer.title')}
                 </h1>
                 <p className="text-gray-700 text-lg leading-relaxed">
-                  Tu tiempo, energía y compromiso pueden cambiar vidas. En Ametsgoien, cada voluntario es una pieza fundamental para alcanzar nuestros objetivos y apoyar a quienes más lo necesitan.
+                  {t('volunteer.subtitle')}
                 </p>
               </div>
 
               {/* ¿Qué hacen nuestros voluntarios? */}
               <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                  ¿Qué hacen nuestros voluntarios?
+                  {t('volunteer.whatDo')}
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <span className="text-2xl flex-shrink-0">➣</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-1">Apoyo en actividades</h3>
-                      <p className="text-gray-600 text-sm">Participación en eventos y programas comunitarios.</p>
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-1">{t('volunteer.activities.support')}</h3>
+                    <p className="text-gray-600 text-sm">{t('volunteer.activities.supportDesc')}</p>
                   </div>
-                  <div className="flex items-start space-x-3">
-                    <span className="text-2xl flex-shrink-0">➣</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-1">Acompañamiento</h3>
-                      <p className="text-gray-600 text-sm">Escucha activa y apoyo emocional a personas en situación de vulnerabilidad.</p>
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-1">{t('volunteer.activities.accompaniment')}</h3>
+                    <p className="text-gray-600 text-sm">{t('volunteer.activities.accompanimentDesc')}</p>
                   </div>
-                  <div className="flex items-start space-x-3">
-                    <span className="text-2xl flex-shrink-0">➣</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-1">Difusión</h3>
-                      <p className="text-gray-600 text-sm">Ayuda en redes sociales, comunicación y sensibilización social.</p>
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-1">{t('volunteer.activities.dissemination')}</h3>
+                    <p className="text-gray-600 text-sm">{t('volunteer.activities.disseminationDesc')}</p>
                   </div>
-                  <div className="flex items-start space-x-3">
-                    <span className="text-2xl flex-shrink-0">➣</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-1">Enseñanza de habilidades</h3>
-                      <p className="text-gray-600 text-sm">Alimentar con tus conocimientos y ayudar a personas a desarrollar nuevas habilidades.</p>
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-1">{t('volunteer.activities.admin')}</h3>
+                    <p className="text-gray-600 text-sm">{t('volunteer.activities.adminDesc')}</p>
                   </div>
                 </div>
               </div>
+
+              
 
 
               {/* Comunicaciones */}
               <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>
-                   Mantente informado
+                  {t('volunteer.communications')}
                 </h2>
                 <p className="text-gray-700 mb-3">
-                  Como voluntario/a, recibirás periódicamente:
+                  {t('volunteer.communicationsDesc')}
                 </p>
                 <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-start">
-                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
-                    <span>Información sobre próximas actividades y eventos</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
-                    <span>Noticias y actualizaciones de la asociación</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
-                    <span>Oportunidades para colaborar según tu disponibilidad</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-500 mr-2 flex-shrink-0">✓</span>
-                    <span>Convocatorias de reuniones y encuentros de voluntarios</span>
-                  </li>
+                  <li>{t('volunteer.communicationsList.activities')}</li>
+                  <li>{t('volunteer.communicationsList.news')}</li>
+                  <li>{t('volunteer.communicationsList.opportunities')}</li>
+                  <li>{t('volunteer.communicationsList.meetings')}</li>
                 </ul>
                 <p className="text-gray-500 text-sm mt-4 italic">
-                  Puedes darte de baja de nuestras comunicaciones en cualquier momento.
+                  {t('volunteer.unsubscribe')}
                 </p>
               </div>
 
@@ -191,10 +171,10 @@ export default function VoluntariosPage() {
             {/* Título */}
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-                Formulario de Registro
+                {t('volunteer.formTitle')}
               </h2>
               <p className="text-gray-600 text-sm">
-                Completa tus datos y nos pondremos en contacto contigo pronto.
+                {t('volunteer.formSubtitle')}
               </p>
             </div>
 
@@ -216,7 +196,7 @@ export default function VoluntariosPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="nombre" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Nombre <span className="text-red-500">*</span>
+                    {t('volunteer.form.name')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -232,7 +212,7 @@ export default function VoluntariosPage() {
 
                 <div>
                   <label htmlFor="apellidos" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Apellidos <span className="text-red-500">*</span>
+                    {t('volunteer.form.surname')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -250,7 +230,7 @@ export default function VoluntariosPage() {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-1 text-sm">
-                  Email <span className="text-red-500">*</span>
+                  {t('volunteer.form.email')} <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
@@ -268,7 +248,7 @@ export default function VoluntariosPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="telefono" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Teléfono
+                    {t('volunteer.form.phone')}
                   </label>
                   <input
                     type="tel"
@@ -283,7 +263,7 @@ export default function VoluntariosPage() {
 
                 <div>
                   <label htmlFor="direccion" className="block text-gray-700 font-semibold mb-1 text-sm">
-                    Localidad
+                    {t('volunteer.form.location')}
                   </label>
                   <input
                     type="text"
@@ -300,7 +280,7 @@ export default function VoluntariosPage() {
               {/* Mensaje */}
               <div>
                 <label htmlFor="mensaje" className="block text-gray-700 font-semibold mb-1 text-sm">
-                  Cuéntanos sobre ti
+                  {t('volunteer.form.message')}
                 </label>
                 <textarea
                   id="mensaje"
@@ -309,7 +289,7 @@ export default function VoluntariosPage() {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm resize-none"
-                  placeholder="Disponibilidad, habilidades que puedas aportar, experiencia previa..."
+                  placeholder={t('volunteer.form.messagePlaceholder')}
                 />
               </div>
 
@@ -324,15 +304,14 @@ export default function VoluntariosPage() {
                     className="mt-1 w-4 h-4 text-[#8A4D76] border border-gray-300 rounded focus:ring-[#8A4D76] cursor-pointer"
                   />
                   <span className="ml-2 text-gray-700 text-xs leading-relaxed">
-                    He leído y acepto la{' '}
+                    {t('volunteer.form.privacy')}{' '}
                     <a 
                       href="/privacidad" 
-                      target="_blank" 
                       className="text-[#8A4D76] underline hover:text-[#6d3c5e] font-semibold"
                     >
-                      política de privacidad
+                      {t('volunteer.form.privacyLink')}
                     </a>
-                    {' '}y autorizo a Ametsgoien a contactarme y enviarme comunicaciones relacionadas con la actividad de la asociación.
+                    {' '}{t('volunteer.form.privacyText')}
                   </span>
                 </label>
               </div>
@@ -350,10 +329,10 @@ export default function VoluntariosPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Enviando...
+                    {t('volunteer.form.sending')}
                   </span>
                 ) : (
-                  'Registrarme como Voluntario'
+                  t('volunteer.form.submit')
                 )}
               </button>
 

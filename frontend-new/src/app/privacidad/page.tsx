@@ -7,9 +7,11 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function PrivacidadPage() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <>
@@ -21,12 +23,12 @@ export default function PrivacidadPage() {
             onClick={() => router.back()}
             className="mb-6 px-6 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all"
           >
-            ← Volver
+            ← {t('privacy.backButton')}
           </button>
 
           <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12 border border-gray-200">
             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-[#8A4D76]">
-              Política de Privacidad
+              {t('privacy.title')}
             </h1>
 
             <div className="space-y-8 text-gray-700 leading-relaxed">
@@ -34,58 +36,56 @@ export default function PrivacidadPage() {
               {/* 1 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  1. Responsable del tratamiento
+                  {t('privacy.section1.title')}
                 </h2>
                 <p className="mb-3">
-                  El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación <strong>AMETSGOIEN</strong>, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.
+                  {t('privacy.section1.intro')}
                 </p>
                 <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#8A4D76]">
-                  <p className="text-sm mb-1"><strong>Denominación:</strong> Asociación AMETSGOIEN PARA LA ACOGIDA Y LA INTEGRACIÓN SOCICULTURAL</p>
-                  <p className="text-sm mb-1"><strong>CIF:</strong> [G23919251]</p>
-                  <p className="text-sm mb-1"><strong>Dirección:</strong> CL/ BURGOS, 4-1 48460, ORDUÑA, BIZKAIA, España</p>
-                  <p className="text-sm mb-1"><strong>Email:</strong> ametsgoien@gmail.com</p>
-                  <p className="text-sm"><strong>Teléfono:</strong> +34 697 858 343</p>
+                  <p className="text-sm mb-1"><strong>{t('privacy.section1.name')}</strong> {t('privacy.section1.nameValue')}</p>
+                  <p className="text-sm mb-1"><strong>{t('privacy.section1.cif')}</strong> {t('privacy.section1.cifValue')}</p>
+                  <p className="text-sm mb-1"><strong>{t('privacy.section1.address')}</strong> {t('privacy.section1.addressValue')}</p>
+                  <p className="text-sm mb-1"><strong>{t('privacy.section1.email')}</strong> {t('privacy.section1.emailValue')}</p>
+                  <p className="text-sm"><strong>{t('privacy.section1.phone')}</strong> {t('privacy.section1.phoneValue')}</p>
                 </div>
                 <p className="mt-3">
-                  Para cualquier cuestión relacionada con la protección de datos personales, puedes contactar a través de los medios facilitados arriba.
+                  {t('privacy.section1.contact')}
                 </p>
               </section>
 
               {/* 2 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  2. Marco legal aplicable
+                  {t('privacy.section2.title')}
                 </h2>
                 <p>
-                  El tratamiento de los datos personales se realiza conforme a lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (Reglamento General de Protección de Datos – RGPD), así como en la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
+                  {t('privacy.section2.text')}
                 </p>
               </section>
 
               {/* 3 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  3. Datos personales tratados
+                  {t('privacy.section3.title')}
                 </h2>
                 <p>
-                  A través de este sitio web se podrán recabar los siguientes datos personales:
+                  {t('privacy.section3.intro')}
                 </p>
                 <div className="mt-3 space-y-3">
                   <div>
-                    <h3 className="font-bold text-gray-800 mb-1">Formulario de contacto:</h3>
+                    <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section3.contactForm')}</h3>
                     <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-                      <li>Nombre y apellidos</li>
-                      <li>Dirección de correo electrónico</li>
-                      <li>Contenido del mensaje o consulta</li>
+                      {Array.isArray(t('privacy.section3.contactItems')) && (t('privacy.section3.contactItems') as string[]).map((item: string, index: number) => (
+                        <li key={index}>{item}</li>
+                      ))}
                     </ul>
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 mb-1">Donaciones y colaboraciones:</h3>
+                    <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section3.donations')}</h3>
                     <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-                      <li>Nombre y apellidos</li>
-                      <li>Email</li>
-                      <li>Teléfono (opcional)</li>
-                      <li>Dirección (opcional)</li>
-                      <li>Datos de pago procesados por <strong>Stripe</strong> (tarjeta bancaria)</li>
+                      {Array.isArray(t('privacy.section3.donationItems')) && (t('privacy.section3.donationItems') as string[]).map((item: string, index: number) => (
+                        <li key={index}>{item}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -94,114 +94,112 @@ export default function PrivacidadPage() {
               {/* 4 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  4. Finalidad del tratamiento
+                  {t('privacy.section4.title')}
                 </h2>
                 <p>
-                  Los datos personales facilitados serán tratados exclusivamente para las siguientes finalidades:
+                  {t('privacy.section4.intro')}
                 </p>
                 <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>Responder a consultas o solicitudes de información.</li>
-                  <li>Gestionar solicitudes de colaboración o contacto con la entidad.</li>
-                  <li>Mantener comunicaciones relacionadas con la actividad de AMETSGOIEN, cuando el usuario lo haya autorizado expresamente.</li>
+                  {Array.isArray(t('privacy.section4.purposes')) && (t('privacy.section4.purposes') as string[]).map((purpose: string, index: number) => (
+                    <li key={index}>{purpose}</li>
+                  ))}
                 </ul>
               </section>
 
               {/* 5 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  5. Base jurídica del tratamiento
+                  {t('privacy.section5.title')}
                 </h2>
                 <p>
-                  La base legal para el tratamiento de los datos es el consentimiento expreso del usuario, otorgado al enviar el formulario de contacto y aceptar la presente política de privacidad.
+                  {t('privacy.section5.text')}
                 </p>
               </section>
 
               {/* 6 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  6. Conservación de los datos
+                  {t('privacy.section6.title')}
                 </h2>
                 <p>
-                  Los datos personales se conservarán únicamente durante el tiempo necesario para atender la consulta realizada y, posteriormente, durante los plazos legalmente exigidos para el cumplimiento de posibles obligaciones legales.
+                  {t('privacy.section6.text')}
                 </p>
               </section>
 
               {/* 7 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  7. Destinatarios y encargados de tratamiento
+                  {t('privacy.section7.title')}
                 </h2>
                 <p className="mb-3">
-                  Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETSGOIEN utiliza los siguientes proveedores externos que actúan como encargados del tratamiento:
+                  {t('privacy.section7.intro')}
                 </p>
                 <ul className="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                  <li><strong>Stripe</strong> (procesamiento de pagos): Los datos de pago se procesan de forma segura a través de Stripe, Inc., que cumple con el estándar PCI-DSS. AMETSGOIEN no almacena datos completos de tarjetas bancarias. Más información en <a href="https://stripe.com/es/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">stripe.com/privacy</a></li>
-                  <li><strong>Vercel Inc.</strong> (hosting frontend): Para el alojamiento del sitio web en www.ametsgoien.org. Más información en <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">vercel.com/privacy</a></li>
-                  <li><strong>Railway Corp.</strong> (hosting backend y base de datos): Para el alojamiento del servidor API REST y base de datos PostgreSQL. Más información en <a href="https://railway.app/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">railway.app/privacy</a></li>
-                  <li><strong>SendGrid (Twilio Inc.)</strong> (servicio de email): Para el envío de confirmaciones de donaciones y respuestas a formularios de contacto. Más información en <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">twilio.com/privacy</a></li>
+                  <li><strong>Stripe</strong> {t('privacy.section7.stripe')} <a href="https://stripe.com/es/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">stripe.com/privacy</a></li>
+                  <li><strong>Vercel Inc.</strong> {t('privacy.section7.vercel')} <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">vercel.com/privacy</a></li>
+                  <li><strong>Railway Corp.</strong> {t('privacy.section7.railway')} <a href="https://railway.app/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">railway.app/privacy</a></li>
+                  <li><strong>SendGrid (Twilio Inc.)</strong> {t('privacy.section7.sendgrid')} <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">twilio.com/privacy</a></li>
                 </ul>
                 <p className="mt-3">
-                  Con todos los proveedores se han adoptado las garantías exigidas por la normativa vigente mediante acuerdos de confidencialidad y cláusulas contractuales.
+                  {t('privacy.section7.guarantees')}
                 </p>
               </section>
 
               {/* 8 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  8. Derechos de las personas interesadas
+                  {t('privacy.section8.title')}
                 </h2>
                 <p>
-                  El usuario puede ejercer en cualquier momento los siguientes derechos:
+                  {t('privacy.section8.intro')}
                 </p>
                 <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>Acceso a sus datos personales</li>
-                  <li>Rectificación de datos inexactos</li>
-                  <li>Supresión de sus datos</li>
-                  <li>Oposición al tratamiento</li>
-                  <li>Limitación del tratamiento</li>
-                  <li>Portabilidad de los datos</li>
+                  {Array.isArray(t('privacy.section8.rights')) && (t('privacy.section8.rights') as string[]).map((right: string, index: number) => (
+                    <li key={index}>{right}</li>
+                  ))}
                 </ul>
                 <p className="mt-3">
-                  Asimismo, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) a través de su sitio web: <strong>www.aepd.es</strong>.
+                  {t('privacy.section8.complaint')} <strong>{t('privacy.section8.aepd')}</strong>.
                 </p>
               </section>
 
               {/* 9 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  9. Medidas de seguridad
+                  {t('privacy.section9.title')}
                 </h2>
                 <p>
-                  AMETSGOIEN adopta las medidas técnicas y organizativas necesarias para garantizar un nivel de seguridad adecuado al riesgo, evitando la pérdida, alteración, acceso no autorizado o divulgación indebida de los datos personales.
+                  {t('privacy.section9.text')}
                 </p>
               </section>
 
               {/* 10 */}
               <section id="reembolsos">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  10. Política de reembolsos y cancelaciones
+                  {t('privacy.section10.title')}
                 </h2>
                 <p className="mb-3">
-                  Las donaciones realizadas a AMETSGOIEN son contribuciones voluntarias destinadas a financiar proyectos de acogida y acompañamiento social.
+                  {t('privacy.section10.intro')}
                 </p>
                 <div className="space-y-3">
                   <div>
-                    <h3 className="font-bold text-gray-800 mb-1">Donaciones puntuales:</h3>
+                    <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section10.oneTime')}</h3>
                     <p className="text-gray-700">
-                      Una vez procesada la donación, esta es definitiva. Si detectas un error en tu donación, contacta con nosotros en <strong>ametsgoien@gmail.com</strong> en un plazo de 48 horas y evaluaremos tu caso de forma individualizada.
+                      {t('privacy.section10.oneTimeText')}
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 mb-1">Donaciones recurrentes (suscripciones):</h3>
+                    <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section10.recurring')}</h3>
                     <p className="text-gray-700 mb-2">
-                      Puedes cancelar tu suscripción en cualquier momento sin coste adicional. Para ello:
+                      {t('privacy.section10.recurringIntro')}
                     </p>
                     <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-                      <li>Accede al enlace de gestión enviado en el email de confirmación</li>
-                      <li>O contacta con nosotros en ametsgoien@gmail.com</li>
+                      {Array.isArray(t('privacy.section10.recurringSteps')) && (t('privacy.section10.recurringSteps') as string[]).map((step: string, index: number) => (
+                        <li key={index}>{step}</li>
+                      ))}
                     </ul>
                     <p className="text-gray-700 mt-2">
-                      La cancelación será efectiva desde el siguiente periodo de facturación. Las cantidades ya abonadas no son reembolsables.
+                      {t('privacy.section10.recurringNote')}
                     </p>
                   </div>
                 </div>
@@ -210,19 +208,19 @@ export default function PrivacidadPage() {
               {/* 11 */}
               <section>
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
-                  11. Modificaciones de la política
+                  {t('privacy.section11.title')}
                 </h2>
                 <p>
-                  AMETSGOIEN se reserva el derecho a modificar la presente política de privacidad para adaptarla a cambios legislativos o a nuevos tratamientos de datos. Cualquier modificación será publicada en esta misma página.
+                  {t('privacy.section11.text')}
                 </p>
               </section>
 
               <div className="mt-10 p-4 bg-gray-100 rounded-lg">
                 <p className="text-sm text-gray-600 mb-2">
-                  <strong>Última actualización:</strong> Enero 2026
+                  <strong>{t('privacy.footer.lastUpdate')}</strong> {t('privacy.footer.lastUpdateDate')}
                 </p>
                 <p className="text-sm text-gray-600">
-                  Para consultas sobre política de privacidad, reembolsos o gestión de suscripciones, contacta: <strong>ametsgoien@gmail.com</strong>
+                  {t('privacy.footer.contactInfo')} <strong>{t('privacy.footer.contactEmail')}</strong>
                 </p>
               </div>
 

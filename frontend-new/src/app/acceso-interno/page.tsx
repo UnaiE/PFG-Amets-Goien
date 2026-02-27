@@ -50,7 +50,7 @@ export default function AccesoInterno() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ backgroundColor: '#E8D5F2' }}>
+      <div className="min-h-screen flex items-center justify-center px-4 py-8 pt-24" style={{ backgroundColor: '#E8D5F2' }}>
         <div className="w-full max-w-md">
           {/* Card principal */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">

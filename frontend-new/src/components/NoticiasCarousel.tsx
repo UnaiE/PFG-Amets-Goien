@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -37,6 +38,7 @@ const getImageUrl = (url_imagen?: string): string => {
 };
 
 export default function NoticiasCarousel() {
+  const { t } = useLanguage();
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedNoticia, setSelectedNoticia] = useState<Noticia | null>(null);
@@ -103,7 +105,7 @@ export default function NoticiasCarousel() {
   if (loading) {
     return (
       <div className="w-full py-16 text-center">
-        <p className="text-xl text-[#8A4D76]">Cargando noticias...</p>
+        <p className="text-xl text-[#8A4D76]">{t('home.news.loading')}</p>
       </div>
     );
   }
@@ -112,10 +114,10 @@ export default function NoticiasCarousel() {
     return (
       <div className="w-full py-16">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-center mb-6">
-          Noticias
+          {t('home.news.newsTitle')}
         </h2>
         <p className="text-lg text-gray-600 text-center">
-          No hay noticias publicadas aún.
+          {t('home.news.noNews')}
         </p>
       </div>
     );
@@ -128,7 +130,7 @@ export default function NoticiasCarousel() {
       <div className="w-full py-6 md:py-10">
         {/* Título */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A4D76] text-center mb-8 md:mb-12 tracking-tight px-4">
-          Últimas Noticias
+          {t('home.news.title')}
         </h2>
 
         {/* Controles de navegación */}
@@ -179,7 +181,7 @@ export default function NoticiasCarousel() {
                 </p>
                 
                 <div className="inline-flex items-center text-[#8A4D76] font-semibold text-sm group-hover:text-[#a98bb0] transition-colors">
-                  Leer más
+                  {t('home.news.readMore')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -251,7 +253,7 @@ export default function NoticiasCarousel() {
                   onClick={() => setSelectedNoticia(null)}
                   className="bg-[#8A4D76] hover:bg-[#a98bb0] text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-full shadow-lg transition-all w-full sm:w-auto"
                 >
-                  Cerrar
+                  {t('home.news.close')}
                 </Button>
               </div>
             </div>
