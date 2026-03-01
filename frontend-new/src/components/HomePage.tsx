@@ -90,6 +90,17 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* CARTEL DE INAUGURACIÓN */}
+      <section className="py-16 bg-[#8A4D76] flex items-center justify-center">
+        <div className="max-w-5xl mx-auto px-4 md:px-8 w-full">
+          <img 
+            src="/posterinauguracion.jpeg" 
+            alt="Inauguración Amets Goien" 
+            className="w-full h-auto rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </section>
+
       {/* SECCIÓN DE ÚLTIMAS NOTICIAS */}
       <section id="noticias" className="py-16 bg-[#E8D5F2]">
         <div className="w-full px-4 md:px-16">
