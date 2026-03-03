@@ -161,6 +161,17 @@ export const handleRedsysNotification = async (req, res) => {
     const amount = parseInt(params.Ds_Amount) / 100; // Convertir de céntimos a euros
     const cardCountry = params.Ds_Card_Country;
     const cardBrand = params.Ds_Card_Brand;
+    const processedPayMethod = params.Ds_ProcessedPayMethod; // 68 = Bizum, 3 = Tarjeta
+
+    // Detectar método de pago real
+    let metodoPagoReal = 'Redsys';
+    if (processedPayMethod === '68') {
+      metodoPagoReal = 'Bizum';
+    } else if (cardBrand) {
+      metodoPagoReal = `Tarjeta (${cardBrand})`;
+    } else {
+      metodoPagoReal = 'Tarjeta';
+    }
 
     const responseInfo = getResponseCodeInfo(responseCode);
 
@@ -169,6 +180,7 @@ export const handleRedsysNotification = async (req, res) => {
     console.log('  - Código de respuesta:', responseCode, '-', responseInfo.message);
     console.log('  - Código de autorización:', authCode);
     console.log('  - Cantidad:', amount, '€');
+    console.log('  - Método de pago:', metodoPagoReal);
 
     // Buscar donación por order_id
     const donacion = await Donacion.findByRedsysOrderId(orderId);
@@ -202,15 +214,28 @@ export const handleRedsysNotification = async (req, res) => {
             colaboradorId = colaboradorExistente.id;
             console.log('✅ Colaborador existente encontrado:', colaboradorId);
             
+            // Actualizar anotación del colaborador con la nueva donación
+            const fechaActual = new Date().toISOString().split('T')[0];
+            const nuevaAnotacion = colaboradorExistente.anotacion 
+              ? `${colaboradorExistente.anotacion}\n[${fechaActual}] Nueva donación: ${amount}€ vía ${metodoPagoReal}` 
+              : `[${fechaActual}] Donación: ${amount}€ vía ${metodoPagoReal}`;
+            
             // Si era voluntario y ahora dona, actualizar a 'ambos'
             if (colaboradorExistente.tipo_colaboracion === 'voluntario') {
               await Colaborador.update(colaboradorId, {
                 ...colaboradorExistente,
-                tipo_colaboracion: 'ambos'
+                tipo_colaboracion: 'ambos',
+                anotacion: nuevaAnotacion
               });
-              console.log('✅ Colaborador actualizado de "voluntario" a "ambos"');
+              console.log('✅ Colaborador actualizado de "voluntario" a "ambos" con nueva anotación');
+            } else {
+              // Actualizar solo la anotación
+              await Colaborador.update(colaboradorId, {
+                ...colaboradorExistente,
+                anotacion: nuevaAnotacion
+              });
+              console.log('✅ Anotación del colaborador actualizada con nueva donación');
             }
-            // Si ya es 'monetario' o 'ambos', no hacer nada (puede donar múltiples veces)
           } else {
             // Crear nuevo colaborador
             const nuevoColaborador = await Colaborador.create({
@@ -236,14 +261,13 @@ export const handleRedsysNotification = async (req, res) => {
       }
 
       // Actualizar donación con estado completada, colaborador_id y anotación mejorada
-      const metodoPago = cardBrand ? `Redsys (${cardBrand})` : 'Redsys (Tarjeta/Bizum)';
       await Donacion.update(donacion.id, {
         estado: 'completada',
         colaborador_id: colaboradorId,
         redsys_auth_code: authCode,
         redsys_response_code: responseCode,
-        metodo_pago: metodoPago,
-        anotacion: `Donación ${donacion.periodicidad} de ${amount}€ vía ${metodoPago} | Auth: ${authCode} | ${responseInfo.message}`.trim()
+        metodo_pago: metodoPagoReal,
+        anotacion: `Donación ${donacion.periodicidad} de ${amount}€ vía ${metodoPagoReal} | Auth: ${authCode} | ${responseInfo.message}`.trim()
       });
 
       console.log('✅ Donación actualizada a "completada":', donacion.id);
