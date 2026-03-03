@@ -7,6 +7,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
+interface FormErrors {
+  [key: string]: string;
+}
+
 export default function ContactoClient() {
   const { t } = useLanguage();
   const router = useRouter();
@@ -18,16 +22,18 @@ export default function ContactoClient() {
     consentimiento: false
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [generalError, setGeneralError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setErrors({});
+    setGeneralError("");
     setSuccess(false);
 
     if (!formData.consentimiento) {
-      setError(t('contact.errorConsent'));
+      setErrors({ consentimiento: t('contact.errorConsent') });
       return;
     }
 
@@ -51,18 +57,26 @@ export default function ContactoClient() {
           mensaje: "",
           consentimiento: false
         });
+        // Scroll to top para ver el mensaje de éxito
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const data = await response.json();
         console.error("Error del servidor:", data);
+        
+        // Procesar errores campo por campo
         if (data.errors && Array.isArray(data.errors)) {
-          setError(data.errors.map((e: any) => `${e.field}: ${e.message}`).join(', '));
+          const fieldErrors: FormErrors = {};
+          data.errors.forEach((error: any) => {
+            fieldErrors[error.field] = error.message;
+          });
+          setErrors(fieldErrors);
         } else {
-          setError(data.message || t('contact.errorSend'));
+          setGeneralError(data.message || t('contact.errorSend'));
         }
       }
     } catch (error) {
       console.error("Error:", error);
-      setError(t('contact.errorConnection'));
+      setGeneralError(t('contact.errorConnection'));
     } finally {
       setLoading(false);
     }
@@ -89,14 +103,26 @@ export default function ContactoClient() {
             </p>
 
             {success && (
-              <div className="mb-4 p-3 rounded-lg bg-green-100 border border-green-400 text-green-700 text-sm">
-                ✓ {t('contact.successMessage')}
+              <div className="mb-4 p-4 rounded-lg bg-green-50 border border-green-400 text-green-800 text-sm">
+                <div className="flex items-start gap-2">
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <p className="font-semibold">✓ {t('contact.successMessage')}</p>
+                  </div>
+                </div>
               </div>
             )}
 
-            {error && (
-              <div className="mb-4 p-3 rounded-lg bg-red-100 border border-red-400 text-red-700 text-sm">
-                {error}
+            {generalError && (
+              <div className="mb-4 p-4 rounded-lg bg-red-50 border border-red-400 text-red-800 text-sm">
+                <div className="flex items-start gap-2">
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  <p>{generalError}</p>
+                </div>
               </div>
             )}
 
@@ -110,10 +136,27 @@ export default function ContactoClient() {
                     type="text"
                     id="nombre"
                     value={formData.nombre}
-                    onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    onChange={(e) => {
+                      setFormData({ ...formData, nombre: e.target.value });
+                      if (errors.nombre) {
+                        setErrors({ ...errors, nombre: '' });
+                      }
+                    }}
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.nombre 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     required
                   />
+                  {errors.nombre && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.nombre}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -124,10 +167,27 @@ export default function ContactoClient() {
                     type="text"
                     id="apellidos"
                     value={formData.apellidos}
-                    onChange={(e) => setFormData({ ...formData, apellidos: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    onChange={(e) => {
+                      setFormData({ ...formData, apellidos: e.target.value });
+                      if (errors.apellidos) {
+                        setErrors({ ...errors, apellidos: '' });
+                      }
+                    }}
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.apellidos 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     required
                   />
+                  {errors.apellidos && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.apellidos}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -139,10 +199,27 @@ export default function ContactoClient() {
                   type="email"
                   id="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                    if (errors.email) {
+                      setErrors({ ...errors, email: '' });
+                    }
+                  }}
+                  className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                    errors.email 
+                      ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                      : 'border-gray-300 focus:border-[#8A4D76]'
+                  }`}
                   required
                 />
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -152,32 +229,66 @@ export default function ContactoClient() {
                 <textarea
                   id="mensaje"
                   value={formData.mensaje}
-                  onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none h-32 resize-none text-sm"
+                  onChange={(e) => {
+                    setFormData({ ...formData, mensaje: e.target.value });
+                    if (errors.mensaje) {
+                      setErrors({ ...errors, mensaje: '' });
+                    }
+                  }}
+                  className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none h-32 resize-none text-sm transition-colors ${
+                    errors.mensaje 
+                      ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                      : 'border-gray-300 focus:border-[#8A4D76]'
+                  }`}
                   required
                 />
+                {errors.mensaje && (
+                  <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.mensaje}
+                  </p>
+                )}
               </div>
 
-              <div className="flex items-start gap-2">
-                <input
-                  type="checkbox"
-                  id="consentimiento"
-                  checked={formData.consentimiento}
-                  onChange={(e) => setFormData({ ...formData, consentimiento: e.target.checked })}
-                  className="mt-1 w-4 h-4 text-[#8A4D76] border border-gray-300 rounded focus:ring-[#8A4D76]"
-                  required
-                />
-                <label htmlFor="consentimiento" className="text-gray-700 text-xs">
-                  {t('contact.form.consent')}{" "}
-                  <a 
-                    href="/privacidad" 
-                    className="font-semibold hover:underline"
-                    style={{ color: '#8A4D76' }}
-                  >
-                    {t('contact.form.privacyPolicy')}
-                  </a>
-                  {" "}{t('contact.form.consentEnd')} *
-                </label>
+              <div>
+                <div className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    id="consentimiento"
+                    checked={formData.consentimiento}
+                    onChange={(e) => {
+                      setFormData({ ...formData, consentimiento: e.target.checked });
+                      if (errors.consentimiento) {
+                        setErrors({ ...errors, consentimiento: '' });
+                      }
+                    }}
+                    className={`mt-1 w-4 h-4 text-[#8A4D76] border rounded focus:ring-[#8A4D76] transition-colors ${
+                      errors.consentimiento ? 'border-red-400' : 'border-gray-300'
+                    }`}
+                    required
+                  />
+                  <label htmlFor="consentimiento" className="text-gray-700 text-xs">
+                    {t('contact.form.consent')}{" "}
+                    <a 
+                      href="/privacidad" 
+                      className="font-semibold hover:underline"
+                      style={{ color: '#8A4D76' }}
+                    >
+                      {t('contact.form.privacyPolicy')}
+                    </a>
+                    {" "}{t('contact.form.consentEnd')} *
+                  </label>
+                </div>
+                {errors.consentimiento && (
+                  <p className="mt-1 text-xs text-red-600 flex items-start gap-1 ml-6">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.consentimiento}
+                  </p>
+                )}
               </div>
 
               <button

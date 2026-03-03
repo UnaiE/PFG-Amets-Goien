@@ -7,6 +7,10 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
+interface FormErrors {
+  [key: string]: string;
+}
+
 export default function VoluntariosPage() {
   const router = useRouter();
   const { t } = useLanguage();
@@ -20,28 +24,35 @@ export default function VoluntariosPage() {
   });
   const [aceptaPrivacidad, setAceptaPrivacidad] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
   const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error' | null, message: string}>({type: null, message: ''});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    setErrors({});
+    setSubmitStatus({type: null, message: ''});
+
     if (!aceptaPrivacidad) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Debes aceptar la política de privacidad y el envío de comunicaciones para continuar.'
+      setErrors({
+        privacidad: 'Debes aceptar la política de privacidad y el envío de comunicaciones para continuar.'
       });
       return;
     }
     
     setLoading(true);
-    setSubmitStatus({type: null, message: ''});
 
     try {
       const response = await fetch(`${API_URL}/api/colaboradores/registro-voluntario`, {
@@ -69,11 +80,22 @@ export default function VoluntariosPage() {
           mensaje: ""
         });
         setAceptaPrivacidad(false);
+        // Scroll to top para ver el mensaje de éxito
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        setSubmitStatus({
-          type: 'error',
-          message: data.message || t('volunteer.form.error')
-        });
+        // Procesar errores campo por campo
+        if (data.errors && Array.isArray(data.errors)) {
+          const fieldErrors: FormErrors = {};
+          data.errors.forEach((error: any) => {
+            fieldErrors[error.field] = error.message;
+          });
+          setErrors(fieldErrors);
+        } else {
+          setSubmitStatus({
+            type: 'error',
+            message: data.message || t('volunteer.form.error')
+          });
+        }
       }
     } catch (error) {
       console.error('Error:', error);
@@ -182,10 +204,21 @@ export default function VoluntariosPage() {
             {submitStatus.type && (
               <div className={`mb-4 p-4 rounded-lg ${
                 submitStatus.type === 'success' 
-                  ? 'bg-green-50 border border-green-200 text-green-800' 
-                  : 'bg-red-50 border border-red-200 text-red-800'
+                  ? 'bg-green-50 border border-green-400 text-green-800' 
+                  : 'bg-red-50 border border-red-400 text-red-800'
               }`}>
-                <p className="text-sm font-medium">{submitStatus.message}</p>
+                <div className="flex items-start gap-2">
+                  {submitStatus.type === 'success' ? (
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  <p className="text-sm font-medium">{submitStatus.message}</p>
+                </div>
               </div>
             )}
 
@@ -205,9 +238,21 @@ export default function VoluntariosPage() {
                     value={formData.nombre}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.nombre 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     placeholder="Tu nombre"
                   />
+                  {errors.nombre && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.nombre}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -221,9 +266,21 @@ export default function VoluntariosPage() {
                     value={formData.apellidos}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.apellidos 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     placeholder="Tus apellidos"
                   />
+                  {errors.apellidos && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.apellidos}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -239,9 +296,21 @@ export default function VoluntariosPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                  className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                    errors.email 
+                      ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                      : 'border-gray-300 focus:border-[#8A4D76]'
+                  }`}
                   placeholder="tu@email.com"
                 />
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               {/* Teléfono y Localidad */}
@@ -256,9 +325,21 @@ export default function VoluntariosPage() {
                     name="telefono"
                     value={formData.telefono}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.telefono 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     placeholder="+34 600 000 000"
                   />
+                  {errors.telefono && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.telefono}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -271,9 +352,21 @@ export default function VoluntariosPage() {
                     name="direccion"
                     value={formData.direccion}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm"
+                    className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm transition-colors ${
+                      errors.direccion 
+                        ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                        : 'border-gray-300 focus:border-[#8A4D76]'
+                    }`}
                     placeholder="Tu ciudad"
                   />
+                  {errors.direccion && (
+                    <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                      <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {errors.direccion}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -288,20 +381,41 @@ export default function VoluntariosPage() {
                   value={formData.mensaje}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none text-sm resize-none"
+                  className={`w-full px-3 py-2 rounded-lg border text-gray-900 bg-white focus:outline-none text-sm resize-none transition-colors ${
+                    errors.mensaje 
+                      ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                      : 'border-gray-300 focus:border-[#8A4D76]'
+                  }`}
                   placeholder={t('volunteer.form.messagePlaceholder')}
                 />
+                {errors.mensaje && (
+                  <p className="mt-1 text-xs text-red-600 flex items-start gap-1">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.mensaje}
+                  </p>
+                )}
               </div>
 
               {/* Checkbox de privacidad */}
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <div className={`bg-purple-50 border rounded-lg p-4 transition-colors ${
+                errors.privacidad ? 'border-red-400 bg-red-50' : 'border-purple-200'
+              }`}>
                 <label className="flex items-start cursor-pointer">
                   <input
                     type="checkbox"
                     checked={aceptaPrivacidad}
-                    onChange={(e) => setAceptaPrivacidad(e.target.checked)}
+                    onChange={(e) => {
+                      setAceptaPrivacidad(e.target.checked);
+                      if (errors.privacidad) {
+                        setErrors({ ...errors, privacidad: '' });
+                      }
+                    }}
                     required
-                    className="mt-1 w-4 h-4 text-[#8A4D76] border border-gray-300 rounded focus:ring-[#8A4D76] cursor-pointer"
+                    className={`mt-1 w-4 h-4 text-[#8A4D76] border rounded focus:ring-[#8A4D76] cursor-pointer transition-colors ${
+                      errors.privacidad ? 'border-red-400' : 'border-gray-300'
+                    }`}
                   />
                   <span className="ml-2 text-gray-700 text-xs leading-relaxed">
                     {t('volunteer.form.privacy')}{' '}
@@ -314,6 +428,14 @@ export default function VoluntariosPage() {
                     {' '}{t('volunteer.form.privacyText')}
                   </span>
                 </label>
+                {errors.privacidad && (
+                  <p className="mt-2 ml-6 text-xs text-red-600 flex items-start gap-1">
+                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.privacidad}
+                  </p>
+                )}
               </div>
 
               {/* Botón submit */}
