@@ -161,14 +161,22 @@ export function verifyRedsysResponse(merchantParamsBase64, signatureReceived) {
     const key = generate3DESKey(orderId);
     const expectedSignature = generateSignature(merchantParamsBase64, key);
 
+    // Convertir firma recibida de Base64 URL-safe a Base64 estándar
+    // Redsys envía la firma en formato URL-safe donde:
+    // - '_' reemplaza a '/'
+    // - '-' reemplaza a '+'
+    const signatureStandard = signatureReceived
+      .replace(/_/g, '/')
+      .replace(/-/g, '+');
+
     // Comparar firmas
-    const valid = expectedSignature === signatureReceived;
+    const valid = expectedSignature === signatureStandard;
 
     return {
       valid,
       params,
       expectedSignature,
-      receivedSignature: signatureReceived
+      receivedSignature: signatureStandard
     };
   } catch (error) {
     console.error('Error verificando respuesta de Redsys:', error);
