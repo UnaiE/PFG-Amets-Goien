@@ -283,7 +283,7 @@ export const handleRedsysNotification = async (req, res) => {
               email: colaborador.email,
               cantidad: amount,
               periodicidad: donacion.periodicidad,
-              metodoPago: metodoPago,
+              metodoPago: metodoPagoReal,
               orderId: orderId
             });
             console.log('✅ Email de confirmación enviado');
