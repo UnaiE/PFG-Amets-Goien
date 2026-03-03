@@ -87,14 +87,10 @@ app.use(cors({
   credentials: true
 }));
 
-// Parse JSON (excepto para webhooks de pasarelas de pago)
-app.use((req, res, next) => {
-  if (req.originalUrl === '/api/payment/webhook') {
-    next();
-  } else {
-    express.json()(req, res, next);
-  }
-});
+// Parse JSON y URL-encoded bodies
+// Redsys envía datos en formato application/x-www-form-urlencoded
+app.use(express.json()); // Para la mayoría de endpoints
+app.use(express.urlencoded({ extended: true })); // Para Redsys webhooks
 
 // Health check route (sin rate limiting)
 app.get('/health', (req, res) => {

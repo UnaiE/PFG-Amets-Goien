@@ -77,6 +77,11 @@ export const createRedsysTransaction = async (req, res) => {
     const urlKo = `${baseUrl}/colaborar/error?orderId=${orderId}`;
     const urlNotification = `${process.env.BACKEND_URL || 'http://localhost:4000'}/api/payment/redsys/notification`;
 
+    console.log('🔔 URLs configuradas para Redsys:');
+    console.log('  - URL OK:', urlOk);
+    console.log('  - URL KO:', urlKo);
+    console.log('  - URL WEBHOOK:', urlNotification);
+
     // Crear parámetros de pago para Redsys
     const redsysParams = createRedsysPayment({
       orderId: orderId,
@@ -121,8 +126,14 @@ export const createRedsysTransaction = async (req, res) => {
  */
 export const handleRedsysNotification = async (req, res) => {
   try {
-    console.log('🔔 Notificación recibida de Redsys');
-    console.log('Body:', req.body);
+    console.log('\n' + '═'.repeat(70));
+    console.log('📩 WEBHOOK RECIBIDO DE REDSYS');
+    console.log('═'.repeat(70));
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('IP origen:', req.ip || req.connection.remoteAddress);
+    console.log('Headers:', JSON.stringify(req.headers, null, 2));
+    console.log('Body completo:', JSON.stringify(req.body, null, 2));
+    console.log('═'.repeat(70) + '\n');
 
     const { Ds_MerchantParameters, Ds_Signature } = req.body;
 
