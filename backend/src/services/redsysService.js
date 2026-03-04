@@ -6,29 +6,17 @@
 
 import crypto from 'crypto';
 
-// Configuración de Redsys
-const REDSYS_CONFIG = {
-  // Entorno de TEST
-  test: {
-    merchantCode: '369230081',
-    terminal: '1',
-    currency: '978', // EUR
-    secretKey: 'sq7HjrUOBfKmC576ILgskD5srU870gJ7',
-    url: 'https://sis-t.redsys.es:25443/sis/realizarPago'
-  },
-  // Entorno de PRODUCCIÓN (se configurará después del pase a producción)
-  production: {
-    merchantCode: '369230081',
-    terminal: '1',
-    currency: '978',
-    secretKey: '', // Se configurará al pasar a producción
-    url: 'https://sis.redsys.es/sis/realizarPago'
-  }
-};
-
-// Usar entorno de test por defecto
+// Configuración de Redsys desde variables de entorno
 const ENV = process.env.REDSYS_ENV || 'test';
-const CONFIG = REDSYS_CONFIG[ENV];
+const CONFIG = {
+  merchantCode: process.env.REDSYS_MERCHANT_CODE || '369230081',
+  terminal: process.env.REDSYS_TERMINAL || '1',
+  currency: process.env.REDSYS_CURRENCY || '978',
+  secretKey: process.env.REDSYS_SECRET_KEY || 'sq7HjrUOBfKmC576ILgskD5srU870gJ7',
+  url: ENV === 'production' 
+    ? 'https://sis.redsys.es/sis/realizarPago' 
+    : 'https://sis-t.redsys.es:25443/sis/realizarPago'
+};
 
 /**
  * Genera una clave de cifrado derivada de la clave secreta
