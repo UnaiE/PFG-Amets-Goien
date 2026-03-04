@@ -347,8 +347,6 @@
       "privacyConsent": "I have read and accept the",
       "privacyLink": "privacy policy",
       "authorizeData": "and authorize the processing of my data",
-      "testModeWarning": "TEST MODE",
-      "testModeMessage": "Test system. Please do not make real donations at this time.",
       "submit": "Continue to payment",
       "submitting": "Processing...",
       "donateAmount": "Donate",

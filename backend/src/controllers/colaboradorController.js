@@ -77,12 +77,45 @@ export const registerVoluntarioPublico = async (req, res) => {
     const exists = colaboradores.find(c => c.email && c.email.toLowerCase() === email.toLowerCase());
     
     if (exists) {
-      return res.status(409).json({ 
-        message: 'Ya existe un registro con este email. Si ya te registraste anteriormente, nos pondremos en contacto contigo pronto. ¡Gracias!' 
-      });
+      // Si ya es voluntario o ambos, ya está registrado
+      if (exists.tipo_colaboracion === 'voluntario' || exists.tipo_colaboracion === 'ambos') {
+        return res.status(409).json({ 
+          message: 'Ya estás registrado como voluntario. Nos pondremos en contacto contigo pronto. ¡Gracias!' 
+        });
+      }
+      
+      // Si es solo donante, actualizarlo a 'ambos' y añadir datos de voluntario
+      if (exists.tipo_colaboracion === 'donante') {
+        const fechaActual = new Date().toISOString().split('T')[0];
+        const nuevaAnotacion = exists.anotacion 
+          ? `${exists.anotacion}\n[${fechaActual}] Se registró como voluntario: ${mensaje?.trim() || 'Sin mensaje adicional'}`
+          : `[${fechaActual}] Se registró como voluntario: ${mensaje?.trim() || 'Sin mensaje adicional'}`;
+        
+        const colaboradorActualizado = await Colaborador.update(exists.id, {
+          ...exists,
+          nombre: nombre.trim(),
+          apellidos: apellidos.trim(),
+          telefono: telefono?.trim() || exists.telefono || '',
+          direccion: direccion?.trim() || exists.direccion || '',
+          tipo_colaboracion: 'ambos',
+          anotacion: nuevaAnotacion
+        });
+        
+        console.log('✅ Donante actualizado a voluntario también:', colaboradorActualizado.email);
+        
+        return res.status(200).json({ 
+          message: '¡Gracias por registrarte como voluntario! Ya nos habías apoyado con una donación. Nos pondremos en contacto contigo pronto.',
+          colaborador: {
+            id: colaboradorActualizado.id,
+            nombre: colaboradorActualizado.nombre,
+            apellidos: colaboradorActualizado.apellidos,
+            email: colaboradorActualizado.email
+          }
+        });
+      }
     }
 
-    // Crear voluntario con tipo_colaboracion='voluntario'
+    // Crear nuevo voluntario
     const nuevoVoluntario = await Colaborador.create({
       nombre: nombre.trim(),
       apellidos: apellidos.trim(),
