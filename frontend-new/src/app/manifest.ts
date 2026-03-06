@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Ametsgoien - Asociación de ayuda a mujeres migrantes',
+    name: 'Ametsgoien - Asociación de ayuda a mujeres y familias',
     short_name: 'Ametsgoien',
-    description: 'Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias en situación de vulnerabilidad.',
+    description: 'Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres y sus familias en situación de vulnerabilidad.',
     start_url: '/',
     display: 'standalone',
     background_color: '#D8B8C4',

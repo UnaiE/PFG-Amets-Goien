@@ -9,7 +9,7 @@
     "internal": "Internal Access"
   },
   "footer": {
-    "tagline": "Building a safe refuge for migrant women.",
+    "tagline": "Building a safe home for women and their children.",
     "rights": "All rights reserved",
     "collaborate": "Collaborate",
     "contact": "Contact",
@@ -27,13 +27,13 @@
     "hero": {
       "title": "Ametsgoien",
       "subtitle": "Welcome, dignity and accompaniment",
-      "description": "Building a safe refuge for migrant women.",
+      "description": "Building a safe home for women and their children.",
       "button": "Discover Our Work"
     },
     "about": {
       "title": "About AMETSGOIEN",
-      "description1": "AMETSGOIEN works to provide comprehensive support to migrant women and their children, prioritizing dignity, emotional security and compassionate care.",
-      "description2": "We believe in the importance of building a safe, warm and humane refuge, where every woman can rediscover her strength, regain hope and move towards a stable life.",
+      "description1": "AMETSGOIEN works to provide comprehensive support to women and their children, prioritizing dignity, emotional security and compassionate care.",
+      "description2": "We believe in the importance of building a safe, warm and humane home, where every woman can rediscover her strength, regain hope and move towards a stable life.",
       "collaborateBtn": "Collaborate / Donate",
       "volunteerBtn": "Become a Volunteer",
       "historyTitle": "Our Story"
@@ -73,7 +73,7 @@
     },
     "volunteerSection": {
       "title": "Do you want to be part of the change?",
-      "description": "Your time and dedication can transform lives. Join us as a volunteer and help us build a safe refuge for migrant women.",
+      "description": "Your time and dedication can transform lives. Join us as a volunteer and help us build a safe home for women and their children.",
       "volunteerBtn": "Become a Volunteer",
       "donateBtn": "Make a Donation",
       "contactBtn": "Go to contact page"
@@ -128,7 +128,7 @@
     "title": "About Us",
     "hero": {
       "title": "About Ametsgoien",
-      "subtitle": "Welcome, dignity and support for migrant women"
+      "subtitle": "Welcome, dignity and support"
     },
     "whoWeAre": {
       "title": "Who are we?",
@@ -139,7 +139,7 @@
       "p2b": "That case, which came through the CVX solidarity network and the Ignacio Ellacuría Center, made them ask: what can we do?",
       "p3": "The answer was clear:",
       "p3quote": "If institutions can't provide a solution, we decided to go into debt with love",
-      "p3b": "That's how Ametsgoien was born, a 12-room house in Orduña converted into a safe home for migrant women with children in their care.",
+      "p3b": "That's how Ametsgoien was born, a 12-room house in Orduña converted into a safe home for women with children in their care.",
       "historyTitle": "Our Story",
       "historyP1": "During the Ukrainian crisis, the family welcomed four women and a translator into their own home.",
       "historyP1quote": "We went from five to nine in the house. We had to reorganize everything, but our children experienced it naturally",
@@ -154,11 +154,11 @@
     },
     "mission": {
       "title": "Our Mission",
-      "text": "To provide safe welcome, comprehensive support and personalized accompaniment to migrant women and their families, offering tools for personal development, job training and economic autonomy, always with respect for their dignity and human rights."
+      "text": "To provide safe welcome, comprehensive support and personalized accompaniment to women and their families, offering tools for personal development, job training and economic autonomy, always with respect for their dignity and human rights."
     },
     "vision": {
       "title": "Our Vision",
-      "text": "To be a reference organization in the reception and accompaniment of migrant women, recognized for its transformative impact on the lives of the people we serve, and for contributing to a more inclusive, just and supportive society."
+      "text": "To be a reference organization in the reception and accompaniment of women, recognized for its transformative impact on the lives of the people we serve, and for contributing to a more inclusive, just and supportive society."
     },
     "whatWeDo": {
       "title": "What do we do?",
@@ -184,7 +184,7 @@
     },
     "cta": {
       "title": "Join our cause",
-      "subtitle": "Your support can transform lives. Together we can build a better future for migrant women and their families.",
+      "subtitle": "Your support can transform lives. Together we can build a better future for women and their families.",
       "donate": "Donate Now",
       "volunteer": "Become a Volunteer",
       "contact": "Contact"
@@ -227,7 +227,7 @@
   "collaborate": {
     "hero": {
       "title": "Your help transforms lives",
-      "subtitle": "Each donation helps provide a safe refuge, comprehensive support and future opportunities for refugee women and their children in our shelter in Orduña."
+      "subtitle": "Each donation helps provide a safe home, comprehensive support and future opportunities for women and their children in our shelter in Orduña."
     },
     "howWeUse": {
       "title": "How do we use your donations?",
@@ -385,7 +385,7 @@
       "error": "Error",
       "tryAgain": "Try again",
       "title": "Donation received successfully!",
-      "message": "Thank you very much for your generosity. Your contribution helps us continue supporting migrant women in vulnerable situations.",
+      "message": "Thank you very much for your generosity. Your contribution helps us continue supporting women in vulnerable situations.",
       "donationDetails": "Donation details",
       "amount": "Amount:",
       "type": "Type:",

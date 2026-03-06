@@ -8,11 +8,11 @@ import ColaborarClient from '@/components/ColaborarClient';
 
 export const metadata: Metadata = {
   title: 'Colabora con Nosotros - Donaciones',
-  description: 'Ayúdanos a seguir apoyando a mujeres migrantes. Realiza tu donación mediante Bizum o tarjeta de forma segura. Cada aportación marca la diferencia en la vida de familias necesitadas.',
+  description: 'Ayúdanos a seguir apoyando a mujeres y sus hij@s. Realiza tu donación mediante Bizum o tarjeta de forma segura. Cada aportación marca la diferencia en la vida de familias necesitadas.',
   keywords: ['donar ametsgoien', 'colaborar', 'donación', 'bizum', 'ayuda mujeres', 'solidaridad', 'voluntariado'],
   openGraph: {
     title: 'Colabora con Ametsgoien',
-    description: 'Tu donación ayuda a proporcionar acogida y apoyo a mujeres migrantes en situación de vulnerabilidad.',
+    description: 'Tu donación ayuda a proporcionar acogida y apoyo a mujeres en situación de vulnerabilidad.',
   },
 };
 

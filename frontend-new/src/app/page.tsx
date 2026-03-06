@@ -16,7 +16,7 @@ export default function Page() {
     alternateName: 'Asociación Amets Goien',
     url: 'https://ametsgoien.org',
     logo: 'https://ametsgoien.org/logo.png',
-    description: 'Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres migrantes y sus familias en situación de vulnerabilidad.',
+    description: 'Asociación sin ánimo de lucro dedicada a proporcionar acogida, apoyo integral y acompañamiento a mujeres y sus familias en situación de vulnerabilidad.',
     foundingDate: '2020',
     address: {
       '@type': 'PostalAddress',
@@ -38,10 +38,10 @@ export default function Page() {
        'https://www.instagram.com/ametsgoien/'
     ],
     knowsAbout: [
-      'Acogida de mujeres migrantes',
+      'Acogida de mujeres',
       'Apoyo a mujeres en situación de vulnerabilidad',
       'Integración social',
-      'Acompañamiento a familias migrantes',
+      'Acompañamiento a familias',
       'Orientación legal',
       'Apoyo psicológico'
     ]
