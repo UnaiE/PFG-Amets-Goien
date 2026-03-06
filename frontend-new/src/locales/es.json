@@ -9,7 +9,7 @@
     "internal": "Acceso interno"
   },
   "footer": {
-    "tagline": "Construyendo un refugio seguro junto a mujeres migrantes.",
+    "tagline": "Construyendo un hogar seguro junto a mujeres y sus hij@s.",
     "rights": "Todos los derechos reservados",
     "collaborate": "Colabora",
     "contact": "Contacto",
@@ -27,13 +27,13 @@
     "hero": {
       "title": "Ametsgoien",
       "subtitle": "Acogida, dignidad y acompañamiento",
-      "description": "Construyendo un refugio seguro junto a mujeres migrantes.",
+      "description": "Construyendo un hogar seguro junto a mujeres y sus hij@s.",
       "button": "Descubre Nuestro Trabajo"
     },
     "about": {
       "title": "Sobre AMETSGOIEN",
-      "description1": "AMETSGOIEN trabaja por ofrecer apoyo integral a mujeres migrantes y sus hijos, priorizando la dignidad, la seguridad emocional y el acompañamiento humano.",
-      "description2": "Creemos en la importancia de construir un refugio seguro, cálido y humano, donde cada mujer pueda reencontrar su fuerza, recuperar esperanza y avanzar hacia una vida estable.",
+      "description1": "AMETSGOIEN trabaja por ofrecer apoyo integral a mujeres y sus hij@s, priorizando la dignidad, la seguridad emocional y el acompañamiento humano.",
+      "description2": "Creemos en la importancia de construir un hogar seguro, cálido y humano, donde cada mujer pueda reencontrar su fuerza, recuperar esperanza y avanzar hacia una vida estable.",
       "collaborateBtn": "Colaborar / Donar",
       "volunteerBtn": "Hazte Voluntario/a",
       "historyTitle": "Nuestra Historia"
@@ -73,7 +73,7 @@
     },
     "volunteerSection": {
       "title": "¿Quieres formar parte del cambio?",
-      "description": "Tu tiempo y dedicación pueden transformar vidas. Únete como voluntario/a y ayúdanos a construir un refugio seguro para mujeres migrantes.",
+      "description": "Tu tiempo y dedicación pueden transformar vidas. Únete como voluntario/a y ayúdanos a construir un hogar seguro para mujeres y sus hij@s.",
       "volunteerBtn": "Hazte Voluntario/a",
       "donateBtn": "Hacer una Donación",
       "contactBtn": "Ir a la página de contacto"
@@ -128,7 +128,7 @@
     "title": "Sobre Nosotros",
     "hero": {
       "title": "Sobre Ametsgoien",
-      "subtitle": "Acogida, dignidad y acompañamiento para mujeres migrantes"
+      "subtitle": "Acogida, dignidad y acompañamiento"
     },
     "whoWeAre": {
       "title": "¿Quiénes somos?",
@@ -154,17 +154,17 @@
     },
     "mission": {
       "title": "Nuestra Misión",
-      "text": "Proporcionar acogida segura, apoyo integral y acompañamiento personalizado a mujeres migrantes y sus familias, ofreciendo herramientas para su desarrollo personal, formación laboral y autonomía económica, siempre desde el respeto a su dignidad y derechos humanos."
+      "text": "Proporcionar acogida segura, apoyo integral y acompañamiento personalizado a mujeres y sus familias, ofreciendo herramientas para su desarrollo personal, formación laboral y autonomía económica, siempre desde el respeto a su dignidad y derechos humanos."
     },
     "vision": {
       "title": "Nuestra Visión",
-      "text": "Ser una organización de referencia en la acogida y acompañamiento de mujeres migrantes, reconocida por su impacto transformador en las vidas de las personas a las que servimos, y por contribuir a una sociedad más inclusiva, justa y solidaria."
+      "text": "Ser una organización de referencia en la acogida y acompañamiento de mujeres, reconocida por su impacto transformador en las vidas de las personas a las que servimos, y por contribuir a una sociedad más inclusiva, justa y solidaria."
     },
     "whatWeDo": {
       "title": "¿Qué hacemos?",
       "housing": {
         "title": "Hogar Seguro",
-        "text": "Una casa de 12 habitaciones en Orduña, renovada con el esfuerzo de decenas de voluntarios, donde las mujeres y sus hijos encuentran un espacio digno y acogedor."
+        "text": "Una casa de 12 habitaciones en Orduña, renovada con el esfuerzo de decenas de voluntarios, donde las mujeres y sus hij@s encuentran un espacio digno y acogedor."
       },
       "support": {
         "title": "Acompañamiento Integral",
@@ -184,7 +184,7 @@
     },
     "cta": {
       "title": "Únete a nuestra causa",
-      "subtitle": "Tu apoyo puede transformar vidas. Juntos podemos construir un futuro mejor para las mujeres migrantes y sus familias.",
+      "subtitle": "Tu apoyo puede transformar vidas. Juntos podemos construir un futuro mejor para las mujeres y sus familias.",
       "donate": "Donar Ahora",
       "volunteer": "Hazte Voluntario/a",
       "contact": "Contactar"
@@ -227,7 +227,7 @@
   "collaborate": {
     "hero": {
       "title": "Tu ayuda transforma vidas",
-      "subtitle": "Cada donación contribuye a ofrecer un refugio seguro, apoyo integral y oportunidades de futuro para mujeres refugiadas y sus hijos en nuestra casa de acogida en Orduña."
+      "subtitle": "Cada donación contribuye a ofrecer un hogar seguro, apoyo integral y oportunidades de futuro para mujeres y sus hij@s en nuestra casa de acogida en Orduña."
     },
     "howWeUse": {
       "title": "¿Cómo usamos tus donaciones?",
@@ -387,7 +387,7 @@
       "error": "Error",
       "tryAgain": "Volver a intentar",
       "title": "¡Donación recibida con éxito!",
-      "message": "Muchas gracias por tu generosidad. Tu aportación nos ayuda a seguir apoyando a mujeres migrantes en situación de vulnerabilidad.",
+      "message": "Muchas gracias por tu generosidad. Tu aportación nos ayuda a seguir apoyando a mujeres en situación de vulnerabilidad.",
       "donationDetails": "Detalles de tu donación",
       "amount": "Importe:",
       "type": "Tipo:",

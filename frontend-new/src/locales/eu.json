@@ -9,7 +9,7 @@
     "internal": "Barneko Sarbidea"
   },
   "footer": {
-    "tagline": "Etorkin emakumeentzako harrera segurua eraikitzen.",
+    "tagline": "Emakumeak eta haien seme-alabak babesten duen etxe segurua eraikitzen.",
     "rights": "Eskubide guztiak erreserbatuta",
     "collaborate": "Lagundu",
     "contact": "Kontaktua",
@@ -27,13 +27,13 @@
     "hero": {
       "title": "Ametsgoien",
       "subtitle": "Harrera, duintasuna eta laguntza",
-      "description": "Etorkin emakumeentzako harrera segurua eraikitzen.",
+      "description": "Emakumeak eta haien seme-alabak babesten duen etxe segurua eraikitzen.",
       "button": "Ezagutu Gure Lana"
     },
     "about": {
       "title": "AMETSGOIEN-i buruz",
-      "description1": "AMETSGOIEN etorkin emakumeei eta beren seme-alabei laguntza osoa eskaintzeko lan egiten du, duintasuna, segurtasun emozionala eta giza laguntza lehenetsi.",
-      "description2": "Harrera seguru, beroa eta gizatiarra eraikitzearen garrantziaz sinesten dugu, non emakume bakoitzak bere indarra berraurkitu, esperantza berreskuratu eta bizitza egonkor batera aurrera egin dezakeen.",
+      "description1": "AMETSGOIEN emakumeei eta beren seme-alabei laguntza osoa eskaintzeko lan egiten du, duintasuna, segurtasun emozionala eta giza laguntza lehenetsi.",
+      "description2": "Etxe seguru, beroa eta gizatiarra eraikitzearen garrantziaz sinesten dugu, non emakume bakoitzak bere indarra berraurkitu, esperantza berreskuratu eta bizitza egonkor batera aurrera egin dezakeen.",
       "collaborateBtn": "Lagundu / Dohaintza egin",
       "volunteerBtn": "Bazkide Izan",
       "historyTitle": "Gure Historia"
@@ -73,7 +73,7 @@
     },
     "volunteerSection": {
       "title": "Aldaketaren parte izan nahi duzu?",
-      "description": "Zure denbora eta dedikazioak bizitzak aldatu ditzake. Bazkide gisa batu eta lagundu gaitzazu etorkin emakumeentzako harrera segurua eraikitzen.",
+      "description": "Zure denbora eta dedikazioak bizitzak aldatu ditzake. Bazkide gisa batu eta lagundu gaitzazu emakumeentzako etxe segurua eraikitzen.",
       "volunteerBtn": "Bazkide Izan",
       "donateBtn": "Dohaintza Egin",
       "contactBtn": "Joan kontaktu orrira"
@@ -128,7 +128,7 @@
     "title": "Guri buruz",
     "hero": {
       "title": "Ametsgoieni buruz",
-      "subtitle": "Harrera, duintasuna eta laguntza emakume migratzaileentzat"
+      "subtitle": "Harrera, duintasuna eta laguntza"
     },
     "whoWeAre": {
       "title": "Nor gara?",
@@ -154,11 +154,11 @@
     },
     "mission": {
       "title": "Gure Misioa",
-      "text": "Harrera segurua, laguntza osoa eta laguntza pertsonalizatua eman emakume migratzaile eta beren familiei, garapen pertsonalerako, lan prestakuntzarako eta autonomia ekonomikorako tresnak eskainiz, beti beren duintasuna eta giza eskubideak errespetatuz."
+      "text": "Harrera segurua, laguntza osoa eta laguntza pertsonalizatua eman emakume eta beren familiei, garapen pertsonalerako, lan prestakuntzarako eta autonomia ekonomikorako tresnak eskainiz, beti beren duintasuna eta giza eskubideak errespetatuz."
     },
     "vision": {
       "title": "Gure Ikuspegia",
-      "text": "Emakume migratzaileen harreran eta laguntzaren erreferentziazko erakunde bat izan, laguntzen ditugun pertsonen bizitzetan duen eraldaketa eraginagatik eta gizarte inklusiboago, justoago eta solidarioago baterako ekarpenagatik ezagutua."
+      "text": "Emakumeen harreran eta laguntzaren erreferentziazko erakunde bat izan, laguntzen ditugun pertsonen bizitzetan duen eraldaketa eraginagatik eta gizarte inklusiboago, justoago eta solidarioago baterako ekarpenagatik ezagutua."
     },
     "whatWeDo": {
       "title": "Zer egiten dugu?",
@@ -184,7 +184,7 @@
     },
     "cta": {
       "title": "Bat egin gure kausarekin",
-      "subtitle": "Zure laguntzak bizitzak aldatu ditzake. Elkarrekin etorkizun hobe bat eraiki dezakegu emakume migratzaile eta beren familientzat.",
+      "subtitle": "Zure laguntzak bizitzak aldatu ditzake. Elkarrekin etorkizun hobe bat eraiki dezakegu emakume eta beren familientzat.",
       "donate": "Eman orain",
       "volunteer": "Bazkide Izan",
       "contact": "Harremanetan jarri"
