@@ -195,6 +195,9 @@ export const handleRedsysNotification = async (req, res) => {
       // Pago exitoso - AHORA crear o encontrar el colaborador
       let colaboradorId;
       let colaboradorData;
+      let destino = null;
+      let destino_personalizado = null;
+      let destinoTexto = null;
 
       try {
         // Extraer datos del colaborador guardados en la anotación
@@ -207,11 +210,11 @@ export const handleRedsysNotification = async (req, res) => {
         }
 
         // Extraer destino de la donación (opcional)
-        const destino = colaboradorData?.destino || null;
-        const destino_personalizado = colaboradorData?.destino_personalizado || null;
+        destino = colaboradorData?.destino || null;
+        destino_personalizado = colaboradorData?.destino_personalizado || null;
         
         // Generar texto del destino para anotaciones
-        const destinoTexto = destino 
+        destinoTexto = destino 
           ? destino === 'otro' 
             ? destino_personalizado 
             : {
