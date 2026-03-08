@@ -206,6 +206,24 @@ export const handleRedsysNotification = async (req, res) => {
           colaboradorData = null;
         }
 
+        // Extraer destino de la donación (opcional)
+        const destino = colaboradorData?.destino || null;
+        const destino_personalizado = colaboradorData?.destino_personalizado || null;
+        
+        // Generar texto del destino para anotaciones
+        const destinoTexto = destino 
+          ? destino === 'otro' 
+            ? destino_personalizado 
+            : {
+                'casa': 'Casa y mantenimiento',
+                'comida': 'Alimentación',
+                'ropa': 'Ropa y calzado',
+                'estudios': 'Educación y formación',
+                'salud': 'Salud y bienestar',
+                'general': 'General'
+              }[destino] || 'sin especificar'
+          : null;
+
         if (colaboradorData) {
           // Buscar colaborador existente por email
           const colaboradorExistente = await Colaborador.findByEmail(colaboradorData.email);
@@ -216,9 +234,10 @@ export const handleRedsysNotification = async (req, res) => {
             
             // Actualizar anotación del colaborador con la nueva donación
             const fechaActual = new Date().toISOString().split('T')[0];
+            const destinoInfo = destinoTexto ? ` - Destino: ${destinoTexto}` : '';
             const nuevaAnotacion = colaboradorExistente.anotacion 
-              ? `${colaboradorExistente.anotacion}\n[${fechaActual}] Nueva donación: ${amount}€ vía ${metodoPagoReal}` 
-              : `[${fechaActual}] Donación: ${amount}€ vía ${metodoPagoReal}`;
+              ? `${colaboradorExistente.anotacion}\n[${fechaActual}] Nueva donación: ${amount}€ vía ${metodoPagoReal}${destinoInfo}` 
+              : `[${fechaActual}] Donación: ${amount}€ vía ${metodoPagoReal}${destinoInfo}`;
             
             // Si era voluntario y ahora dona, actualizar a 'ambos'
             if (colaboradorExistente.tipo_colaboracion === 'voluntario') {
@@ -261,16 +280,22 @@ export const handleRedsysNotification = async (req, res) => {
       }
 
       // Actualizar donación con estado completada, colaborador_id y anotación mejorada
+      const destinoAnotacion = destinoTexto ? ` | Destino: ${destinoTexto}` : '';
       await Donacion.update(donacion.id, {
         estado: 'completada',
         colaborador_id: colaboradorId,
         redsys_auth_code: authCode,
         redsys_response_code: responseCode,
         metodo_pago: metodoPagoReal,
-        anotacion: `Donación ${donacion.periodicidad} de ${amount}€ vía ${metodoPagoReal} | Auth: ${authCode} | ${responseInfo.message}`.trim()
+        destino: destino,
+        destino_personalizado: destino_personalizado,
+        anotacion: `Donación ${donacion.periodicidad} de ${amount}€ vía ${metodoPagoReal} | Auth: ${authCode} | ${responseInfo.message}${destinoAnotacion}`.trim()
       });
 
       console.log('✅ Donación actualizada a "completada":', donacion.id);
+      if (destino) {
+        console.log(`📌 Destino: ${destinoTexto}`);
+      }
 
       // Enviar email de confirmación
       try {

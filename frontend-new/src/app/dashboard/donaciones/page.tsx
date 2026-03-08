@@ -53,6 +53,8 @@ interface Donacion {
   redsys_auth_code?: string;
   redsys_response_code?: string;
   periodicidad: string;
+  destino?: string;
+  destino_personalizado?: string;
   estado: string;
   anotacion: string;
   created_at: string;
@@ -64,7 +66,7 @@ export default function DonacionesPage() {
   const [donaciones, setDonaciones] = useState<Donacion[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterPeriodicidad, setFilterPeriodicidad] = useState("todas");
+  const [filterDestino, setFilterDestino] = useState("todos");
   const [filterEstado, setFilterEstado] = useState("todos");
 
   useEffect(() => {
@@ -138,7 +140,7 @@ export default function DonacionesPage() {
       return;
     }
     
-    const headers = ['ID', 'Colaborador', 'Email', 'Cantidad', 'Método Pago', 'Periodicidad', 'Estado', 'Order ID / Payment ID', 'Código Autorización', 'Anotación', 'Fecha Creación'];
+    const headers = ['ID', 'Colaborador', 'Email', 'Cantidad', 'Método Pago', 'Destino', 'Estado', 'Order ID / Payment ID', 'Código Autorización', 'Anotación', 'Fecha Creación'];
     const csvContent = [
       headers.join(','),
       ...donacionesFiltradas.map(d => [
@@ -147,7 +149,7 @@ export default function DonacionesPage() {
         `"${d.colaborador_email || ''}"`,
         d.cantidad,
         `"${d.metodo_pago}"`,
-        `"${d.periodicidad}"`,
+        `"${getDestinoTexto(d.destino, d.destino_personalizado)}"`,
         `"${d.estado}"`,
         `"${d.redsys_order_id || d.stripe_payment_intent_id || ''}"`,
         `"${d.redsys_auth_code || ''}"`,
@@ -186,6 +188,33 @@ export default function DonacionesPage() {
     return colors[periodicidad] || 'bg-gray-100 text-gray-800';
   };
 
+  const getDestinoTexto = (destino?: string, destino_personalizado?: string) => {
+    if (!destino) return 'General';
+    if (destino === 'otro' && destino_personalizado) return destino_personalizado;
+    const destinosMap: Record<string, string> = {
+      'casa': 'Casa y mantenimiento',
+      'comida': 'Alimentación',
+      'ropa': 'Ropa y calzado',
+      'estudios': 'Educación y formación',
+      'salud': 'Salud y bienestar',
+      'general': 'General'
+    };
+    return destinosMap[destino] || destino;
+  };
+
+  const getDestinoBadge = (destino?: string) => {
+    const colors: Record<string, string> = {
+      'casa': 'bg-yellow-100 text-yellow-800',
+      'comida': 'bg-green-100 text-green-800',
+      'ropa': 'bg-blue-100 text-blue-800',
+      'estudios': 'bg-purple-100 text-purple-800',
+      'salud': 'bg-red-100 text-red-800',
+      'general': 'bg-gray-100 text-gray-800',
+      'otro': 'bg-pink-100 text-pink-800'
+    };
+    return colors[destino || 'general'] || 'bg-gray-100 text-gray-800';
+  };
+
   // Filtrar donaciones
   const donacionesFiltradas = donaciones.filter(donacion => {
     const matchSearch = 
@@ -193,10 +222,12 @@ export default function DonacionesPage() {
       donacion.colaborador_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       donacion.cantidad.includes(searchTerm);
     
-    const matchPeriodicidad = filterPeriodicidad === "todas" || donacion.periodicidad === filterPeriodicidad;
+    const matchDestino = filterDestino === "todos" || 
+      (filterDestino === "sin_destino" && !donacion.destino) ||
+      donacion.destino === filterDestino;
     const matchEstado = filterEstado === "todos" || donacion.estado === filterEstado;
 
-    return matchSearch && matchPeriodicidad && matchEstado;
+    return matchSearch && matchDestino && matchEstado;
   });
 
   // Calcular estadísticas
@@ -204,7 +235,7 @@ export default function DonacionesPage() {
   const totalRecaudado = donacionesFiltradas
     .filter(d => d.estado === 'completada')
     .reduce((sum, d) => sum + parseFloat(d.cantidad), 0);
-  const donacionesRecurrentes = donacionesFiltradas.filter(d => d.periodicidad !== 'puntual').length;
+  const donacionesConDestino = donacionesFiltradas.filter(d => d.destino && d.destino !== 'general').length;
 
   // Preparar datos para gráficas
   // 1. Donaciones por mes (últimos 6 meses)
@@ -235,25 +266,31 @@ export default function DonacionesPage() {
     return Object.values(monthlyData);
   };
 
-  // 2. Distribución por periodicidad
-  const preparePeriodicidadData = () => {
-    const periodicidadCount: Record<string, number> = {
-      'puntual': 0,
-      'mensual': 0,
-      'trimestral': 0,
-      'semestral': 0,
-      'anual': 0
-    };
+  // 2. Distribución por destino
+  const prepareDestinoData = () => {
+    const destinoCount: Record<string, { cantidad: number, total: number }> = {};
     
-    donacionesFiltradas.forEach(d => {
-      if (periodicidadCount[d.periodicidad] !== undefined) {
-        periodicidadCount[d.periodicidad]++;
-      }
-    });
+    donacionesFiltradas
+      .filter(d => d.estado === 'completada')
+      .forEach(d => {
+        const destinoKey = d.destino || 'general';
+        const destinoLabel = getDestinoTexto(d.destino, d.destino_personalizado);
+        
+        if (!destinoCount[destinoLabel]) {
+          destinoCount[destinoLabel] = { cantidad: 0, total: 0 };
+        }
+        destinoCount[destinoLabel].cantidad += 1;
+        destinoCount[destinoLabel].total += parseFloat(d.cantidad);
+      });
     
-    return Object.entries(periodicidadCount)
-      .filter(([_, value]) => value > 0)
-      .map(([name, value]) => ({ name, value }));
+    return Object.entries(destinoCount)
+      .filter(([_, data]) => data.cantidad > 0)
+      .map(([name, data]) => ({ 
+        name, 
+        value: data.cantidad,
+        total: data.total 
+      }))
+      .sort((a, b) => b.total - a.total);
   };
 
   // 3. Distribución por estado
@@ -296,7 +333,7 @@ export default function DonacionesPage() {
   const COLORS = ['#8A4D76', '#B85F9A', '#D88BB8', '#E8A5C9', '#F5C1DA', '#FFD4E5'];
 
   const monthlyData = prepareMonthlyData();
-  const periodicidadData = preparePeriodicidadData();
+  const destinoData = prepareDestinoData();
   const estadoData = prepareEstadoData();
   const metodoPagoData = prepareMetodoPagoData();
 
@@ -372,8 +409,8 @@ export default function DonacionesPage() {
               <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{totalRecaudado.toFixed(2)}€</p>
             </div>
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-sm font-semibold text-gray-600 mb-2">Donaciones Recurrentes</h3>
-              <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{donacionesRecurrentes}</p>
+              <h3 className="text-sm font-semibold text-gray-600 mb-2">Donaciones con Destino</h3>
+              <p className="text-3xl font-bold" style={{ color: '#8A4D76' }}>{donacionesConDestino}</p>
             </div>
           </div>
 
@@ -381,7 +418,7 @@ export default function DonacionesPage() {
           <div className="mb-8 space-y-6">
             <h2 className="text-2xl font-bold mb-4" style={{ color: '#8A4D76' }}>Análisis de Datos</h2>
             
-            {/* Primera fila: Evolución temporal y Distribución por periodicidad */}
+            {/* Primera fila: Evolución temporal y Distribución por destino */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Gráfica de evolución temporal */}
               <div className="bg-white rounded-xl shadow-lg p-6">
@@ -422,29 +459,31 @@ export default function DonacionesPage() {
                 </ResponsiveContainer>
               </div>
 
-              {/* Gráfica de distribución por periodicidad */}
+              {/* Gráfica de distribución por destino */}
               <div className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-lg font-bold mb-4 text-gray-800">Distribución por Periodicidad</h3>
+                <h3 className="text-lg font-bold mb-4 text-gray-800">Recaudación por Destino</h3>
                 <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={periodicidadData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={(entry: any) => entry.name && entry.percent ? `${entry.name}: ${(entry.percent * 100).toFixed(0)}%` : ''}
-                      outerRadius={100}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {periodicidadData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
+                  <BarChart data={destinoData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis 
+                      dataKey="name" 
+                      style={{ fontSize: '10px' }} 
+                      angle={-45}
+                      textAnchor="end"
+                      height={100}
+                    />
+                    <YAxis style={{ fontSize: '12px' }} />
                     <Tooltip 
                       contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '8px' }}
+                      formatter={(value: any, name?: string, props?: any) => {
+                        if (name === 'total') return [value.toFixed(2) + '€', 'Total Recaudado'];
+                        return [value, 'Cantidad de Donaciones'];
+                      }}
                     />
-                  </PieChart>
+                    <Legend />
+                    <Bar dataKey="value" fill="#8A4D76" name="Cantidad" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="total" fill="#B85F9A" name="Total (€)" radius={[8, 8, 0, 0]} />
+                  </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
@@ -515,18 +554,21 @@ export default function DonacionesPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Periodicidad</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Destino</label>
                 <select
-                  value={filterPeriodicidad}
-                  onChange={(e) => setFilterPeriodicidad(e.target.value)}
+                  value={filterDestino}
+                  onChange={(e) => setFilterDestino(e.target.value)}
                   className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-900 bg-white focus:border-[#8A4D76] focus:outline-none"
                 >
-                  <option value="todas">Todas</option>
-                  <option value="puntual">Puntual</option>
-                  <option value="mensual">Mensual</option>
-                  <option value="trimestral">Trimestral</option>
-                  <option value="semestral">Semestral</option>
-                  <option value="anual">Anual</option>
+                  <option value="todos">Todos</option>
+                  <option value="general">General</option>
+                  <option value="casa">Casa y mantenimiento</option>
+                  <option value="comida">Alimentación</option>
+                  <option value="ropa">Ropa y calzado</option>
+                  <option value="estudios">Educación y formación</option>
+                  <option value="salud">Salud y bienestar</option>
+                  <option value="otro">Otro</option>
+                  <option value="sin_destino">Sin destino</option>
                 </select>
               </div>
               <div>
@@ -555,7 +597,7 @@ export default function DonacionesPage() {
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Fecha</th>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Colaborador</th>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Cantidad</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Periodicidad</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Destino</th>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Estado</th>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">Método</th>
                   </tr>
@@ -585,8 +627,8 @@ export default function DonacionesPage() {
                           {formatCantidad(donacion.cantidad)}
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getPeriodicidadBadge(donacion.periodicidad)}`}>
-                            {donacion.periodicidad}
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getDestinoBadge(donacion.destino)}`}>
+                            {getDestinoTexto(donacion.destino, donacion.destino_personalizado)}
                           </span>
                         </td>
                         <td className="px-6 py-4">
