@@ -13,6 +13,7 @@ import contactoRoutes from './routes/contactoRoutes.js';
 import redsysRoutes from './routes/redsysRoutes.js';
 import donacionRoutes from './routes/donacionRoutes.js';
 import newsletterRoutes from './routes/newsletterRoutes.js';
+import estadisticasRoutes from './routes/estadisticasRoutes.js';
 
 const app = express();
 
@@ -124,5 +125,6 @@ app.use('/api/contacto', contactoRoutes);
 app.use('/api/payment/redsys', redsysRoutes); // Rutas de Redsys
 app.use('/api/donaciones', donacionRoutes);
 app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/estadisticas', estadisticasRoutes); // Estadísticas públicas
 
 export default app;

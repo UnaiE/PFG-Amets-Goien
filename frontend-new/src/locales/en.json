@@ -230,9 +230,9 @@
       "subtitle": "Each donation helps provide a safe home, comprehensive support and future opportunities for women and their children in our shelter in Orduña."
     },
     "howWeUse": {
-      "title": "How do we use your donations?",
+      "title": "Areas of intervention",
       "subtitle": "Your contribution goes directly to:",
-      "subtitle2": "Every euro you contribute goes entirely to improving the lives of the women and families we host. Here's how we invest your help:",
+      "subtitle2": "Financial contributions received are used to maintain and improve the comprehensive shelter services we offer to women and families in vulnerable situations. We work in the following areas:",
       "items": {
         "housing": {
           "title": "Housing",
@@ -253,6 +253,10 @@
         "education": {
           "title": "Education",
           "description": "School supplies and training for mothers and children"
+        },
+        "support": {
+          "title": "Comprehensive support",
+          "description": "Personalized follow-up and continuous accompaniment in the integration process"
         }
       },
       "housing": {
@@ -316,6 +320,20 @@
       "supportMessage": {
         "title": "Your support makes a difference",
         "text": "With your donation you help maintain our shelter in Orduña, where we offer dignity, solidarity and love to refugee women and their families."
+      }
+    },
+    "faq": {
+      "title": "Questions about how to collaborate?",
+      "subtitle": "We answer the most frequently asked questions about how you can help us. If you have any other questions, don't hesitate to contact us.",
+      "questions": {
+        "q1": {
+          "question": "How can I collaborate with Ametsgoien?",
+          "answer": "There are several ways to collaborate with our association: you can make a one-time donation through this website by card, Bizum or bank transfer. You can also join as a volunteer to support the daily activities of the shelter. Another valuable way to help is to spread our work on social media and among your network to give visibility to our mission."
+        },
+        "q2": {
+          "question": "How can I get tax deductions for my donations?",
+          "answer": "Ametsgoien is a recently established association. According to current tax regulations, non-profit organizations can issue tax deduction certificates after three years from their foundation. Once this period is completed, we will automatically send you the annual certificate to include in your tax return."
+        }
       }
     },
     "otherWays": {
@@ -454,6 +472,25 @@
       "title": "Bank Transfer",
       "concept": "Concept:",
       "conceptText": "\"Donation\" + your name"
+    },
+    "stats": {
+      "title": "Impact of your donations",
+      "subtitle": "Total transparency: these are the donations received through our online platform",
+      "totalRaised": "Total raised",
+      "donationsCount": "{count} donations",
+      "breakdownTitle": "Distribution by intervention area",
+      "donations": "donations",
+      "errorLoading": "Unable to load statistics",
+      "onlyRedsys": "Only includes completed donations via card and Bizum through the website",
+      "destinations": {
+        "casa": "Housing and maintenance",
+        "comida": "Food",
+        "ropa": "Clothing and footwear",
+        "estudios": "Education and training",
+        "salud": "Health and wellness",
+        "general": "General (no specific destination)",
+        "otro": "Other destination"
+      }
     },
     "contact": "Contact"
   },

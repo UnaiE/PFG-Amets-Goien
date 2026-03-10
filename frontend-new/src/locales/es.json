@@ -230,9 +230,9 @@
       "subtitle": "Cada donación contribuye a ofrecer un hogar seguro, apoyo integral y oportunidades de futuro para mujeres y sus hij@s en nuestra casa de acogida en Orduña."
     },
     "howWeUse": {
-      "title": "¿Cómo usamos tus donaciones?",
+      "title": "Áreas de intervención",
       "subtitle": "Tu contribución se destina directamente a:",
-      "subtitle2": "Cada euro que aportas se destina íntegramente a mejorar la vida de las mujeres y familias que acogemos. Aquí te mostramos cómo invertimos tu ayuda:",
+      "subtitle2": "Las aportaciones económicas recibidas se destinan a mantener y mejorar los servicios de acogida integral que ofrecemos a las mujeres y familias en situación de vulnerabilidad. Trabajamos en las siguientes áreas:",
       "items": {
         "housing": {
           "title": "Alojamiento",
@@ -253,6 +253,10 @@
         "education": {
           "title": "Educación",
           "description": "Material escolar y formación para madres e hijos"
+        },
+        "support": {
+          "title": "Acompañamiento integral",
+          "description": "Seguimiento personalizado y acompañamiento continuo en el proceso de integración"
         }
       },
       "housing": {
@@ -316,6 +320,20 @@
       "supportMessage": {
         "title": "Tu apoyo marca la diferencia",
         "text": "Con tu donación ayudas a mantener nuestra casa de acogida en Orduña, donde ofrecemos dignidad, solidaridad y amor a mujeres refugiadas y sus familias."
+      }
+    },
+    "faq": {
+      "title": "¿Tienes dudas sobre cómo colaborar?",
+      "subtitle": "Respondemos a las preguntas más frecuentes sobre cómo puedes ayudarnos. Si tienes cualquier otra consulta, no dudes en contactar con nosotras.",
+      "questions": {
+        "q1": {
+          "question": "¿Cómo puedo colaborar con Ametsgoien?",
+          "answer": "Hay varias formas de colaborar con nuestra asociación: puedes realizar una donación puntual a través de esta web mediante tarjeta, Bizum o transferencia bancaria. También puedes unirte como voluntaria/o para apoyar en las actividades diarias de la casa de acogida. Otra forma valiosa de ayudar es difundir nuestra labor en redes sociales y entre tu entorno para dar visibilidad a nuestro trabajo."
+        },
+        "q2": {
+          "question": "¿Cómo puedo desgravar mis donativos?",
+          "answer": "Ametsgoien es una asociación de reciente constitución. Según la normativa fiscal vigente, las entidades sin ánimo de lucro pueden emitir certificados de desgravación fiscal a partir de los tres años desde su fundación. Una vez cumplido este plazo, te enviaremos automáticamente el certificado anual para que puedas incluirlo en tu declaración de la renta."
+        }
       }
     },
     "otherWays": {
@@ -456,6 +474,25 @@
       "title": "Transferencia Bancaria",
       "concept": "Concepto:",
       "conceptText": "\"Donación\" + tu nombre"
+    },
+    "stats": {
+      "title": "Impacto de tus donaciones",
+      "subtitle": "Transparencia total: estas son las donaciones recibidas a través de nuestra plataforma online",
+      "totalRaised": "Total recaudado",
+      "donationsCount": "{count} donaciones",
+      "breakdownTitle": "Distribución por área de intervención",
+      "donations": "donaciones",
+      "errorLoading": "No se pudieron cargar las estadísticas",
+      "onlyRedsys": "Solo incluye donaciones completadas a través de tarjeta y Bizum vía web",
+      "destinations": {
+        "casa": "Casa y mantenimiento",
+        "comida": "Alimentación",
+        "ropa": "Ropa y calzado",
+        "estudios": "Educación y formación",
+        "salud": "Salud y bienestar",
+        "general": "General (sin destino específico)",
+        "otro": "Otro destino"
+      }
     },
     "contact": "Contactar"
   },

@@ -51,6 +51,7 @@ export default function ColaborarClient() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [bizumCopiado, setBizumCopiado] = useState(false);
+  const [faqAbiertas, setFaqAbiertas] = useState<{ [key: string]: boolean }>({});
 
   // Auto-ocultar mensaje después de 5 segundos
   useEffect(() => {
@@ -167,7 +168,7 @@ export default function ColaborarClient() {
           </div>
         </section>
 
-        {/* Sección: Cómo ayudamos con tus donaciones */}
+        {/* Sección: Áreas de intervención */}
         <section className="py-16 px-4 md:px-8 lg:px-16" style={{ backgroundColor: '#E8D5F2' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -179,85 +180,113 @@ export default function ColaborarClient() {
               </p>
             </div>
             
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-3 mb-12">
-              {[
-                { 
-                  icono: '🏠', 
-                  titulo: t('collaborate.howWeUse.items.housing.title'), 
-                  descripcion: t('collaborate.howWeUse.items.housing.description'),
-                  porcentaje: '',
-                  color: '#8A4D76'
-                },
-                { 
-                  icono: '🍽️', 
-                  titulo: t('collaborate.howWeUse.items.food.title'), 
-                  descripcion: t('collaborate.howWeUse.items.food.description'),
-                  porcentaje: '',
-                  color: '#A05A89'
-                },
-                { 
-                  icono: '👩‍⚕️', 
-                  titulo: t('collaborate.howWeUse.items.psychological.title'), 
-                  descripcion: t('collaborate.howWeUse.items.psychological.description'),
-                  porcentaje: '',
-                  color: '#B876A2'
-                },
-                { 
-                  icono: '🌐', 
-                  titulo: t('collaborate.howWeUse.items.social.title'), 
-                  descripcion: t('collaborate.howWeUse.items.social.description'),
-                  porcentaje: '',
-                  color: '#B876A2'
-                },
-                { 
-                  icono: '📚', 
-                  titulo: t('collaborate.howWeUse.items.education.title'), 
-                  descripcion: t('collaborate.howWeUse.items.education.description'),
-                  porcentaje: '',
-                  color: '#D092BB'
-                }
-              ].map((item, index) => (
-                <div key={index} className="bg-white rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all border-2 border-transparent hover:border-purple-300">
-                  <div className="text-3xl md:text-5xl mb-2 md:mb-4 text-center">{item.icono}</div>
-                  <div className="text-center mb-2 md:mb-3">
-                    <span className="text-2xl md:text-3xl font-bold" style={{ color: item.color }}>
-                      {item.porcentaje}
-                    </span>
+            <div className="grid grid-cols-3 gap-3 md:gap-6">
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8A4D76' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
                   </div>
-                  <h3 className="text-base md:text-xl font-bold mb-2 text-center" style={{ color: '#8A4D76' }}>
-                    {item.titulo}
-                  </h3>
-                  <p className="text-xs md:text-sm text-gray-600 text-center">
-                    {item.descripcion}
-                  </p>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.housing.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.housing.description')}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4" style={{ borderColor: '#8A4D76' }}>
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl font-bold mb-2" style={{ color: '#8A4D76' }}>
-                    {t('collaborate.howWeUse.impact.title')}
-                  </h3>
-                  <p className="text-gray-700">
-                    {t('collaborate.howWeUse.impact.text')}
-                  </p>
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#9B5F8C' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.education.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.education.description')}
+                    </p>
+                  </div>
                 </div>
-                <button
-                  onClick={() => {
-                    const formulario = document.getElementById('form-donacion');
-                    if (formulario) {
-                      const yOffset = -100; // Offset para el navbar fijo
-                      const y = formulario.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                      window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
-                  }}
-                  className="flex-shrink-0 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all text-lg whitespace-nowrap"
-                  style={{ backgroundColor: '#8A4D76' }}
-                >
-                  {t('collaborate.howWeUse.impact.button')} →
-                </button>
+              </div>
+
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#AC70A0' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.psychological.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.psychological.description')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#BD82B3' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.social.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.social.description')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CE93C7' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.food.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.food.description')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-md hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#DFA5DB' }}>
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xs md:text-lg font-bold mb-1 md:mb-2" style={{ color: '#8A4D76' }}>
+                      {t('collaborate.howWeUse.items.support.title')}
+                    </h3>
+                    <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">
+                      {t('collaborate.howWeUse.items.support.description')}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -736,12 +765,97 @@ export default function ColaborarClient() {
               </p>
               <p className="text-sm mt-2">
                 ¿Necesitas ayuda? Contacta con nosotros en{" "}
-                <a href="mailto:info@ametsgoien.org" className="font-semibold hover:underline" style={{ color: '#8A4D76' }}>
-                  info@ametsgoien.org
+                <a href="mailto:ametsgoien@gmail.com" className="font-semibold hover:underline" style={{ color: '#8A4D76' }}>
+                  ametsgoien@gmail.com
                 </a>
               </p>
             </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sección: FAQ - Preguntas Frecuentes */}
+        <section className="py-16 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-purple-50 to-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#8A4D76' }}>
+                {t('collaborate.faq.title')}
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                {t('collaborate.faq.subtitle')}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {/* Pregunta 1 */}
+              <div className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-transparent hover:border-purple-200 transition-all">
+                <button
+                  type="button"
+                  onClick={() => setFaqAbiertas(prev => ({ ...prev, q1: !prev.q1 }))}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-purple-50 transition-colors"
+                >
+                  <h3 className="text-lg font-bold text-gray-900 flex-1">
+                    {t('collaborate.faq.questions.q1.question')}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-purple-600 flex-shrink-0 transition-transform ${faqAbiertas.q1 ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {faqAbiertas.q1 && (
+                  <div className="px-6 pb-5 text-gray-700 leading-relaxed">
+                    {t('collaborate.faq.questions.q1.answer')}
+                  </div>
+                )}
+              </div>
+
+              {/* Pregunta 2 */}
+              <div className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-transparent hover:border-purple-200 transition-all">
+                <button
+                  type="button"
+                  onClick={() => setFaqAbiertas(prev => ({ ...prev, q2: !prev.q2 }))}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-purple-50 transition-colors"
+                >
+                  <h3 className="text-lg font-bold text-gray-900 flex-1">
+                    {t('collaborate.faq.questions.q2.question')}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-purple-600 flex-shrink-0 transition-transform ${faqAbiertas.q2 ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {faqAbiertas.q2 && (
+                  <div className="px-6 pb-5 text-gray-700 leading-relaxed">
+                    {t('collaborate.faq.questions.q2.answer')}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Botón de contacto dentro del FAQ */}
+            <div className="mt-10 text-center">
+              <p className="text-gray-600 mb-4">
+                ¿No encuentras respuesta a tu pregunta?
+              </p>
+              <a
+                href="/contacto"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white hover:shadow-lg transition-all"
+                style={{ backgroundColor: '#8A4D76' }}
+              >
+                {t('collaborate.contact')}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
             </div>
           </div>
         </section>
@@ -827,19 +941,6 @@ export default function ColaborarClient() {
                    <strong>{t('collaborate.bankTransfer.concept')}</strong> {t('collaborate.bankTransfer.conceptText')}
                 </p>
               </div>
-            </div>
-
-            <div className="text-center">
-              <a
-                href="/contacto"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white hover:shadow-lg transition-all"
-                style={{ backgroundColor: '#8A4D76' }}
-              >
-                {t('collaborate.contact')}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
             </div>
           </div>
         </section>

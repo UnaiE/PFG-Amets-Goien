@@ -230,9 +230,9 @@
       "subtitle": "Dohaintza bakoitzak babesleku segurua, laguntza osoa eta etorkizunerako aukerak eskaintzen laguntzen du Orduñako gure harrera etxean dauden iheslari emakumeei eta beren seme-alabei."
     },
     "howWeUse": {
-      "title": "Nola erabiltzen ditugu zure dohaintzak?",
+      "title": "Esku-hartze eremuak",
       "subtitle": "Zure ekarpena zuzenean honako hauetara bideratzen da:",
-      "subtitle2": "Ematen duzun euro bakoitza emakume eta familien bizitza hobetzera bideratzen da. Hona hemen nola inbertitzen dugun zure laguntza:",
+      "subtitle2": "Jasotako diru-ekarpenak ahultasun egoeran dauden emakumeei eta familiei eskaintzen dizkiegun harrera zerbitzu integralak mantendu eta hobetzera bideratzen dira. Honako eremu hauetan lan egiten dugu:",
       "items": {
         "housing": {
           "title": "Etxebizitza",
@@ -253,6 +253,10 @@
         "education": {
           "title": "Hezkuntza",
           "description": "Eskola materiala eta amak eta semeak prestatzea"
+        },
+        "support": {
+          "title": "Laguntza integrala",
+          "description": "Jarraipena pertsonalizatua eta laguntza etengabea integrazio prozesuan"
         }
       },
       "housing": {
@@ -316,6 +320,20 @@
       "supportMessage": {
         "title": "Zure laguntzak aldea egiten du",
         "text": "Zure dohaintzarekin Orduñan gure harrera etxea mantentzen laguntzen duzu, non duintasuna, elkartasuna eta maitasuna eskaintzen dizkiogun emakume errefuxiatu eta beren familiei."
+      }
+    },
+    "faq": {
+      "title": "Zalantzak dituzu nola lagundu?",
+      "subtitle": "Nola lagundu dezakezun buruzko galdera errepikatu ohikoenak erantzuten ditugu. Beste edozein galdera baduzu, ez izan zalantzarik gurekin harremanetan jartzeko.",
+      "questions": {
+        "q1": {
+          "question": "Nola lagundu dezaket Ametsgoien-i?",
+          "answer": "Gure elkartearekin lankidetzan aritzeko hainbat modu daude: web honen bidez dohaintza bakarra egin dezakezu txartelarekin, Bizum bidez edo banku-transferentziarekin. Etxeko eguneroko jardueretan laguntzeko boluntario gisa batu zaitezke ere. Laguntza balio handikoa eman dezakezu gure lana sare sozialetan eta zure ingurunean zabalduz, gure lanari ikusgarritasuna emateko."
+        },
+        "q2": {
+          "question": "Nola kendu ditzaket nire dohaintzak?",
+          "answer": "Ametsgoien duela gutxi sortu zen elkartea da. Indarrean dagoen zerga araudiaren arabera, irabazi-asmorik gabeko erakundeek hiru urteko epea bete ondoren eman ditzakete zerga-kenkariaren ziurtagiriak. Epe hau betetzean, urteko ziurtagiria automatikoki bidaliko dizugu zure errentaren aitorpenean sar dezazun."
+        }
       }
     },
     "otherWays": {
@@ -456,6 +474,25 @@
       "title": "Banku Transferentzia",
       "concept": "Kontzeptua:",
       "conceptText": "\"Dohaintza\" + zure izena"
+    },
+    "stats": {
+      "title": "Zure dohaintzaren eragina",
+      "subtitle": "Gardentasun osoa: hauek dira gure lineako plataforman jasotako dohaintzak",
+      "totalRaised": "Guztira bilduta",
+      "donationsCount": "{count} dohaintza",
+      "breakdownTitle": "Esku-hartze eremuz banaketa",
+      "donations": "dohaintzak",
+      "errorLoading": "Ezin izan dira estatistikak kargatu",
+      "onlyRedsys": "Webaren bidez txartel eta Bizum bidez osatutako dohaintzak soilik",
+      "destinations": {
+        "casa": "Etxea eta mantenua",
+        "comida": "Elikadura",
+        "ropa": "Arropa eta oinetakoak",
+        "estudios": "Hezkuntza eta prestakuntza",
+        "salud": "Osasuna eta ongizatea",
+        "general": "Orokorra (helmuga zehatzik gabe)",
+        "otro": "Beste helmuga bat"
+      }
     },
     "contact": "Harremanetan jarri"
   },
