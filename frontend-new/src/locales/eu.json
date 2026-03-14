@@ -499,6 +499,8 @@
   "privacy": {
     "backButton": "Itzuli",
     "title": "Pribatutasun Politika",
+    "subtitle": "Politika honek azaltzen du AMETSGOIENek nola tratatzen, babesten eta kudeatzen dituen datu pertsonalak, (EB) 2016/679 Erregelamenduaren (DBEO), 3/2018 Lege Organikoaren (DBLO) eta aplikagarri den gainerako araudiaren arabera.",
+    "indexTitle": "Edukien aurkibidea",
     "section1": {
       "title": "1. Tratamenduaren arduraduna",
       "intro": "Webgune honen bidez bildutako datu pertsonalen tratamenduaren arduraduna AMETSGOIEN elkartea da, irabazi-asmorik gabeko entitatea gizarte laguntzara eta komunitateari zuzendua.",
@@ -533,7 +535,8 @@
         "Emaila",
         "Telefonoa (aukerakoa)",
         "Helbidea (aukerakoa)",
-        "Stripe-k prozesatutako ordainketa datuak (banku txartela)"
+        "Dohaintzaren zenbatekoa, egoera eta metadatu teknikoak",
+        "Redsys bidez prozesatutako ordainketa datuak (txartela eta Bizum), AMETSGOIENek txartel datu osoak gorde gabe"
       ]
     },
     "section4": {
@@ -556,7 +559,7 @@
     "section7": {
       "title": "7. Hartzaileak eta tratamenduaren arduradun",
       "intro": "Datuak ez dira hirugarrenei emango, lege betebeharrik ez bada. Hala ere, zerbitzua zuzen eskaini ahal izateko, AMETSGOIEN-ek honako kanpo hornitzaile hauek erabiltzen ditu tratamenduaren arduradun gisa:",
-      "stripe": "(ordainketen prozesatzea): Ordainketa datuak Stripe, Inc.-en bidez modu seguran prozesatzen dira, PCI-DSS estandarra betetzen duena. AMETSGOIEN-ek ez ditu banku txartelen datu osoak gordetzen. Informazio gehiago hemen",
+      "stripe": "(ordainketen prozesatzea): Online ordainketak Redsys (La Caixa) plataformaren bidez kudeatzen dira, segurtasun eta betetze estandar propioekin. AMETSGOIENek ez ditu banku txartelen datu osoak gordetzen. Informazio gehiago hemen",
       "vercel": "(frontend hosting): www.ametsgoien.org webgunea ostatzeko. Informazio gehiago hemen",
       "railway": "(backend eta datu base hosting): API REST zerbitzaria eta PostgreSQL datu basea ostatzeko. Informazio gehiago hemen",
       "sendgrid": "(email zerbitzua): Dohaintzen baieztapenak eta kontaktu formularioen erantzunak bidaltzeko. Informazio gehiago hemen",

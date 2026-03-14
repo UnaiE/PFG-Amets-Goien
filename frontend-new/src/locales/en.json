@@ -497,6 +497,8 @@
   "privacy": {
     "backButton": "Back",
     "title": "Privacy Policy",
+    "subtitle": "This policy explains how AMETSGOIEN processes, protects and manages personal data in accordance with Regulation (EU) 2016/679 (GDPR), Organic Law 3/2018 (LOPDGDD), and other applicable regulations.",
+    "indexTitle": "Table of contents",
     "section1": {
       "title": "1. Data Controller",
       "intro": "The data controller for personal data collected through this website is the AMETSGOIEN association, a non-profit organization dedicated to social and community support.",
@@ -531,7 +533,8 @@
         "Email",
         "Phone (optional)",
         "Address (optional)",
-        "Payment data processed by Stripe (bank card)"
+        "Donation amount, status and technical metadata",
+        "Payment data processed by Redsys (card and Bizum), without storing full card numbers in AMETSGOIEN"
       ]
     },
     "section4": {
@@ -554,7 +557,7 @@
     "section7": {
       "title": "7. Recipients and Data Processors",
       "intro": "Data will not be transferred to third parties, except for legal obligation. However, for the proper provision of the service, AMETSGOIEN uses the following external providers who act as data processors:",
-      "stripe": "(payment processing): Payment data is processed securely through Stripe, Inc., which complies with the PCI-DSS standard. AMETSGOIEN does not store complete bank card data. More information at",
+      "stripe": "(payment processing): Online payments are managed through Redsys (La Caixa), operating under its own security and compliance standards. AMETSGOIEN does not store full bank card details. More information at",
       "vercel": "(frontend hosting): For hosting the website at www.ametsgoien.org. More information at",
       "railway": "(backend and database hosting): For hosting the REST API server and PostgreSQL database. More information at",
       "sendgrid": "(email service): For sending donation confirmations and responses to contact forms. More information at",

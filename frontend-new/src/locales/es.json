@@ -499,11 +499,13 @@
   "privacy": {
     "backButton": "Volver",
     "title": "Política de Privacidad",
+    "subtitle": "Esta política describe cómo AMETSGOIEN trata, protege y gestiona los datos personales conforme al Reglamento (UE) 2016/679 (RGPD), la Ley Orgánica 3/2018 (LOPDGDD) y normativa complementaria aplicable.",
+    "indexTitle": "Índice de contenidos",
     "section1": {
       "title": "1. Responsable del tratamiento",
-      "intro": "El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación AMETSGOIEN, entidad sin ánimo de lucro dedicada al acompañamiento social y comunitario.",
+      "intro": "El responsable del tratamiento de los datos personales recabados a través de este sitio web es la asociación AMETSGOIEN, entidad sin ánimo de lucro dedicada a la acogida e integración sociocultural.",
       "name": "Denominación:",
-      "nameValue": "Asociación AMETSGOIEN PARA LA ACOGIDA Y LA INTEGRACIÓN SOCICULTURAL",
+      "nameValue": "Asociación AMETSGOIEN PARA LA ACOGIDA Y LA INTEGRACIÓN SOCIOCULTURAL",
       "cif": "CIF:",
       "cifValue": "G23919251",
       "address": "Dirección:",
@@ -512,11 +514,11 @@
       "emailValue": "ametsgoien@gmail.com",
       "phone": "Teléfono:",
       "phoneValue": "+34 697 858 343",
-      "contact": "Para cualquier cuestión relacionada con la protección de datos personales, puedes contactar a través de los medios facilitados arriba."
+      "contact": "Para cualquier cuestión relacionada con protección de datos, ejercicio de derechos o comunicaciones relativas a esta política, puedes contactar a través de los medios indicados arriba."
     },
     "section2": {
       "title": "2. Marco legal aplicable",
-      "text": "El tratamiento de los datos personales se realiza conforme a lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (Reglamento General de Protección de Datos – RGPD), así como en la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD)."
+      "text": "El tratamiento de los datos personales se realiza conforme al Reglamento (UE) 2016/679 (RGPD), a la Ley Orgánica 3/2018 (LOPDGDD), a la Ley 34/2002 de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), y al resto de normativa española y europea aplicable en materia de privacidad, seguridad y comunicaciones electrónicas."
     },
     "section3": {
       "title": "3. Datos personales tratados",
@@ -533,7 +535,8 @@
         "Email",
         "Teléfono (opcional)",
         "Dirección (opcional)",
-        "Datos de pago procesados por Stripe (tarjeta bancaria)"
+        "Importe, estado y metadatos técnicos de la donación",
+        "Datos de pago procesados por Redsys (tarjeta y Bizum), sin almacenamiento de numeración completa de tarjeta en AMETSGOIEN"
       ]
     },
     "section4": {
@@ -541,26 +544,28 @@
       "intro": "Los datos personales facilitados serán tratados exclusivamente para las siguientes finalidades:",
       "purposes": [
         "Responder a consultas o solicitudes de información.",
-        "Gestionar solicitudes de colaboración o contacto con la entidad.",
-        "Mantener comunicaciones relacionadas con la actividad de AMETSGOIEN, cuando el usuario lo haya autorizado expresamente."
+        "Gestionar colaboraciones, donaciones y comunicaciones relacionadas con la entidad.",
+        "Emitir y remitir confirmaciones de donación, justificantes y comunicaciones operativas asociadas al servicio.",
+        "Cumplir obligaciones legales, contables, fiscales y de prevención del fraude.",
+        "Mantener comunicaciones sobre actividades de AMETSGOIEN solo cuando exista base legitimadora suficiente."
       ]
     },
     "section5": {
       "title": "5. Base jurídica del tratamiento",
-      "text": "La base legal para el tratamiento de los datos es el consentimiento expreso del usuario, otorgado al enviar el formulario de contacto y aceptar la presente política de privacidad."
+      "text": "Las bases jurídicas del tratamiento son, según cada caso: (i) el consentimiento de la persona interesada (art. 6.1.a RGPD), (ii) la ejecución de la relación solicitada por la persona usuaria (art. 6.1.b RGPD), (iii) el cumplimiento de obligaciones legales aplicables a AMETSGOIEN (art. 6.1.c RGPD), y (iv) el interés legítimo para garantizar la seguridad, prevenir fraude y gestionar adecuadamente la actividad de la asociación (art. 6.1.f RGPD)."
     },
     "section6": {
       "title": "6. Conservación de los datos",
-      "text": "Los datos personales se conservarán únicamente durante el tiempo necesario para atender la consulta realizada y, posteriormente, durante los plazos legalmente exigidos para el cumplimiento de posibles obligaciones legales."
+      "text": "Los datos se conservarán durante el tiempo necesario para cumplir la finalidad para la que fueron recabados y, posteriormente, durante los plazos legalmente exigidos. Con carácter general: (i) consultas y formularios de contacto, hasta la finalización de su gestión y durante los plazos de responsabilidad aplicables; (ii) datos vinculados a donaciones y gestión administrativa, durante los plazos contables, fiscales y de prevención de responsabilidades legalmente exigibles; (iii) comunicaciones basadas en consentimiento, hasta la revocación de dicho consentimiento."
     },
     "section7": {
       "title": "7. Destinatarios y encargados de tratamiento",
-      "intro": "Los datos no serán cedidos a terceros, salvo obligación legal. No obstante, para la correcta prestación del servicio, AMETSGOIEN utiliza los siguientes proveedores externos que actúan como encargados del tratamiento:",
-      "stripe": "(procesamiento de pagos): Los datos de pago se procesan de forma segura a través de Stripe, Inc., que cumple con el estándar PCI-DSS. AMETSGOIEN no almacena datos completos de tarjetas bancarias. Más información en",
-      "vercel": "(hosting frontend): Para el alojamiento del sitio web en www.ametsgoien.org. Más información en",
-      "railway": "(hosting backend y base de datos): Para el alojamiento del servidor API REST y base de datos PostgreSQL. Más información en",
-      "sendgrid": "(servicio de email): Para el envío de confirmaciones de donaciones y respuestas a formularios de contacto. Más información en",
-      "guarantees": "Con todos los proveedores se han adoptado las garantías exigidas por la normativa vigente mediante acuerdos de confidencialidad y cláusulas contractuales estándar."
+      "intro": "Los datos no se cederán a terceros salvo obligación legal o cuando sea necesario para la prestación del servicio. AMETSGOIEN trabaja con proveedores que actúan como encargados del tratamiento, bajo contratos que regulan confidencialidad, seguridad e instrucciones documentadas.",
+      "stripe": "(procesamiento de pagos): Los pagos online se gestionan mediante Redsys (La Caixa), que opera bajo sus propios estándares de seguridad y cumplimiento. AMETSGOIEN no almacena datos completos de tarjeta. Más información en",
+      "vercel": "(hosting frontend): Alojamiento del sitio web y entrega de contenido. Más información en",
+      "railway": "(hosting backend y base de datos): Alojamiento de la API y de la base de datos de gestión. Más información en",
+      "sendgrid": "(servicio de correo transaccional): Envío de confirmaciones y comunicaciones operativas. Más información en",
+      "guarantees": "Cuando procede, se aplican mecanismos de garantías para transferencias internacionales y medidas contractuales/organizativas acordes al RGPD, incluida la suscripción de cláusulas contractuales tipo u otros instrumentos válidos."
     },
     "section8": {
       "title": "8. Derechos de las personas interesadas",
@@ -571,27 +576,29 @@
         "Supresión de sus datos",
         "Oposición al tratamiento",
         "Limitación del tratamiento",
-        "Portabilidad de los datos"
+        "Portabilidad de los datos",
+        "Retirada del consentimiento en cualquier momento",
+        "No ser objeto de decisiones exclusivamente automatizadas, cuando proceda legalmente"
       ],
       "complaint": "Asimismo, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) a través de su sitio web:",
       "aepd": "www.aepd.es"
     },
     "section9": {
       "title": "9. Medidas de seguridad",
-      "text": "AMETSGOIEN adopta las medidas técnicas y organizativas necesarias para garantizar un nivel de seguridad adecuado al riesgo, evitando la pérdida, alteración, acceso no autorizado o divulgación indebida de los datos personales."
+      "text": "AMETSGOIEN aplica medidas técnicas y organizativas apropiadas al riesgo, incluyendo control de accesos, cifrado en tránsito, trazabilidad, minimización de datos, segregación de entornos y revisión periódica de seguridad, con el fin de evitar pérdida, alteración, acceso no autorizado o divulgación indebida de los datos personales."
     },
     "section10": {
       "title": "10. Política de reembolsos y cancelaciones",
       "intro": "Las donaciones realizadas a AMETSGOIEN son contribuciones voluntarias destinadas a financiar proyectos de acogida y acompañamiento social.",
       "oneTime": "Donaciones puntuales:",
-      "oneTimeText": "Una vez procesada la donación, esta es definitiva. Si detectas un error en tu donación, contacta con nosotros en ametsgoien@gmail.com en un plazo de 48 horas y evaluaremos tu caso de forma individualizada.",
+      "oneTimeText": "Una vez procesada la donación, tendrá carácter definitivo. No obstante, si detectas un error material (importe, duplicidad o cargo indebido), contacta con nosotros en ametsgoien@gmail.com en un plazo razonable y evaluaremos tu caso de forma individualizada.",
       "recurring": "Donaciones recurrentes (suscripciones):",
       "recurringIntro": "Puedes cancelar tu suscripción en cualquier momento sin coste adicional. Para ello:",
       "recurringSteps": [
         "Accede al enlace de gestión enviado en el email de confirmación",
         "O contacta con nosotros en ametsgoien@gmail.com"
       ],
-      "recurringNote": "La cancelación será efectiva desde el siguiente periodo de facturación. Las cantidades ya abonadas no son reembolsables."
+      "recurringNote": "La cancelación será efectiva para periodos futuros, sin nuevas renovaciones desde su tramitación. Las cantidades ya abonadas solo se revisarán en supuestos de error o incidencia justificada."
     },
     "section11": {
       "title": "11. Modificaciones de la política",
@@ -599,7 +606,7 @@
     },
     "footer": {
       "lastUpdate": "Última actualización:",
-      "lastUpdateDate": "Enero 2026",
+      "lastUpdateDate": "Marzo 2026",
       "contactInfo": "Para consultas sobre política de privacidad, reembolsos o gestión de suscripciones, contacta:",
       "contactEmail": "ametsgoien@gmail.com"
     }

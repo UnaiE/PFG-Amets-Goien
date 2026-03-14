@@ -12,36 +12,69 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function PrivacidadPage() {
   const router = useRouter();
   const { t } = useLanguage();
+  const sectionIds = [
+    'section1',
+    'section2',
+    'section3',
+    'section4',
+    'section5',
+    'section6',
+    'section7',
+    'section8',
+    'section9',
+    'section10',
+    'section11'
+  ];
 
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen pt-24 px-4 md:px-8 lg:px-16 bg-[#E8D5F2]">
-        <div className="max-w-4xl mx-auto py-12">
+      <main className="min-h-screen pt-24 px-4 md:px-8 lg:px-16 bg-slate-100">
+        <div className="max-w-5xl mx-auto py-10 md:py-14">
           <button
             onClick={() => router.back()}
-            className="mb-6 px-6 py-2 rounded-full bg-white text-[#8A4D76] font-semibold hover:shadow-md transition-all"
+            className="mb-6 px-5 py-2 rounded-full bg-white text-[#8A4D76] font-semibold border border-slate-200 hover:shadow-sm transition-all"
           >
             ← {t('privacy.backButton')}
           </button>
 
-          <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12 border border-gray-200">
-            <h1 className="text-4xl md:text-5xl font-bold mb-8 text-[#8A4D76]">
-              {t('privacy.title')}
-            </h1>
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <div className="px-7 md:px-12 py-8 border-b border-slate-200 bg-gradient-to-r from-[#8A4D76] to-[#6f3d5f]">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                {t('privacy.title')}
+              </h1>
+              <p className="text-white/90 text-sm md:text-base max-w-3xl">
+                {t('privacy.subtitle')}
+              </p>
+            </div>
 
-            <div className="space-y-8 text-gray-700 leading-relaxed">
+            <div className="px-7 md:px-12 py-6 border-b border-slate-200 bg-slate-50">
+              <h2 className="text-sm uppercase tracking-wide text-slate-500 font-semibold mb-3">{t('privacy.indexTitle')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {sectionIds.map((sectionId) => (
+                  <a
+                    key={sectionId}
+                    href={`#${sectionId}`}
+                    className="text-sm text-slate-700 hover:text-[#8A4D76] hover:underline"
+                  >
+                    {t(`privacy.${sectionId}.title`)}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="px-7 md:px-12 py-8 md:py-10 space-y-8 text-slate-700 leading-relaxed">
 
               {/* 1 */}
-              <section>
+              <section id="section1" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section1.title')}
                 </h2>
                 <p className="mb-3">
                   {t('privacy.section1.intro')}
                 </p>
-                <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#8A4D76]">
+                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
                   <p className="text-sm mb-1"><strong>{t('privacy.section1.name')}</strong> {t('privacy.section1.nameValue')}</p>
                   <p className="text-sm mb-1"><strong>{t('privacy.section1.cif')}</strong> {t('privacy.section1.cifValue')}</p>
                   <p className="text-sm mb-1"><strong>{t('privacy.section1.address')}</strong> {t('privacy.section1.addressValue')}</p>
@@ -54,7 +87,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 2 */}
-              <section>
+              <section id="section2" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section2.title')}
                 </h2>
@@ -64,7 +97,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 3 */}
-              <section>
+              <section id="section3" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section3.title')}
                 </h2>
@@ -74,7 +107,7 @@ export default function PrivacidadPage() {
                 <div className="mt-3 space-y-3">
                   <div>
                     <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section3.contactForm')}</h3>
-                    <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-slate-700">
                       {Array.isArray(t('privacy.section3.contactItems')) && (t('privacy.section3.contactItems') as string[]).map((item: string, index: number) => (
                         <li key={index}>{item}</li>
                       ))}
@@ -82,7 +115,7 @@ export default function PrivacidadPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-800 mb-1">{t('privacy.section3.donations')}</h3>
-                    <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-slate-700">
                       {Array.isArray(t('privacy.section3.donationItems')) && (t('privacy.section3.donationItems') as string[]).map((item: string, index: number) => (
                         <li key={index}>{item}</li>
                       ))}
@@ -92,7 +125,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 4 */}
-              <section>
+              <section id="section4" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section4.title')}
                 </h2>
@@ -107,7 +140,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 5 */}
-              <section>
+              <section id="section5" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section5.title')}
                 </h2>
@@ -117,7 +150,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 6 */}
-              <section>
+              <section id="section6" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section6.title')}
                 </h2>
@@ -127,14 +160,14 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 7 */}
-              <section>
+              <section id="section7" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section7.title')}
                 </h2>
                 <p className="mb-3">
                   {t('privacy.section7.intro')}
                 </p>
-                <ul className="list-disc list-inside ml-4 space-y-2 text-gray-700">
+                <ul className="list-disc list-inside ml-4 space-y-2 text-slate-700">
                   <li><strong>Redsys (La Caixa)</strong> Procesamiento seguro de pagos con tarjeta y Bizum. <a href="https://www.redsys.es/politica-de-privacidad.html" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">redsys.es/privacidad</a></li>
                   <li><strong>Vercel Inc.</strong> {t('privacy.section7.vercel')} <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">vercel.com/privacy</a></li>
                   <li><strong>Railway Corp.</strong> {t('privacy.section7.railway')} <a href="https://railway.app/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8A4D76] hover:underline">railway.app/privacy</a></li>
@@ -146,7 +179,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 8 */}
-              <section>
+              <section id="section8" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section8.title')}
                 </h2>
@@ -164,7 +197,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 9 */}
-              <section>
+              <section id="section9" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section9.title')}
                 </h2>
@@ -174,7 +207,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 10 */}
-              <section id="reembolsos">
+              <section id="section10" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section10.title')}
                 </h2>
@@ -206,7 +239,7 @@ export default function PrivacidadPage() {
               </section>
 
               {/* 11 */}
-              <section>
+              <section id="section11" className="scroll-mt-28">
                 <h2 className="text-2xl font-bold mb-3 text-[#8A4D76]">
                   {t('privacy.section11.title')}
                 </h2>
@@ -215,11 +248,11 @@ export default function PrivacidadPage() {
                 </p>
               </section>
 
-              <div className="mt-10 p-4 bg-gray-100 rounded-lg">
-                <p className="text-sm text-gray-600 mb-2">
+              <div id="reembolsos" className="mt-10 p-5 bg-slate-100 rounded-lg border border-slate-200">
+                <p className="text-sm text-slate-600 mb-2">
                   <strong>{t('privacy.footer.lastUpdate')}</strong> {t('privacy.footer.lastUpdateDate')}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-600">
                   {t('privacy.footer.contactInfo')} <strong>{t('privacy.footer.contactEmail')}</strong>
                 </p>
               </div>
