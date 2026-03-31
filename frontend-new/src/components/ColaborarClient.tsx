@@ -113,8 +113,13 @@ export default function ColaborarClient() {
         })
       });
 
+      const contentType = response.headers.get("content-type") || "";
+      const responseBody = contentType.includes("application/json")
+        ? await response.json()
+        : { message: await response.text() };
+
       if (response.ok) {
-        const data = await response.json();
+        const data = responseBody;
         
         console.log('✅ Transacción Redsys creada:', data);
         
@@ -127,8 +132,12 @@ export default function ColaborarClient() {
           setMensaje({ texto: t('collaborate.donation.errors.initError'), tipo: "error" });
         }
       } else {
-        const error = await response.json();
-        setMensaje({ texto: error.message || t('collaborate.donation.errors.processError'), tipo: "error" });
+        setMensaje({
+          texto: (responseBody && typeof responseBody.message === 'string' && responseBody.message.trim())
+            ? responseBody.message
+            : t('collaborate.donation.errors.processError'),
+          tipo: "error"
+        });
       }
     } catch (error) {
       console.error("Error:", error);
