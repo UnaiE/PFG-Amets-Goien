@@ -17,6 +17,14 @@ import estadisticasRoutes from './routes/estadisticasRoutes.js';
 
 const app = express();
 
+const getClientIp = (req) => {
+  const forwardedFor = req.headers['x-forwarded-for'];
+  if (typeof forwardedFor === 'string' && forwardedFor.trim() !== '') {
+    return forwardedFor.split(',')[0].trim();
+  }
+  return req.ip || req.socket?.remoteAddress || 'unknown';
+};
+
 // ========================================
 // CONFIGURACIÓN: Trust proxy para Railway/producción
 // ========================================
@@ -62,8 +70,8 @@ const formLimiter = rateLimit({
 // Rate limiting específico para creación de donaciones con Redsys
 // Mantiene compatibilidad con el flujo actual, pero frena patrones automatizados.
 const donationCreateBurstLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // 5 minutos
-  max: 3, // Máximo 3 intentos rápidos por IP
+  windowMs: 10 * 60 * 1000, // 10 minutos
+  max: 2, // Máximo 2 intentos rápidos por IP
   message: 'Demasiados intentos de donación en poco tiempo. Intenta de nuevo en unos minutos.',
   standardHeaders: true,
   legacyHeaders: false
@@ -71,19 +79,46 @@ const donationCreateBurstLimiter = rateLimit({
 
 const donationCreateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hora
-  max: 8, // Máximo 8 intentos por huella en 1h
+  max: 6, // Máximo 6 intentos por IP en 1h
   message: 'Demasiados intentos de donación. Intenta de nuevo más tarde.',
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req) => {
-    const ip = ipKeyGenerator(req.ip || req.socket?.remoteAddress || 'unknown');
-    const email = (req.body?.colaboradorData?.email || '').toString().trim().toLowerCase();
-    const telefono = (req.body?.colaboradorData?.telefono || '').toString().replace(/\s+/g, '');
-
-    // Clave híbrida para limitar mejor ataques con rotación de datos/IP
-    return `${ip}|${email}|${telefono}`;
+    return ipKeyGenerator(getClientIp(req));
   }
 });
+
+const blockedIpSet = new Set(
+  (process.env.BLOCKED_DONATION_IPS || '')
+    .split(',')
+    .map((ip) => ip.trim())
+    .filter(Boolean)
+);
+
+const donationAntiBotGuard = (req, res, next) => {
+  const ip = getClientIp(req);
+  const origin = typeof req.headers.origin === 'string' ? req.headers.origin.trim() : '';
+  const referer = typeof req.headers.referer === 'string' ? req.headers.referer.trim() : '';
+  const userAgent = typeof req.headers['user-agent'] === 'string' ? req.headers['user-agent'].trim() : '';
+
+  if (blockedIpSet.has(ip)) {
+    console.warn('🚫 Donación bloqueada por IP en blacklist:', ip);
+    return res.status(403).json({ message: 'Solicitud bloqueada por seguridad.' });
+  }
+
+  // Las peticiones legítimas de navegador deben tener User-Agent y Origin o Referer.
+  if (!userAgent || (!origin && !referer)) {
+    console.warn('🚫 Donación bloqueada por huella sospechosa:', {
+      ip,
+      hasUserAgent: Boolean(userAgent),
+      hasOrigin: Boolean(origin),
+      hasReferer: Boolean(referer)
+    });
+    return res.status(403).json({ message: 'Solicitud bloqueada por seguridad.' });
+  }
+
+  next();
+};
 
 // CORS configurado para permitir requests desde el frontend
 app.use(cors({
@@ -133,7 +168,7 @@ app.use('/api/users/register', authLimiter);
 
 // Rutas de formularios públicos (rate limiting moderado)
 app.use('/api/contacto', formLimiter);
-app.use('/api/payment/redsys/create', donationCreateBurstLimiter, donationCreateLimiter); // Redsys payment creation
+app.use('/api/payment/redsys/create', donationAntiBotGuard, donationCreateBurstLimiter, donationCreateLimiter); // Redsys payment creation
 app.use('/api/colaboradores/registro-voluntario', formLimiter); // Registro de voluntarios
 
 // Aplicar rate limiting general a todas las rutas de API

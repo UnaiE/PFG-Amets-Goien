@@ -131,11 +131,11 @@ class Donacion {
        SET estado = 'expirada',
            updated_at = NOW(),
            anotacion = CASE
-             WHEN anotacion IS NULL OR anotacion = '' THEN $1
-             ELSE CONCAT(anotacion, ' | ', $1)
+             WHEN anotacion IS NULL OR anotacion = '' THEN $1::text
+             ELSE CONCAT(anotacion, ' | ', $1::text)
            END
        WHERE estado = 'pendiente'
-         AND created_at < NOW() - ($2::text || ' minutes')::interval
+         AND created_at < NOW() - ($2::int * INTERVAL '1 minute')
        RETURNING id`,
       [
         'Expirada automaticamente por tiempo sin confirmacion de pago',
