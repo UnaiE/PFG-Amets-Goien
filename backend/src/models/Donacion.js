@@ -148,6 +148,37 @@ class Donacion {
       ids: result.rows.map(row => row.id)
     };
   }
+
+  static async deleteOldTransient({ expiradaHours = 24, fallidaHours = 72 } = {}) {
+    const result = await pool.query(
+      `DELETE FROM donaciones
+       WHERE (
+         estado = 'expirada'
+         AND COALESCE(updated_at, created_at) < NOW() - ($1::int * INTERVAL '1 hour')
+       )
+       OR (
+         estado = 'fallida'
+         AND COALESCE(updated_at, created_at) < NOW() - ($2::int * INTERVAL '1 hour')
+       )
+       RETURNING id, estado`,
+      [expiradaHours, fallidaHours]
+    );
+
+    const deletedByState = result.rows.reduce(
+      (acc, row) => {
+        if (row.estado === 'expirada') acc.expirada += 1;
+        if (row.estado === 'fallida') acc.fallida += 1;
+        return acc;
+      },
+      { expirada: 0, fallida: 0 }
+    );
+
+    return {
+      count: result.rowCount,
+      deletedByState,
+      ids: result.rows.map(row => row.id)
+    };
+  }
 }
 
 export default Donacion;
