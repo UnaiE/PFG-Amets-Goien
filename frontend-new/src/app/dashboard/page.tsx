@@ -859,6 +859,8 @@ function ForoSection() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAsignado, setFilterAsignado] = useState('todos');
   const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [draggedTaskId, setDraggedTaskId] = useState<number | null>(null);
+  const [dragOverColumn, setDragOverColumn] = useState<'sin asignar' | 'asignado' | 'realizado' | null>(null);
   const [showAsignarModal, setShowAsignarModal] = useState<number | null>(null);
   const [tareaData, setTareaData] = useState({
     titulo: "",
@@ -1007,7 +1009,18 @@ function ForoSection() {
     }
   };
 
-  const handleUpdateEstado = async (id: number, nuevoEstado: string) => {
+  const normalizeEstado = (estado: string): 'sin asignar' | 'asignado' | 'realizado' => {
+    const estadoLower = (estado || '').toLowerCase();
+    if (estadoLower === 'asignado' || estadoLower === 'asignada') return 'asignado';
+    if (estadoLower === 'realizado' || estadoLower === 'finalizada') return 'realizado';
+    return 'sin asignar';
+  };
+
+  const persistTareaEstado = async (
+    id: number,
+    nuevoEstado: 'sin asignar' | 'asignado' | 'realizado',
+    nuevoAsignadoA?: string
+  ) => {
     try {
       const token = localStorage.getItem("token");
       const tarea = tareas.find(t => t.id === id);
@@ -1027,21 +1040,87 @@ function ForoSection() {
           titulo: tarea.titulo,
           descripcion: tarea.descripcion,
           estado: nuevoEstado,
-          asignado_a: tarea.asignado_a
+          asignado_a: nuevoAsignadoA !== undefined ? nuevoAsignadoA : (tarea.asignado_a || "")
         })
       });
 
       if (response.ok) {
-        showNotification(`Estado actualizado a: ${nuevoEstado}`, "success");
-        fetchTareas(); // Refrescar lista
+        fetchTareas();
+        return true;
       } else {
         const errorData = await response.json();
         console.error('Error al actualizar:', errorData);
-        showNotification("Error al actualizar estado", "error");
+        return false;
       }
     } catch (error) {
       console.error("Error updating tarea:", error);
-      showNotification("Error de conexión", "error");
+      return false;
+    }
+  };
+
+  const handleUpdateEstado = async (id: number, nuevoEstado: string) => {
+    const normalizedEstado = normalizeEstado(nuevoEstado);
+    const ok = await persistTareaEstado(id, normalizedEstado);
+    if (ok) {
+      showNotification(`Estado actualizado a: ${normalizedEstado}`, "success");
+    } else {
+      showNotification("Error al actualizar estado", "error");
+    }
+  };
+
+  const handleDragStart = (event: React.DragEvent<HTMLDivElement>, tareaId: number) => {
+    setDraggedTaskId(tareaId);
+    event.dataTransfer.setData('text/plain', String(tareaId));
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragEnd = () => {
+    setDraggedTaskId(null);
+    setDragOverColumn(null);
+  };
+
+  const handleDragOver = (
+    event: React.DragEvent<HTMLDivElement>,
+    column: 'sin asignar' | 'asignado' | 'realizado'
+  ) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    setDragOverColumn(column);
+  };
+
+  const handleDrop = async (
+    event: React.DragEvent<HTMLDivElement>,
+    targetColumn: 'sin asignar' | 'asignado' | 'realizado'
+  ) => {
+    event.preventDefault();
+
+    const fromDataTransfer = Number(event.dataTransfer.getData('text/plain'));
+    const taskId = Number.isNaN(fromDataTransfer) ? draggedTaskId : fromDataTransfer;
+    setDragOverColumn(null);
+
+    if (!taskId) return;
+
+    const tarea = tareas.find((t) => t.id === taskId);
+    if (!tarea) return;
+
+    const currentEstado = normalizeEstado(tarea.estado);
+    if (currentEstado === targetColumn) return;
+
+    let nuevoAsignadoA = tarea.asignado_a || "";
+
+    if (targetColumn === 'sin asignar') {
+      nuevoAsignadoA = "";
+    }
+
+    if (targetColumn === 'asignado' && !nuevoAsignadoA) {
+      nuevoAsignadoA = getUserFromToken() || "";
+    }
+
+    const ok = await persistTareaEstado(taskId, targetColumn, nuevoAsignadoA);
+    if (ok) {
+      showNotification(`Tarea movida a: ${targetColumn}`, 'success');
+    } else {
+      showNotification('Error al mover tarea', 'error');
     }
   };
 
@@ -1192,7 +1271,13 @@ function ForoSection() {
   }
 
   const TareaCard = ({ tarea, columnColor }: { tarea: any, columnColor: string }) => (
-    <div className="bg-white rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all p-3 sm:p-4 border-l-4" style={{ borderLeftColor: columnColor }}>
+    <div
+      draggable
+      onDragStart={(event) => handleDragStart(event, tarea.id)}
+      onDragEnd={handleDragEnd}
+      className={`bg-white rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all p-3 sm:p-4 border-l-4 cursor-move ${draggedTaskId === tarea.id ? 'opacity-60' : ''}`}
+      style={{ borderLeftColor: columnColor }}
+    >
       <div className="flex justify-between items-start mb-2">
         <h4 className="font-bold text-gray-900 text-sm sm:text-base lg:text-lg pr-2">{tarea.titulo}</h4>
         <button
@@ -1573,7 +1658,12 @@ function ForoSection() {
       {vistaActiva === 'kanban' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Columna: Sin Asignar */}
-          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+          <div
+            onDragOver={(event) => handleDragOver(event, 'sin asignar')}
+            onDrop={(event) => handleDrop(event, 'sin asignar')}
+            onDragLeave={() => setDragOverColumn(null)}
+            className={`bg-gray-50 rounded-xl p-3 sm:p-4 transition-all ${dragOverColumn === 'sin asignar' ? 'ring-2 ring-yellow-300 bg-yellow-50' : ''}`}
+          >
             <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-yellow-400">
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-400"></div>
               <h3 className="font-bold text-base sm:text-lg text-gray-800">Sin Asignar</h3>
@@ -1593,7 +1683,12 @@ function ForoSection() {
           </div>
 
           {/* Columna: Asignadas */}
-          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+          <div
+            onDragOver={(event) => handleDragOver(event, 'asignado')}
+            onDrop={(event) => handleDrop(event, 'asignado')}
+            onDragLeave={() => setDragOverColumn(null)}
+            className={`bg-gray-50 rounded-xl p-3 sm:p-4 transition-all ${dragOverColumn === 'asignado' ? 'ring-2 ring-blue-300 bg-blue-50' : ''}`}
+          >
             <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-blue-400">
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-blue-400"></div>
               <h3 className="font-bold text-base sm:text-lg text-gray-800">Asignadas</h3>
@@ -1613,7 +1708,12 @@ function ForoSection() {
           </div>
 
           {/* Columna: Realizadas */}
-          <div className="bg-gray-50 rounded-xl p-3 sm:p-4">
+          <div
+            onDragOver={(event) => handleDragOver(event, 'realizado')}
+            onDrop={(event) => handleDrop(event, 'realizado')}
+            onDragLeave={() => setDragOverColumn(null)}
+            className={`bg-gray-50 rounded-xl p-3 sm:p-4 transition-all ${dragOverColumn === 'realizado' ? 'ring-2 ring-green-300 bg-green-50' : ''}`}
+          >
             <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-4 border-green-400">
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-400"></div>
               <h3 className="font-bold text-base sm:text-lg text-gray-800">Realizadas</h3>
