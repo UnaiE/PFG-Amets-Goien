@@ -1,10 +1,7 @@
-import sgMail from '@sendgrid/mail';
 import Colaborador from '../models/Colaborador.js';
+import { sendEmail, isEmailConfigured } from '../services/mailer.js';
 
-// Configurar SendGrid con API Key (igual que en contactoController)
-sgMail.setApiKey(process.env.SMTP_PASS);
-
-console.log('✅ SendGrid configurado para newsletters');
+console.log('✅ Brevo API configurado para newsletters');
 
 /**
  * @route GET /api/newsletter/colaboradores
@@ -67,7 +64,7 @@ export const sendNewsletter = async (req, res) => {
       });
     }
 
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    if (!isEmailConfigured()) {
       return res.status(500).json({ 
         message: 'Configuración de email no disponible. Contacta al administrador del sistema.' 
       });
@@ -172,7 +169,7 @@ export const sendNewsletter = async (req, res) => {
           `
         };
 
-        await sgMail.send({
+        await sendEmail({
           to: colaborador.email,
           from: process.env.CONTACT_EMAIL,
           subject: asunto,
@@ -225,13 +222,13 @@ export const sendTestEmail = async (req, res) => {
   try {
     const { asunto, mensaje } = req.body;
 
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    if (!isEmailConfigured()) {
       return res.status(500).json({ 
         message: 'Configuración de email no disponible' 
       });
     }
 
-    // Usar CONTACT_EMAIL como destinatario y remitente (debe estar verificado en SendGrid)
+    // Usar CONTACT_EMAIL como destinatario y remitente (debe estar verificado en Brevo)
     const destinatario = process.env.CONTACT_EMAIL;
 
     if (!destinatario) {
@@ -265,7 +262,7 @@ export const sendTestEmail = async (req, res) => {
       `
     };
 
-    await sgMail.send({
+    await sendEmail({
       to: destinatario,
       from: process.env.CONTACT_EMAIL,
       subject: mailOptions.subject,
