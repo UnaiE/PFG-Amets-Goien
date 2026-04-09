@@ -1,10 +1,7 @@
-import sgMail from '@sendgrid/mail';
 import { contactoSchema } from "../validations/contactoValidation.js";
+import { sendEmail, isEmailConfigured } from '../services/mailer.js';
 
-// Configurar SendGrid con API Key
-sgMail.setApiKey(process.env.SMTP_PASS);
-
-console.log('✅ SendGrid configurado para emails de contacto');
+console.log('✅ Brevo API configurado para emails de contacto');
 
 export const enviarContacto = async (req, res) => {
   try {
@@ -74,16 +71,30 @@ export const enviarContacto = async (req, res) => {
       `
     };
 
-    // Enviar emails usando SendGrid API
+    if (!isEmailConfigured()) {
+      console.error('❌ Configuración de Brevo incompleta para correo de contacto');
+      console.log("📝 Mensaje de contacto recibido (email deshabilitado por configuración):", {
+        nombre: `${nombre} ${apellidos}`,
+        email,
+        mensaje: mensaje.substring(0, 100) + "..."
+      });
+      return res.status(200).json({
+        message: "Mensaje recibido correctamente. Te contactaremos pronto.",
+        success: true
+      });
+    }
+
+    // Enviar emails usando Brevo API
     try {
       await Promise.all([
-        sgMail.send({
+        sendEmail({
           to: mailOptionsAdmin.to,
           from: mailOptionsAdmin.from,
           subject: mailOptionsAdmin.subject,
-          html: mailOptionsAdmin.html
+          html: mailOptionsAdmin.html,
+          replyTo: email
         }),
-        sgMail.send({
+        sendEmail({
           to: mailOptionsUsuario.to,
           from: mailOptionsUsuario.from,
           subject: mailOptionsUsuario.subject,

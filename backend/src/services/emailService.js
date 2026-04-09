@@ -1,9 +1,6 @@
-import sgMail from '@sendgrid/mail';
+import { sendEmail, isEmailConfigured } from './mailer.js';
 
-// Configurar SendGrid con API Key
-sgMail.setApiKey(process.env.SMTP_PASS); // SMTP_PASS contiene la API key de SendGrid
-
-console.log('✅ SendGrid configurado con API Key');
+console.log('✅ Brevo API configurado para donaciones');
 
 /**
  * Enviar email de confirmación de donación
@@ -161,7 +158,11 @@ export const enviarEmailDonacion = async ({
       html: mailOptions.html
     };
 
-    await sgMail.send(msg);
+    if (!isEmailConfigured()) {
+      throw new Error('Configuración de Brevo incompleta para emails de donación');
+    }
+
+    await sendEmail(msg);
     console.log('✅ Email de confirmación enviado a', email);
     return { success: true };
 
